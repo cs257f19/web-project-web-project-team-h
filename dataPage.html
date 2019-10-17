@@ -25,7 +25,9 @@
 		<section>
 		    <div class="data-summary">
               <h1 class="heading">Summary of Dataset</h1>
-              <p>We use the <a href="https://www.kaggle.com/dgomonov/new-york-city-airbnb-open-data" target="_blank">dataset</a> “New York City Airbnb Open Data: Airbnb Listings and Metrics in NYC, NY, USA (2019)” from Kaggle.com. Guests and hosts use Airbnb to expand on traveling possibilities and present a more unique, personalized way of experiencing the world. This dataset describes the listing activity and metrics in NYC, NY for 2019. This data file includes all needed information to find out more about hosts, geographical availability, necessary metrics to make predictions and draw conclusions. More specifically, the dataset contains `host names`, `neighbourhood location`, `room location`, `room type`, `price`, `minimum number of nights`, `number of reviews`, `last review`, `reviews per month` and etc. The data is uploaded by Dgomonov, who acknowledged Airbnb’s public release of the data. We also didn’t find any restrictions on the terms of use for this dataset. We downloaded version 3 of the dataset in csv format from Kaggle.com on October 4th, 2019.</p>
+              <p>We use the <a href="https://www.kaggle.com/dgomonov/new-york-city-airbnb-open-data" target="_blank">dataset</a> “New York City Airbnb Open Data: Airbnb Listings and Metrics in NYC, NY, USA (2019)” from Kaggle.com.</p>
+              <p>Guests and hosts use Airbnb to expand on traveling possibilities and present a more unique, personalized way of experiencing the world. This dataset describes the listing activity and metrics in NYC, NY for 2019. It includes all needed information to find out more about hosts, geographical availability, necessary metrics to make predictions and draw conclusions. </p>
+			  <p>The data is uploaded by Dgomonov, who acknowledged Airbnb’s public release of the data. We also didn’t find any restrictions on the terms of use for this dataset. We downloaded version 3 of the dataset in csv format from Kaggle.com on October 4th, 2019.</p>
             </div>
 		</section>
 		<section>
@@ -110,14 +112,9 @@
               <tr>
                 <th>id</th>
                 <th>name</th>
-                <th>host_id</th>
-                <th>host_name</th>
-                <th>neighbourhood_group</th>
-                <th>neighbourhood</th>
-                <th>latitude</th>
-                <th>longitude</th>
-                <th>room_type</th>
-                <th>price</th>
+                <th>host id</th>
+                <th>host name</th>
+                <th>neighbourhood group</th>
               </tr>
               <tr>
                 <td>2539</td>
@@ -125,11 +122,6 @@
                 <td>2787</td>
                 <td>John</td>
                 <td>Brooklyn</td>
-                <td>Kensington</td>
-                <td>40.64749</td>
-                <td>-73.97237</td>
-                <td>Private room</td>
-                <td>149</td>
               </tr>
               <tr>
                 <td>2595</td>
@@ -137,11 +129,6 @@
                 <td>2845</td>
                 <td>Jennifer</td>
                 <td>Manhattan</td>
-                <td>Midtown</td>
-                <td>40.75362</td>
-                <td>-73.98377</td>
-                <td>Entire home/apt</td>
-                <td>225</td>
               </tr>
               <tr>
                 <td>3647</td>
@@ -149,25 +136,53 @@
                 <td>4632</td>
                 <td>Elisabeth</td>
                 <td>Manhattan</td>
-                <td>Harlem</td>
-                <td>40.80902</td>
-                <td>-73.9419</td>
-                <td>Private room</td>
-                <td>150</td>
               </tr>
           </table>
 		  <br>
 		  <table align="center">
 			<tr>
-		      <th>minimum_nights</th>
-  			  <th>number_of_reviews</th>
-  			  <th>last_review</th>
-  			  <th>reviews_per_month</th>
-  			  <th>calculated_host_listings_count</th>
-  			  <th>availability_365</th>
+			  <th>neighbourhood</th>
+			  <th>latitude</th>
+			  <th>longitude</th>
+			  <th>room type</th>
+			  <th>price</th>
+			  <th>minimum nights</th>
 			</tr>
 			<tr>
+			  <td>Kensington</td>
+			  <td>40.64749</td>
+			  <td>-73.97237</td>
+			  <td>Private room</td>
+			  <td>149</td>
 			  <td>1</td>
+			</tr>
+			<tr>
+			  <td>Midtown</td>
+			  <td>40.75362</td>
+			  <td>-73.98377</td>
+			  <td>Entire home/apt</td>
+			  <td>225</td>
+			  <td>1</td>
+			</tr>
+			<tr>
+			  <td>Harlem</td>
+			  <td>40.80902</td>
+			  <td>-73.9419</td>
+			  <td>Private room</td>
+			  <td>150</td>
+			  <td>3</td>
+			</tr>
+		  </table>
+		  <br>
+		  <table align="center">
+			<tr>
+  			  <th>number of reviews</th>
+  			  <th>last review</th>
+  			  <th>reviews per month</th>
+  			  <th>calculated host listings count</th>
+  			  <th>availability 365</th>
+			</tr>
+			<tr>
   			  <td>9</td>
   			  <td>2018-10-19</td>
   			  <td>0.21</td>
@@ -175,7 +190,6 @@
   			  <td>365</td>
 			</tr>
 			<tr>
-			  <td>1</td>
   			  <td>45</td>
   			  <td>2019-05-21</td>
   			  <td>0.38</td>
@@ -183,7 +197,6 @@
   			  <td>355</td>
 			</tr>
 			<tr>
-			  <td>3</td>
   			  <td>0</td>
   			  <td>-</td>
   			  <td>-</td>
