@@ -1,0 +1,129 @@
+body {
+  background-image: url("background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+.change:hover:not(.active),.active-page {
+  background-color: #00A699;
+  color:white;
+}
+
+header {
+  display: flex;
+  position:fixed;
+  top:5px;
+  width:99%;
+  background-color: rgb(255,255,255,0.8);
+}
+
+header .tag {
+  float:left;
+  display:flex;
+  flex:1.6;
+}
+
+header .tag a{
+  color:#FF5A5F;
+  font-size: 20px;
+  padding-right:10px;
+  margin:10px;
+  border-right:2px solid #00A699;
+  text-decoration: none;
+}
+
+header .tag div{
+  flex:2.9;
+  margin:3px 0;
+  font-size: 15px;
+  width: 170px;
+}
+
+header .tag div p{
+  width:170px;
+}
+
+header nav{
+  float:right;
+  display:flex;
+  flex:1.2;
+}
+
+header nav a{
+  flex:0.3;
+  color: #00A699;
+  text-align:center;
+  text-decoration: none;
+  font-weight:bold;
+  font-size:22px;
+  padding:20px 0;
+}
+
+h1 {
+  margin: 0px;
+}
+
+section {
+  background-color: rgb(255,255,255,0.8);
+  width:80%;
+  margin:100px auto;
+  padding: 20px;
+}
+
+section p, h2 {
+  margin-left: 80px;
+  margin-right: 80px;
+  font-size:21px;
+  color:#484848;
+  text-align: justify;
+}
+.database{
+margin-left: 40px;
+font-size: 21px;
+}
+
+.heading{
+  font-size:30px;
+  color:#00A699;
+}
+
+.wordCloud{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin: center;
+}
+
+.pic {
+  float: right;
+  padding-right: 50px;
+  padding-bottom: 20px;
+
+}
+.clearfix {
+  overflow: auto;
+}
+
+
+.plot {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin: center;
+
+}
+
+.user_info {
+  margin-left: 50px;
+}
+
+/*#mapid {
+  margin:100px auto;
+  padding: 20px;
+  width:80%;
+}*/
+
+.mapSection #mapid{
+  margin: 30px 0 0 0;
+}

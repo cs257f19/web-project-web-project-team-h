@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sample Landlord Result Page</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="resultPage.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    crossorigin=""></script>
+  </head>
+  <body>
+    <header>
+      <div class="tag">
+        <a href = "homePage.html"><h1>Airbnb in NYC</h1></a>
+        <div>
+          <p>All you need to know about Airbnb in NYC</p>
+        </div>
+      </div>
+      <nav>
+        <a href="dataPage.html" class="change">About the Data</a>
+        <a href="#" class="change">Map</a>
+        <a href="resultPage" class="change active-page">For Host</a>
+        <a href="#" class="change">Contact</a>
+      </nav>
+    </header>
+
+    <section>
+      <div class="user_input">
+        <form class="database" action="index.html" method="post">
+          HostName: <input type="text" name="fname"><br>
+          ID: <input type="text" name="fname"><br>
+          <a href="result_page.html">Search</a>
+        </form>
+      </div>
+    </section>
+
+    <section>
+      <div class="clearfix">
+        <h1 class="heading">Result</h1>
+        <img class="pic" src="avatar.png" alt="avatar" width="150" height="150">
+        <div class="user_info">
+          <p>Host ID: 2787</p>
+          <p>Host name: John</p>
+          <p>Number of Reviews: 9</p>
+          <p>Review Per Month: 0.21</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section>
+      <div class="impression">
+        <h2>Current price: $70/day</h2>
+        <h2>Suggested price: $85/day</h2>
+        <img class="plot "src="plotting_01.png" alt="plot" height="400" width="400">
+        <p>According to the number of reviews and current prices, we plot the relations of popularity and relative prices of similar housing to provide suggestion on how to adjust the price.</p>
+      </div>
+    </section>
+
+    <section class="mapSection">
+      <h2>Locations of listings under the host.</h2>
+    <div id="mapid"  style=" height: 375px"></div>
+    </section>
+
+
+     <script>
+       var mymap = L.map('mapid').setView([40.730610, -73.975242], 11);
+       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
+         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+         maxZoom: 18,
+         id: 'mapbox.streets',
+         accessToken: 'your.mapbox.access.token'
+       }).addTo(mymap);
+       var locations = [[40.64749, -73.97237],
+       [40.60951, -73.97622],
+       [40.80902, -73.9419],
+       [40.60951, -73.97642],
+       [40.60755, -73.9741],
+       [40.6081, -73.97541]
+       ];
+       var arrLen = locations.length;
+       for (var i = 0; i < locations.length; i++) {
+           var marker = L.marker(locations[i]).addTo(mymap);
+           //Do something
+       }
+       var marker = L.marker([51.5, -0.09]).addTo(mymap);
+  </script>
+
+
+
+
+
+  </body>
+  </html>
