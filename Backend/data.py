@@ -2,10 +2,13 @@ import psycopg2
 import getpass
 
 class Data:
-    def __init__(self):
-        pass
+    def __init__(self, connection):
+        try:
+            self.cursor = connection.cursor()
+        except Exception as e:
+    		print ("Something went wrong when connecting to database: ", e)
 
-    def getHostInfo(self, connection, host_id):
+    def getHostInfo(self, host_id):
         '''
         Returns a list of all informations given the specified host id.
 
@@ -18,15 +21,14 @@ class Data:
             None if the query fails
         '''
         try:
-            cursor = connection.cursor()
             query = "SELECT * FROM airbnb where host_id = " + str(host_id)
-            cursor.execute(query)
-            return cursor.fetchall()
+            self.cursor.execute(query)
+            return self.cursor.fetchall()
         except Exception as e:
     		print ("Something went wrong when executing the query: ", e)
     		return None
 
-    def getNumOfReviews(self, connection, listing_id):
+    def getNumOfReviews(self, listing_id):
         '''
         Returns a list of a single element which is the number of reviews
         given the specified listing.
@@ -139,11 +141,11 @@ class Data:
     def getAverageAvailability(self, connection, neighbourhood_group, room_type):
         '''
         Returns the average availablility nights for listings given the
-        neighbourhood location and room type.
+        neighbourhood borough and room type.
 
         PARAMETERS:
             connection - the connection to the database
-            neighbourhood_group - the neighbourhood location
+            neighbourhood_group - one of the five boroughs of NYC
             room_type - the listing space type
 
         RETURN:
@@ -155,32 +157,48 @@ class Data:
     def getAverageNumOfReviews(self, connection, neighbourhood_group, room_type):
         '''
         Returns the average number of reviews for listings given the
-        neighbourhood location and room type.
+        neighbourhood borough and room type.
 
         PARAMETERS:
             connection - the connection to the database
-            neighbourhood_group - the neighbourhood location
+            neighbourhood_group - one of the five boroughs of NYC
             room_type - the listing space type
 
         RETURN:
             the average number of reviews of listings in the neighbourhood
-            location of the specified room type, or None if the query fails
+            borough of the specified room type, or None if the query fails
         '''
         pass
 
-    def getAveragePrice(self, connection, neighbourhood_group, room_type):
+    def getAveragePriceNbhGroup(self, connection, neighbourhood_group, room_type):
         '''
-        Returns the average price for listings given the
-        neighbourhood location and room type.
+        Returns the average price for listings given the neighbourhood borough
+        and room type.
 
         PARAMETERS:
             connection - the connection to the database
-            neighbourhood_group - the neighbourhood location
+            neighbourhood_group - one of the five boroughs of NYC
             room_type - the listing space type
 
         RETURN:
             the average price of listings in the neighbourhood
-            location of the specified room type, or None if the query fails
+            borough of the specified room type, or None if the query fails
+        '''
+        pass
+
+    def getAveragePriceNbh(self, connection, neighbourhood, room_type):
+        '''
+        Returns the average price for listings given the neighbourhood area
+        and room type.
+
+        PARAMETERS:
+            connection - the connection to the database
+            neighbourhood_group - the neighbourhood area
+            room_type - the listing space type
+
+        RETURN:
+            the average price of listings in the neighbourhood
+            area of the specified room type, or None if the query fails
         '''
         pass
 
@@ -211,8 +229,8 @@ def main():
     connection = connect(user, password)
 
 	# Execute a simple query: how many earthquakes above the specified magnitude are there in the data?
-    query = Data()
-    results = query.getHostInfo(connection, 2787)
+    query = Data(connection)
+    results = query.getHostInfo(2787)
 
     if results is not None:
 		print("Query results: ")
