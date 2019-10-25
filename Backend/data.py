@@ -51,7 +51,7 @@ class Data:
     def getSameHouseType(self, connection, neighbourhood, room_type):
         try:
             cursor = connection.cursor()
-            query = "SELECT id FROM airbnb where neighbourhood = "+ str(neighbourhood) + " and room_type = " + str(room_type)
+            query = "SELECT id FROM airbnb where neighbourhood = \'"+ str(neighbourhood) + "\' and room_type = \'" + str(room_type) + "\'"
             cursor.execute(query)
             #return list of listings
             return cursor.fetchall()
@@ -62,7 +62,7 @@ class Data:
     def getPriceOfNeighbourhood(self, connection, neighbourhood):
         try:
             cursor = connection.cursor()
-            query = "SELECT price FROM airbnb where neighbourhood = " + str(neighbourhood)
+            query = "SELECT price FROM airbnb where neighbourhood = \'" + str(neighbourhood) + "\'"
             cursor.execute(query)
             return cursor.fetchall()
         except Exception as e:

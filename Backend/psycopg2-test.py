@@ -11,6 +11,7 @@ Adapted from code originally written by Jeff Ondich
 
 import psycopg2
 import getpass
+import data
 
 def connect(user, password):
 	'''
@@ -52,21 +53,22 @@ def getQuakesAboveMagnitude(connection, magnitude):
 
 def main():
 	# Replace these credentials with your own
-	user = 'adalal'
-	password = getpass.getpass()
-
-	# Connect to the database
-	connection = connect(user, password)
+    user = "qine"
+    password = getpass.getpass()
+    
+    # Connect to the database
+    connection = connect(user, password)
 
 	# Execute a simple query: how many earthquakes above the specified magnitude are there in the data?
-	results = getQuakesAboveMagnitude(connection, 5)
-	
-	if results is not None:
+    query = data.Data()
+    results = query.getHostInfo(connection, 2787)
+    
+    if results is not None:
 		print("Query results: ")
 		for item in results:
 			print(item)
-
+    
 	# Disconnect from database
-	connection.close()
+    connection.close()
 
 main()
