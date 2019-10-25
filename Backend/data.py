@@ -26,7 +26,6 @@ class Data:
     		print ("Something went wrong when executing the query: ", e)
     		return None
 
-
     def getNumOfReviews(self, connection, listing_id):
         '''
         Returns a list of a single element which is the number of reviews
@@ -71,7 +70,6 @@ class Data:
     		print ("Something went wrong when executing the query: ", e)
     		return None
 
-
     def getAvailability(self, connection, listing_id):
         '''
         Returns a list of a single element which is the number of available
@@ -93,7 +91,6 @@ class Data:
         except Exception as e:
     		print ("Something went wrong when executing the query: ", e)
     		return None
-
 
     def getSameHouseType(self, connection, neighbourhood, room_type):
         '''
@@ -138,6 +135,7 @@ class Data:
         except Exception as e:
     		print ("Something went wrong when executing the query: ", e)
     		return None
+
 
 def connect(user, password):
 	'''
