@@ -136,6 +136,69 @@ class Data:
     		print ("Something went wrong when executing the query: ", e)
     		return None
 
+    def getListingInfo(self, connection, listing_id):
+        '''
+        Returns a list of a single tuple of informations of given listing id.
+
+        PARAMETERS:
+            connection - the connection to the database
+            listing_id - the unique id for each listing
+
+        RETURN:
+            a list of a single tuple which contains all informations of given
+            listing, or None if the query fails
+        '''
+        return []
+
+    def getNumOfListings(self, connection, neighbourhood_group, room_type):
+        '''
+        Returns a list of a single integer which is the number of listings given
+        the neighbourhood borough and the room type.
+
+        PARAMETERS:
+            connection - the connection to the database
+            neighbourhood_group - one of five boroughs of New York City
+            room_type - the listing space type
+
+        RETURN:
+            a list of a single integer which is the number of listings given
+            the neighbourhood borough and the room type, or None if the query
+            fails
+        '''
+        return []
+
+
+    def getSingleListingPercentage(self, connection):
+        '''
+        Returns a list of tuples of listings' information
+
+        PARAMETERS:
+            connection - the connection to the database
+
+        RETURN:
+            a list of tuples of listings' information, or None if the query
+            fails
+        '''
+        return []
+
+    def getAllListings(self, neighbourhood_group, room_type, price_range):
+        '''
+        Returns a list of tuples of listings' information given the neighbourhood
+        borough and the room type and a tuple of price range
+
+        PARAMETERS:
+            neighbourhood_group - one of five boroughs of New York City
+            room_type - the listing space type
+            price_range - minimum and maximum accepting price
+
+        RETURN:
+            a list of tuples of listings' information given the neighbourhood
+            borough and the room type and the price range, or None if the query
+            fails
+        '''
+
+        return []
+
 
 def connect(user, password):
 	'''
@@ -156,7 +219,6 @@ def connect(user, password):
 
 
 def main():
-
     user = "qine"
     password = getpass.getpass()
 
