@@ -136,6 +136,53 @@ class Data:
     		print ("Something went wrong when executing the query: ", e)
     		return None
 
+    def getAverageAvailability(self, connection, neighbourhood_group, room_type):
+        '''
+        Returns the average availablility nights for listings given the
+        neighbourhood location and room type.
+
+        PARAMETERS:
+            connection - the connection to the database
+            neighbourhood_group - the neighbourhood location
+            room_type - the listing space type
+
+        RETURN:
+            the average price of listings in the neighbourhood location of the
+            specified room type, or None if the query fails
+        '''
+        pass
+
+    def getAverageNumOfReviews(self, connection, neighbourhood_group, room_type):
+        '''
+        Returns the average number of reviews for listings given the
+        neighbourhood location and room type.
+
+        PARAMETERS:
+            connection - the connection to the database
+            neighbourhood_group - the neighbourhood location
+            room_type - the listing space type
+
+        RETURN:
+            the average number of reviews of listings in the neighbourhood
+            location of the specified room type, or None if the query fails
+        '''
+        pass
+
+    def getAveragePrice(self, connection, neighbourhood_group, room_type):
+        '''
+        Returns the average price for listings given the
+        neighbourhood location and room type.
+
+        PARAMETERS:
+            connection - the connection to the database
+            neighbourhood_group - the neighbourhood location
+            room_type - the listing space type
+
+        RETURN:
+            the average price of listings in the neighbourhood
+            location of the specified room type, or None if the query fails
+        '''
+        pass
 
 def connect(user, password):
 	'''
