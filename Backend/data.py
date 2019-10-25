@@ -14,7 +14,7 @@ class Data:
             host_id - the unique id for each host
 
         RETURN:
-            a list of all the informations of listins under the given host, or
+            a list of all the informations of listings under the given host, or
             None if the query fails
         '''
         try:
@@ -38,7 +38,7 @@ class Data:
 
         RETURN:
             a list of a single element which is the number of reviews of that
-            listing
+            listing, or None if the query fails
         '''
         try:
             cursor = connection.cursor()
@@ -59,7 +59,8 @@ class Data:
             listing_id - the unique id for each listing
 
         RETURN:
-            a list of a single element which is the price of that listing
+            a list of a single element which is the price of that listing, or
+            None if the query fails
         '''
         try:
             cursor = connection.cursor()
