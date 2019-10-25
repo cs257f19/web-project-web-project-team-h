@@ -132,6 +132,66 @@ class Data:
     		print ("Something went wrong when executing the query: ", e)
     		return None
 
+    def getListingInfo(self, listing_id):
+        '''
+        Returns a list of a single tuple of informations of given listing id.
+
+        PARAMETERS:
+            listing_id - the unique id for each listing
+
+        RETURN:
+            a list of a single tuple which contains all informations of given
+            listing, or None if the query fails
+        '''
+        return []
+
+    def getNumOfListings(self, neighbourhood_group, room_type):
+        '''
+        Returns a list of a single integer which is the number of listings given
+        the neighbourhood borough and the room type.
+
+        PARAMETERS:
+            neighbourhood_group - one of five boroughs of New York City
+            room_type - the listing space type
+
+        RETURN:
+            a list of a single integer which is the number of listings given
+            the neighbourhood borough and the room type, or None if the query
+            fails
+        '''
+        return []
+
+    def getSingleListingPercentage(self):
+        '''
+        Returns a list of tuples of listings' information
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            a list of tuples of listings' information, or None if the query
+            fails
+        '''
+        return []
+
+    def getAllListings(self, neighbourhood_group, room_type, price_range):
+        '''
+        Returns a list of tuples of listings' information given the neighbourhood
+        borough and the room type and a tuple of price range
+
+        PARAMETERS:
+            neighbourhood_group - one of five boroughs of New York City
+            room_type - the listing space type
+            price_range - minimum and maximum accepting price
+
+        RETURN:
+            a list of tuples of listings' information given the neighbourhood
+            borough and the room type and the price range, or None if the query
+            fails
+        '''
+
+        return []
+
     def getAverageAvailability(self, neighbourhood_group, room_type):
         '''
         Returns the average availablility nights for listings given the
@@ -160,7 +220,7 @@ class Data:
             the average number of reviews of listings in the neighbourhood
             borough of the specified room type, or None if the query fails
         '''
-        pass
+        return None
 
     def getAveragePriceNbhGroup(self, neighbourhood_group, room_type):
         '''
@@ -175,7 +235,7 @@ class Data:
             the average price of listings in the neighbourhood
             borough of the specified room type, or None if the query fails
         '''
-        pass
+        return None
 
     def getAveragePriceNbh(self, neighbourhood, room_type):
         '''
@@ -190,7 +250,7 @@ class Data:
             the average price of listings in the neighbourhood
             area of the specified room type, or None if the query fails
         '''
-        pass
+        return None
 
 
 def connect(user, password):
@@ -212,7 +272,6 @@ def connect(user, password):
 
 
 def main():
-
     user = "qine"
     password = getpass.getpass()
 
