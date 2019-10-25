@@ -11,6 +11,7 @@ class Data:
     def getHostInfo(self, host_id):
         '''
         Returns a list of all informations given the specified host id.
+        Audience: hosts, tourists
 
         PARAMETERS:
             connection - the connection to the database
@@ -32,6 +33,7 @@ class Data:
         '''
         Returns a list of a single element which is the number of reviews
         given the specified listing.
+        Audience: hosts, tourists
 
         PARAMETERS:
             connection - the connection to the database
@@ -53,6 +55,7 @@ class Data:
         '''
         Returns a list of a single element which is the price of given specified
         listing.
+        Audience: tourists
 
         PARAMETERS:
             connection - the connection to the database
@@ -74,6 +77,7 @@ class Data:
         '''
         Returns a list of a single element which is the number of available
         days given specified listing.
+        Audience: tourists
 
         PARAMETERS:
             connection - the connection to the database
@@ -95,6 +99,7 @@ class Data:
         '''
         Returns a list of listings given the neighbourhood area and listing
         space type.
+        Audience: tourists
 
         PARAMETERS:
             connection - the connection to the database
@@ -116,6 +121,7 @@ class Data:
     def getPriceOfNeighbourhood(self, neighbourhood):
         '''
         Returns a list of prices given the neighbourhood area.
+        Audience: hosts, tourists, business owners, investigators/researchers
 
         PARAMETERS:
             connection - the connection to the database
@@ -136,6 +142,7 @@ class Data:
     def getListingInfo(self, listing_id):
         '''
         Returns a list of a single tuple of informations of given listing id.
+        Audience: tourists
 
         PARAMETERS:
             listing_id - the unique id for each listing
@@ -150,6 +157,7 @@ class Data:
         '''
         Returns a list of a single integer which is the number of listings given
         the neighbourhood borough and the room type.
+        Audience: tourists, business owners, investigators/researchers
 
         PARAMETERS:
             neighbourhood_group - one of five boroughs of New York City
@@ -164,21 +172,23 @@ class Data:
 
     def getSingleListingPercentage(self):
         '''
-        Returns a list of tuples of listings' information
+        Returns a float of percentage of hosts having only one listing
+        Audience: investigators/researchers
 
         PARAMETERS:
             None
 
         RETURN:
-            a list of tuples of listings' information, or None if the query
-            fails
+            a float of percentage of hosts having only one listing, or None if
+            the query fails
         '''
-        return []
+        return None
 
     def getAllListings(self, neighbourhood_group, room_type, price_range):
         '''
         Returns a list of tuples of listings' information given the neighbourhood
         borough and the room type and a tuple of price range
+        Audience: tourists, investigators/researchers
 
         PARAMETERS:
             neighbourhood_group - one of five boroughs of New York City
@@ -190,13 +200,13 @@ class Data:
             borough and the room type and the price range, or None if the query
             fails
         '''
-
         return []
 
     def getAverageAvailability(self, neighbourhood_group, room_type):
         '''
-        Returns the average availablility nights for listings given the
+        Returns the average available nights for listings given the
         neighbourhood borough and room type.
+        Audience: investigators/researchers
 
         PARAMETERS:
             connection - the connection to the database
@@ -204,15 +214,16 @@ class Data:
             room_type - the listing space type
 
         RETURN:
-            the average price of listings in the neighbourhood location of the
+            the average available nights of listings in the neighbourhood location of the
             specified room type, or None if the query fails
         '''
-        pass
+        return None
 
     def getAverageNumOfReviews(self, neighbourhood_group, room_type):
         '''
         Returns the average number of reviews for listings given the
         neighbourhood borough and room type.
+        Audience: investigators/researchers
 
         PARAMETERS:
             connection - the connection to the database
@@ -229,6 +240,7 @@ class Data:
         '''
         Returns the average price for listings given the neighbourhood borough
         and room type.
+        Audience: investigators/researchers
 
         PARAMETERS:
             connection - the connection to the database
@@ -245,6 +257,7 @@ class Data:
         '''
         Returns the average price for listings given the neighbourhood area
         and room type.
+        Audience: investigators/researchers
 
         PARAMETERS:
             connection - the connection to the database
