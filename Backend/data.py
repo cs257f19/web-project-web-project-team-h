@@ -189,7 +189,6 @@ class Data:
             borough and the room type and the price range, or None if the query
             fails
         '''
-
         return []
 
     def getAverageAvailability(self, neighbourhood_group, room_type):
@@ -198,7 +197,7 @@ class Data:
         neighbourhood borough and room type.
 
         PARAMETERS:
-            neighbourhood_group - one of the five boroughs of NYC
+            neighbourhood_group - one of the five boroughs of New York City
             room_type - the listing space type
 
         RETURN:
@@ -213,7 +212,7 @@ class Data:
         neighbourhood borough and room type.
 
         PARAMETERS:
-            neighbourhood_group - one of the five boroughs of NYC
+            neighbourhood_group - one of the five boroughs of New York City
             room_type - the listing space type
 
         RETURN:
@@ -228,7 +227,7 @@ class Data:
         and room type.
 
         PARAMETERS:
-            neighbourhood_group - one of the five boroughs of NYC
+            neighbourhood_group - one of the five boroughs of New York City
             room_type - the listing space type
 
         RETURN:
