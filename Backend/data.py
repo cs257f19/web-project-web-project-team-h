@@ -3,6 +3,9 @@ import getpass
 
 class Data:
     def __init__(self, connection):
+        '''
+        Initialize Data object for query purpose and connect to database.
+        '''
         try:
             self.cursor = connection.cursor()
         except Exception as e:
@@ -13,7 +16,6 @@ class Data:
         Returns a list of all informations given the specified host id.
 
         PARAMETERS:
-            connection - the connection to the database
             host_id - the unique id for each host
 
         RETURN:
@@ -34,7 +36,6 @@ class Data:
         given the specified listing.
 
         PARAMETERS:
-            connection - the connection to the database
             listing_id - the unique id for each listing
 
         RETURN:
@@ -55,7 +56,6 @@ class Data:
         listing.
 
         PARAMETERS:
-            connection - the connection to the database
             listing_id - the unique id for each listing
 
         RETURN:
@@ -76,7 +76,6 @@ class Data:
         days given specified listing.
 
         PARAMETERS:
-            connection - the connection to the database
             listing_id - the unique id for each listing
 
         RETURN:
@@ -97,7 +96,6 @@ class Data:
         space type.
 
         PARAMETERS:
-            connection - the connection to the database
             neighbourhood - the neighbourhood area
             room_type - the listing space type
 
@@ -106,7 +104,8 @@ class Data:
             room type, or None if the query fails
         '''
         try:
-            query = "SELECT id FROM airbnb where neighbourhood = \'"+ str(neighbourhood) + "\' and room_type = \'" + str(room_type) + "\'"
+            query = "SELECT id FROM airbnb where neighbourhood = \'" + \
+            str(neighbourhood) + "\' and room_type = \'" + str(room_type) + "\'"
             self.cursor.execute(query)
             return self.cursor.fetchall()
         except Exception as e:
@@ -118,7 +117,6 @@ class Data:
         Returns a list of prices given the neighbourhood area.
 
         PARAMETERS:
-            connection - the connection to the database
             neighbourhood - the neighbourhood area
 
         RETURN:
@@ -126,7 +124,8 @@ class Data:
             the query fails
         '''
         try:
-            query = "SELECT price FROM airbnb where neighbourhood = \'" + str(neighbourhood) + "\'"
+            query = "SELECT price FROM airbnb where neighbourhood = \'" + \
+            str(neighbourhood) + "\'"
             self.cursor.execute(query)
             return self.cursor.fetchall()
         except Exception as e:
@@ -139,7 +138,6 @@ class Data:
         neighbourhood borough and room type.
 
         PARAMETERS:
-            connection - the connection to the database
             neighbourhood_group - one of the five boroughs of NYC
             room_type - the listing space type
 
@@ -155,7 +153,6 @@ class Data:
         neighbourhood borough and room type.
 
         PARAMETERS:
-            connection - the connection to the database
             neighbourhood_group - one of the five boroughs of NYC
             room_type - the listing space type
 
@@ -171,7 +168,6 @@ class Data:
         and room type.
 
         PARAMETERS:
-            connection - the connection to the database
             neighbourhood_group - one of the five boroughs of NYC
             room_type - the listing space type
 
@@ -187,7 +183,6 @@ class Data:
         and room type.
 
         PARAMETERS:
-            connection - the connection to the database
             neighbourhood_group - the neighbourhood area
             room_type - the listing space type
 
