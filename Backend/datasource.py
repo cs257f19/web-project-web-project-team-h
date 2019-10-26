@@ -57,7 +57,7 @@ class DataSource:
         '''
         Returns a list of a single element which is the price of given specified
         listing.
-        Audience: tourists
+        Audience: tourists, business owners, investigators/researchers,hosts
 
         PARAMETERS:
             listing_id - the unique id for each listing
@@ -78,7 +78,7 @@ class DataSource:
         '''
         Returns a list of a single element which is the number of available
         days given specified listing.
-        Audience: tourists
+        Audience: tourists, investigators/researchers
 
         PARAMETERS:
             listing_id - the unique id for each listing
@@ -100,7 +100,7 @@ class DataSource:
         '''
         Returns a list of listings given the neighbourhood area and listing
         space type.
-        Audience: tourists
+        Audience: hosts, investigators/researchers
 
         PARAMETERS:
             neighbourhood - the neighbourhood area
@@ -144,7 +144,7 @@ class DataSource:
     def getListingInfo(self, listing_id):
         '''
         Returns a list of a single tuple of informations of given listing id.
-        Audience: tourists
+        Audience: tourists, hosts
 
         PARAMETERS:
             listing_id - the unique id for each listing
@@ -240,7 +240,7 @@ class DataSource:
         '''
         Returns the average price for listings given the neighbourhood borough
         and room type.
-        Audience: investigators/researchers
+        Audience: investigators/researchers, business owners
 
         PARAMETERS:
             neighbourhood_group - one of the five boroughs of New York City
@@ -256,7 +256,7 @@ class DataSource:
         '''
         Returns the average price for listings given the neighbourhood area
         and room type.
-        Audience: investigators/researchers
+        Audience: investigators/researchers, business owners
 
         PARAMETERS:
             neighbourhood_group - the neighbourhood area
