@@ -2,14 +2,28 @@ import psycopg2
 import getpass
 
 class DataSource:
-    def __init__(self, connection):
-        '''
-        Initialize Data object for query purpose and connect to database.
-        '''
-        try:
-            self.cursor = connection.cursor()
-        except Exception as e:
-    		print ("Connection error: ", e)
+    def __init__(self):
+        pass
+​
+	def connect(self, user, password):
+		'''
+		Establishes a connection to the database with the following credentials:
+			user - username, which is also the name of the database
+			password - the password for this database on perlman
+​
+		Note: exits if a connection cannot be established.
+		'''
+		try:
+			self.connection = psycopg2.connect(host="localhost", database=user, user=user, password=password)
+		except Exception as e:
+			print("Connection error: ", e)
+			exit()
+​
+	def disconnect(self):
+		'''
+		Breaks the connection to the database
+		'''
+		self.connection.close()
 
     def getHostInfo(self, host_id):
         '''
@@ -24,9 +38,10 @@ class DataSource:
             None if the query fails
         '''
         try:
+            cursor = self.connection.cursor()
             query = "SELECT * FROM airbnb where host_id = " + str(host_id)
-            self.cursor.execute(query)
-            return self.cursor.fetchall()
+            cursor.execute(query)
+            return cursor.fetchall()
         except Exception as e:
     		print ("Something went wrong when executing the query: ", e)
     		return None
@@ -45,10 +60,11 @@ class DataSource:
             listing, or None if the query fails
         '''
         try:
+            cursor = self.connection.cursor()
             query = "SELECT number_of_reviews FROM airbnb where id = " + \
                     str(listing_id)
-            self.cursor.execute(query)
-            return self.cursor.fetchall()
+            cursor.execute(query)
+            return cursor.fetchall()
         except Exception as e:
     		print ("Something went wrong when executing the query: ", e)
     		return None
@@ -67,9 +83,10 @@ class DataSource:
             None if the query fails
         '''
         try:
+            cursor = self.connection.cursor()
             query = "SELECT price FROM airbnb where id =" + str(listing_id)
-            self.cursor.execute(query)
-            return self.cursor.fetchall()
+            cursor.execute(query)
+            return cursor.fetchall()
         except Exception as e:
     		print ("Something went wrong when executing the query: ", e)
     		return None
@@ -88,10 +105,11 @@ class DataSource:
             of the listing, or None if the query fails
         '''
         try:
+            cursor = self.connection.cursor()
             query = "SELECT availability_365 FROM airbnb where id =" + \
                     str(listing_id)
-            self.cursor.execute(query)
-            return self.cursor.fetchall()
+            cursor.execute(query)
+            return cursor.fetchall()
         except Exception as e:
     		print ("Something went wrong when executing the query: ", e)
     		return None
@@ -111,11 +129,12 @@ class DataSource:
             room type, or None if the query fails
         '''
         try:
+            cursor = self.connection.cursor()
             query = "SELECT id FROM airbnb where neighbourhood = \'" + \
                     str(neighbourhood) + "\' and room_type = \'" + \
                     str(room_type) + "\'"
-            self.cursor.execute(query)
-            return self.cursor.fetchall()
+            cursor.execute(query)
+            return cursor.fetchall()
         except Exception as e:
             print ("Something went wrong when executing the query: ", e)
             return None
@@ -133,10 +152,11 @@ class DataSource:
             the query fails
         '''
         try:
+            cursor = self.connection.cursor()
             query = "SELECT price FROM airbnb where neighbourhood = \'" + \
                     str(neighbourhood) + "\'"
-            self.cursor.execute(query)
-            return self.cursor.fetchall()
+            cursor.execute(query)
+            return cursor.fetchall()
         except Exception as e:
     		print ("Something went wrong when executing the query: ", e)
     		return None
@@ -294,8 +314,15 @@ def main():
     # Connect to the database
     connection = connect(user, password)
 
+    # Connect to the database
+	query = DataSource()
+	query.connect(user, password)
+​
+	# Disconnect from database
+	#ds.disconnect()
+
     # Initialize DataSource object
-	query = DataSource(connection)
+	#query = DataSource(connection)
 
     # Query: host info
     host_info = query.getHostInfo(2787)
