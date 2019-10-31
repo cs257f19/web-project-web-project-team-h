@@ -15,7 +15,7 @@ class DataSourceTester(unittest.TestCase):
 
     def test_response(self):
         list_of_nums = [8,4,6]
-        self.assertEqual(self.ds.getAverage(list_of_nums),6)
+        self.assertEqual(self.ds.getAverage(list_of_nums),6.00)
 
 
 if __name__ == '__main__':

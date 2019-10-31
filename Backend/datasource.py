@@ -295,7 +295,12 @@ class DataSource:
         for num in list_of_nums:
             if not isinstance(num, int):
                 return "Invalid input"
-        return mean(list_of_nums)
+        sum = 0
+        count = 0
+        for num in list_of_nums:
+            sum += num
+            count += 1
+        return round(sum/count, 2)
 
 
 
