@@ -289,6 +289,15 @@ class DataSource:
         return None
 
     def getAverage(self, list_of_nums):
+        '''
+        Returns the average value of a given list of numbers.
+
+        PARAMETERS:
+            list_of_nums - a list of numbers
+
+        RETURN:
+            the average value of numbers in the given list
+        '''
         if not isinstance(list_of_nums, list):
             return "Input not list"
         if len(list_of_nums) == 0:
