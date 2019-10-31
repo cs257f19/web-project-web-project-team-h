@@ -1,4 +1,4 @@
-import psycopg2
+#import psycopg2
 import getpass
 
 class DataSource:
@@ -291,12 +291,13 @@ class DataSource:
     def getAverage(self, list_of_nums):
         if not isinstance(list_of_nums, list):
             return "Input not list"
-        for num in list_of_nums:
-            if not isinstance(num, int):
-                return "Invalid input"
+        if len(list_of_nums) == 0:
+            return "Empty list"
         sum = 0
         count = 0
         for num in list_of_nums:
+            if not isinstance(num, int):
+                return "Invalid input"
             sum += num
             count += 1
         return round(sum/count, 2)
@@ -338,4 +339,4 @@ def main():
     # Disconnect from database
     query.disconnect()
 
-main()
+#main()
