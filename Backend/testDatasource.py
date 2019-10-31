@@ -5,21 +5,17 @@ class DataSourceTester(unittest.TestCase):
     def setUp(self):
         self.ds = DataSource()
 
-    def test_integer(self):
-        listingId = 12
-        self.assertTrue(self.ds.getL(listingId))
+    def test_not_list(self):
+        list_of_nums = 12
+        self.assertEqual(self.ds.getAverage(list_of_nums),"Input not list")
 
-    def test_not_integer(self):
-        listingId = 12
-        self.assertFalse(self.ds.integer(listingId))
+    def test_invalid_list(self):
+        list_of_nums = ['a',4,6]
+        self.assertEqual(self.ds.getAverage(list_of_nums),"Invalid input")
 
-    def test_num_digits_bigger_3(self):
-        num = 4
-        self.assertTrue(self.ds.num(num))
-
-    def test_num_digits_not_bigger_3(self):
-        num = 2
-        self.assertFalse(self.ds.integer(num))
+    def test_response(self):
+        list_of_nums = [8,4,6]
+        self.assertEqual(self.ds.getAverage(list_of_nums),6)
 
 
 if __name__ == '__main__':

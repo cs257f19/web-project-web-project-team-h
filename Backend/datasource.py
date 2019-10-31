@@ -1,29 +1,30 @@
 import psycopg2
 import getpass
+from statistics import mean
 
 class DataSource:
     def __init__(self):
         pass
-​
-	def connect(self, user, password):
-		'''
+
+    def connect(self, user, password):
+        '''
 		Establishes a connection to the database with the following credentials:
 			user - username, which is also the name of the database
 			password - the password for this database on perlman
-​
+
 		Note: exits if a connection cannot be established.
 		'''
-		try:
-			self.connection = psycopg2.connect(host="localhost", database=user, user=user, password=password)
-		except Exception as e:
-			print("Connection error: ", e)
-			exit()
-​
-	def disconnect(self):
-		'''
-		Breaks the connection to the database
-		'''
-		self.connection.close()
+        try:
+            self.connection = psycopg2.connect(host="localhost", database=user, user=user, password=password)
+        except Exception as e:
+            print("Connection error: ", e)
+            exit()
+
+    def disconnect(self):
+        '''
+        Breaks the connection to the database
+        '''
+        self.connection.close()
 
     def getHostInfo(self, host_id):
         '''
@@ -43,8 +44,8 @@ class DataSource:
             cursor.execute(query)
             return cursor.fetchall()
         except Exception as e:
-    		print ("Something went wrong when executing the query: ", e)
-    		return None
+            print ("Something went wrong when executing the query: ", e)
+            return None
 
     def getNumOfReviews(self, listing_id):
         '''
@@ -66,8 +67,8 @@ class DataSource:
             cursor.execute(query)
             return cursor.fetchall()
         except Exception as e:
-    		print ("Something went wrong when executing the query: ", e)
-    		return None
+            print ("Something went wrong when executing the query: ", e)
+            return None
 
     def getPrice(self, listing_id):
         '''
@@ -88,8 +89,8 @@ class DataSource:
             cursor.execute(query)
             return cursor.fetchall()
         except Exception as e:
-    		print ("Something went wrong when executing the query: ", e)
-    		return None
+            print ("Something went wrong when executing the query: ", e)
+            return None
 
     def getAvailability(self, listing_id):
         '''
@@ -111,8 +112,8 @@ class DataSource:
             cursor.execute(query)
             return cursor.fetchall()
         except Exception as e:
-    		print ("Something went wrong when executing the query: ", e)
-    		return None
+            print ("Something went wrong when executing the query: ", e)
+            return None
 
     def getSameHouseType(self, neighbourhood, room_type):
         '''
@@ -158,8 +159,8 @@ class DataSource:
             cursor.execute(query)
             return cursor.fetchall()
         except Exception as e:
-    		print ("Something went wrong when executing the query: ", e)
-    		return None
+            print ("Something went wrong when executing the query: ", e)
+            return None
 
     def getListingInfo(self, listing_id):
         '''
@@ -288,67 +289,56 @@ class DataSource:
         '''
         return None
 
+    def getAverage(self, list_of_nums):
+        if not isinstance(list_of_nums, list):
+            return "Input not list"
+        for num in list_of_nums:
+            if not isinstance(num, int):
+                return "Invalid input"
+        return mean(list_of_nums)
 
-def connect(user, password):
-	'''
-	Establishes a connection to the database with the following credentials:
-		user - username, which is also the name of the database
-		password - the password for this database on perlman
-
-	Returns: a database connection.
-
-	Note: exits if a connection cannot be established.
-	'''
-	try:
-		connection = psycopg2.connect(database=user, user=user, password=password)
-	except Exception as e:
-		print("Connection error: ", e)
-		exit()
-	return connection
 
 
 def main():
     user = "qine"
     password = getpass.getpass()
 
-    # Connect to the database
-    connection = connect(user, password)
 
     # Connect to the database
-	query = DataSource()
-	query.connect(user, password)
-​
-	# Disconnect from database
-	#ds.disconnect()
+    query = DataSource()
+    query.connect(user, password)
+
+    # Disconnect from database
+    #ds.disconnect()
 
     # Initialize DataSource object
-	#query = DataSource(connection)
+    #query = DataSource(connection)
 
     # Query: host info
     host_info = query.getHostInfo(2787)
 
     if host_info is not None:
-		print("Host info query results: ")
-		for item in host_info:
-			print(item)
+        print("Host info query results: ")
+        for item in host_info:
+            print(item)
 
     # Query: price
     price = query.getPrice(5295)
 
     if price is not None:
-		print("Price query results: ")
-		for item in price:
-			print(item)
+        print("Price query results: ")
+        for item in price:
+            print(item)
 
     # Query: availability
     availability = query.getAvailability(5295)
 
     if availability is not None:
-		print("Availability info query results: ")
-		for item in availability:
-			print(item)
+        print("Availability info query results: ")
+        for item in availability:
+            print(item)
 
-	# Disconnect from database
+    # Disconnect from database
     connection.close()
 
 main()
