@@ -1,6 +1,5 @@
 import psycopg2
 import getpass
-from statistics import mean
 
 class DataSource:
     def __init__(self):
@@ -308,16 +307,9 @@ def main():
     user = "qine"
     password = getpass.getpass()
 
-
     # Connect to the database
     query = DataSource()
     query.connect(user, password)
-
-    # Disconnect from database
-    #ds.disconnect()
-
-    # Initialize DataSource object
-    #query = DataSource(connection)
 
     # Query: host info
     host_info = query.getHostInfo(2787)
@@ -344,6 +336,6 @@ def main():
             print(item)
 
     # Disconnect from database
-    connection.close()
+    query.disconnect()
 
 main()
