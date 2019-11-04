@@ -34,14 +34,16 @@ class DataSource:
             host_id - the unique id for each host
 
         RETURN:
-            a list of all the informations of listings under the given host, or
+            a list of Listing objects of listings under the given host, or
             None if the query fails
         '''
         try:
             cursor = self.connection.cursor()
             query = "SELECT * FROM airbnb where host_id = " + str(host_id)
             cursor.execute(query)
-            return cursor.fetchall()
+            listing_tuples = cursor.fetchall()
+            listings = [Listing(a_tuple) for a_tuple in listing_tuples]
+            return listings
         except Exception as e:
             print ("Something went wrong when executing the query: ", e)
             return None
@@ -170,8 +172,8 @@ class DataSource:
             listing_id - the unique id for each listing
 
         RETURN:
-            a list of a single tuple which contains all informations of given
-            listing, or None if the query fails
+            a list of a single Listing object which contains all informations
+            of given listing, or None if the query fails
         '''
         return []
 
@@ -312,6 +314,86 @@ class DataSource:
         return round(sum/count, 2)
 
 
+class Listing:
+    def __init__(self, listing_tuple):
+        #TODO: comments
+        # listing_tuple is the tuple returned by database query for all information about one listing
+        self.listing_id = listing_tuple[0]
+        self.listing_name = listing_tuple[1]
+        self.host_id = listing_tuple[2]
+        self.host_name = listing_tuple[3]
+        self.neighbourhood_group = listing_tuple[4]
+        self.neighbourhood = listing_tuple[5]
+        self.latitude = listing_tuple[6]
+        self.longitude = listing_tuple[7]
+        self.room_type = listing_tuple[8]
+        self.price = listing_tuple[9]
+        self.minimum_nights = listing_tuple[10]
+        self.num_reviews = listing_tuple[11]
+        self.reviews_per_month = listing_tuple[12]
+        self.host_listings_count = listing_tuple[13]
+        self.availability = listing_tuple[14]
+
+    def getListingId(self):
+        #TODO: comments
+        return self.listing_id
+
+    def getListingName(self):
+        #TODO: comments
+        return self.listing_name
+
+    def getHostId(self):
+        #TODO: comments
+        return self.host_id
+
+    def getHostName(self):
+        #TODO: comments
+        return self.host_name
+
+    def getNbhGroup(self):
+        #TODO: comments
+        return self.neighbourhood_group
+
+    def getNbh(self):
+        #TODO: comments
+        return self.neighbourhood
+
+    def getLatitude(self):
+        #TODO: comments
+        return self.latitude
+
+    def getLongitude(self):
+        #TODO: comments
+        return self.longitude
+
+    def getRoomType(self):
+        #TODO: comments
+        return self.room_type
+
+    def getPrice(self):
+        #TODO: comments
+        return self.price
+
+    def getNumReviews(self):
+        #TODO: comments
+        return self.num_reviews
+
+    def getMinNights(self):
+        #TODO: comments
+        return self.minimum_nights
+
+    def getReviewsPerMonth(self):
+        #TODO: comments
+        return self.reviews_per_month
+
+    def getHostListingCount(self):
+        #TODO: comments
+        return self.host_listings_count
+
+    def getAvailability(self):
+        #TODO: comments
+        return self.availability
+
 
 def main():
     user = "qine"
@@ -327,7 +409,7 @@ def main():
     if host_info is not None:
         print("Host info query results: ")
         for item in host_info:
-            print(item)
+            print(item.getPrice())
 
     # Query: price
     price = query.getPrice(5295)
@@ -348,4 +430,4 @@ def main():
     # Disconnect from database
     query.disconnect()
 
-#main()
+main()
