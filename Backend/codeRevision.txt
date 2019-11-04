@@ -1,0 +1,1 @@
+For database query code revision, we added a Listing class so that the listing information can be stored as instance variables in this class. Originally, the listing information was stored in a tuple, and it was not clear what each entry stands for. This modification is a refactorization that increases usability and readability of the code.  
