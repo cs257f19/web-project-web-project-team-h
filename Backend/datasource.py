@@ -1,4 +1,4 @@
-#import psycopg2
+import psycopg2
 import getpass
 
 class DataSource:
@@ -407,7 +407,7 @@ def main():
     host_info = query.getHostInfo(2787)
 
     if host_info is not None:
-        print("Host info query results: ")
+        print("Host info query results (only showing price here): ")
         for item in host_info:
             print(item.getPrice())
 
