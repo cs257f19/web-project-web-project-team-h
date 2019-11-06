@@ -194,7 +194,7 @@ class DataSource:
         '''
         return []
 
-    def getSingleListingPercentage(self):
+    def getHostSingleListingPct(self):
         '''
         Returns a float of percentage of hosts having only one listing
         Audience: investigators/researchers
@@ -315,9 +315,21 @@ class DataSource:
 
 
 class Listing:
+    '''
+    This is the class for listing which stores all the information of a listings
+    '''
     def __init__(self, listing_tuple):
-        #TODO: comments
-        # listing_tuple is the tuple returned by database query for all information about one listing
+        '''
+        Constructor of the class
+
+        PARAMETERS:
+            listing_tuple - a tuple includes all the information of the listing,
+                            returned by database query
+
+        RETURN:
+            None
+        '''
+        
         self.listing_id = listing_tuple[0]
         self.listing_name = listing_tuple[1]
         self.host_id = listing_tuple[2]
@@ -335,63 +347,183 @@ class Listing:
         self.availability = listing_tuple[14]
 
     def getListingId(self):
-        #TODO: comments
+        '''
+        Returns the specific id for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the specific id for the given listing
+        '''
         return self.listing_id
 
     def getListingName(self):
-        #TODO: comments
+        '''
+        Returns the specific description for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the specific description for the given listing
+        '''
         return self.listing_name
 
     def getHostId(self):
-        #TODO: comments
+        '''
+        Returns the specific host id for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the specific host id for the given listing
+        '''
         return self.host_id
 
     def getHostName(self):
-        #TODO: comments
+        '''
+        Returns the host name for the giving listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the host name for the given listing
+        '''
         return self.host_name
 
     def getNbhGroup(self):
-        #TODO: comments
+        '''
+        Returns the neighbourhood borough for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the neighbourhood borough for the given listing.
+        '''
         return self.neighbourhood_group
 
     def getNbh(self):
-        #TODO: comments
+        '''
+        Returns the neighbourhood area for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the neighbourhood area for the given listing.
+        '''
         return self.neighbourhood
 
     def getLatitude(self):
-        #TODO: comments
+        '''
+        Returns the latitude for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the latitude for the given listing.
+        '''
         return self.latitude
 
     def getLongitude(self):
-        #TODO: comments
+        '''
+        Returns the longitude for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the longitude for the given listing.
+        '''
         return self.longitude
 
     def getRoomType(self):
-        #TODO: comments
+        '''
+        Returns the room type for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the room type for the given listing.
+        '''
         return self.room_type
 
     def getPrice(self):
-        #TODO: comments
+        '''
+        Returns the price for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the price for the given listing.
+        '''
         return self.price
 
     def getNumReviews(self):
-        #TODO: comments
+        '''
+        Returns the number of reviews for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the number of reviews for the given listing.
+        '''
         return self.num_reviews
 
     def getMinNights(self):
-        #TODO: comments
+        '''
+        Returns the minimum nights required to stay for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the minimum nights required to stay for the given listing.
+        '''
         return self.minimum_nights
 
     def getReviewsPerMonth(self):
-        #TODO: comments
+        '''
+        Returns the number of reviews per month for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the number of reviews per month for the given listing.
+        '''
         return self.reviews_per_month
 
     def getHostListingCount(self):
-        #TODO: comments
+        '''
+        Returns the number of listings under the same host for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the number of listings under the same host for the given listing.
+        '''
         return self.host_listings_count
 
-    def getAvailability(self):
-        #TODO: comments
+    def getNumAvailableDays(self):
+        '''
+        Returns the number of available days for the given listing.
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the number of available days for the given listing.
+        '''
         return self.availability
 
 
