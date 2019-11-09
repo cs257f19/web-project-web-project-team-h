@@ -3,7 +3,7 @@
   <head>
     <title>Sample Landlord Result Page</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="resultPage.css">
+    <link rel="stylesheet" href="hostPage.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
     crossorigin=""/>
@@ -22,8 +22,8 @@
       </div>
       <nav>
         <a href="dataPage.html" class="change">About the Data</a>
-        <a href="#" class="change">Map</a>
-        <a href="resultPage" class="change active-page">For Hosts</a>
+        <a href="overallPage.html" class="change">Visualize Data</a>
+        <a href="hostPage" class="change active-page">For Hosts</a>
         <a href="#" class="change">Contact</a>
       </nav>
     </header>
@@ -33,7 +33,7 @@
         <form class="database" action="index.html" method="post">
           HostName: <input type="text" name="fname"><br>
           ID: <input type="text" name="fname"><br>
-          <button id='search-btn'><a href="resultPage.html" class="change">Search</a></button>
+          <button id='search-btn'><a href="hostPage.html" class="change">Search</a></button>
         </form>
       </div>
     </section>
@@ -69,7 +69,7 @@
     <script>
        var mymap = L.map('mapid').setView([40.640610, -73.975242], 13);
        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
-         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetVisual Data</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
          maxZoom: 18,
          id: 'mapbox.streets',
          accessToken: 'your.mapbox.access.token'
