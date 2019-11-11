@@ -2,6 +2,8 @@ import flask
 from flask import render_template,request
 import json
 import sys
+sys.path.append('../Backend/')
+import dataSource
 
 app= flask.Flask(__name__)
 
@@ -25,7 +27,9 @@ def hostSearch():
 def hostResult():
     if request.method == 'POST':
         result = request.form
-        print(result)
+        db = DataSource()
+        host_id = result['id']
+        host_info = db.getHostInfo(host_id)
         return render_template('hostResult.html')
 
 if __name__=='__main__':
