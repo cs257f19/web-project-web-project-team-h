@@ -17,11 +17,11 @@ def dataPage():
 # def hostSearch():
 #     return render_template('hostPage.html')
 
-@app.route('/hostSearch',methods = ['POST', 'GET'])
+@app.route('/hostSearch')
 def hostSearch():
    return render_template('hostPage.html')
 
-@app.route('/hostResult')
+@app.route('/hostResult',methods = ['POST', 'GET'])
 def hostResult():
     if request.method == 'POST':
         result = request.form
