@@ -30,7 +30,7 @@
 
     <section>
       <div class="user_input">
-        <form class="database" action="http://localhost:5220/hostSearch" method="POST">
+        <form class="database" action="{{url_for('hostResult')}}" method="POST">
           HostName: <input type="text" name="hostName"><br>
           ID: <input type="text" name="id"><br>
 {#          <button id='search-btn'><a href="hostPage.html" class="change">Search</a></button>#}

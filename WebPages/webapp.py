@@ -19,13 +19,14 @@ def dataPage():
 
 @app.route('/hostSearch',methods = ['POST', 'GET'])
 def hostSearch():
-   if request.method == 'POST':
-      result = request.form
-      print(result)
+   return render_template('hostPage.html')
 
 @app.route('/hostResult')
 def hostResult():
-    return render_template('hostResult.html')
+    if request.method == 'POST':
+        result = request.form
+        print(result)
+        return render_template('hostResult.html')
 
 if __name__=='__main__':
     if len(sys.argv) != 3:
