@@ -32,6 +32,10 @@ def hostResult():
         host_info = db.getHostInfo(host_id)
         return render_template('hostResult.html')
 
+@app.route('/overall')
+def overall():
+    return render_template('overallPage.html')
+
 if __name__=='__main__':
     if len(sys.argv) != 3:
         print('Usage: {0} host port'.format(sys.argv[0]), file=sys.stderr)
