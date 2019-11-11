@@ -3,7 +3,7 @@ from flask import render_template,request
 import json
 import sys
 sys.path.append('../Backend/')
-import dataSource
+from datasource import *
 
 app= flask.Flask(__name__)
 
@@ -28,9 +28,14 @@ def hostResult():
     if request.method == 'POST':
         result = request.form
         db = DataSource()
+        db.connect('qine', 'ruby434seal')
         host_id = result['id']
         host_info = db.getHostInfo(host_id)
-        return render_template('hostResult.html')
+        return render_template('hostResult.html',result=host_info)
+
+@app.route('/overall')
+def overall():
+    return render_template('overallPage.html')
 
 if __name__=='__main__':
     if len(sys.argv) != 3:

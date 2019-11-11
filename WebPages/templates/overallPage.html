@@ -15,15 +15,15 @@
   <body>
     <header>
       <div class="tag">
-        <a href = "homePage.html"><h1>Airbnb in NYC</h1></a>
+        <a href = "{{ url_for('homePage') }}"><h1>Airbnb in NYC</h1></a>
         <div>
           <p>All you need to know about Airbnb in NYC</p>
         </div>
       </div>
       <nav>
-        <a href="dataPage.html" class="change">About the Data</a>
+        <a href="{{ url_for('dataPage') }}" class="change">About the Data</a>
         <a href="#" class="change active-page">Visualize Data</a>
-        <a href="hostPage.html" class="change">For Hosts</a>
+        <a href="{{ url_for('hostSearch') }}" class="change">For Hosts</a>
         <a href="#" class="change">Contact</a>
       </nav>
     </header>
