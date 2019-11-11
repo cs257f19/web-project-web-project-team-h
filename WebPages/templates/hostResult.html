@@ -33,10 +33,10 @@
         <h1 class="heading">Result</h1>
         <img class="pic" src="avatar.png" alt="avatar" width="150" height="150">
         <div class="user_info">
-          <p>Host ID: {{ result[0] }}</p>
-          <p>Host name: {{ result[1] }}</p>
-          <p>Number of Reviews: {{ result[11] }}</p>
-          <p>Review Per Month: {{ result[12] }}</p>
+          <p>Host ID: {{ result[0].getHostId() }}</p>
+          <p>Host name: {{ result[0].getHostName() }}</p>
+          <p>Number of Reviews: {{ result[0].getNumReviews() }}</p>
+          <p>Review Per Month: {{ result[0].getReviewsPerMonth() }}</p>
         </div>
 
       </div>
