@@ -30,7 +30,7 @@ def hostResult():
         db = DataSource()
         host_id = result['id']
         host_info = db.getHostInfo(host_id)
-        return render_template('hostResult.html')
+        return render_template('hostResult.html',result=result)
 
 @app.route('/overall')
 def overall():
