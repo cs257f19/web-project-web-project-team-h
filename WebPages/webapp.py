@@ -21,8 +21,16 @@ def dataPage():
 def hostSearch():
    if request.method == 'POST':
       result = request.form
-      print result
+      print(result)
 
 @app.route('/hostResult')
 def hostResult():
     return render_template('hostResult.html')
+
+if __name__=='__main__':
+    if len(sys.argv) != 3:
+        print('Usage: {0} host port'.format(sys.argv[0]), file=sys.stderr)
+        exit()
+    host = sys.argv[1]
+    port = sys.argv[2]
+    app.run(host=host, port=port, debug=True)
