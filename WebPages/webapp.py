@@ -28,6 +28,7 @@ def hostResult():
     if request.method == 'POST':
         result = request.form
         db = DataSource()
+        db.connect('qine', 'ruby434seal')
         host_id = result['id']
         host_info = db.getHostInfo(host_id)
         return render_template('hostResult.html',result=result)
