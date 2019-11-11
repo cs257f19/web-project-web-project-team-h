@@ -1,5 +1,5 @@
 import flask
-from flask import render_template
+from flask import render_template,request
 import json
 import sys
 
@@ -13,9 +13,15 @@ def homePage():
 def dataPage():
     return render_template('dataPage.html')
 
-@app.route('/hostSearch')
+# @app.route('/hostSearch')
+# def hostSearch():
+#     return render_template('hostPage.html')
+
+@app.route('/hostSearch',methods = ['POST', 'GET'])
 def hostSearch():
-    return render_template('hostPage.html')
+   if request.method == 'POST':
+      result = request.form
+      print result
 
 @app.route('/hostResult')
 def hostResult():

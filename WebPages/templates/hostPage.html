@@ -30,10 +30,11 @@
 
     <section>
       <div class="user_input">
-        <form class="database" action="index.html" method="post">
-          HostName: <input type="text" name="fname"><br>
-          ID: <input type="text" name="fname"><br>
-          <button id='search-btn'><a href="hostPage.html" class="change">Search</a></button>
+        <form class="database" action="http://localhost:5000/hostSearch" method="POST">
+          HostName: <input type="text" name="hostName"><br>
+          ID: <input type="text" name="id"><br>
+{#          <button id='search-btn'><a href="hostPage.html" class="change">Search</a></button>#}
+            <input type = "submit" value = "submit" />
         </form>
       </div>
     </section>
