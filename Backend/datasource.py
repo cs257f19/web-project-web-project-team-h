@@ -175,7 +175,15 @@ class DataSource:
             a list of a single Listing object which contains all informations
             of given listing, or None if the query fails
         '''
-        return []
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT * FROM airbnb where listing_id = " + str(listing_id)
+            cursor.execute(query)
+            return cursor.fetchall()
+        except Exception as e:
+            print("Something went wrong when executing the query:", e)
+            return None
+
 
     def getNumOfListings(self, neighbourhood_group, room_type):
         '''
@@ -192,7 +200,18 @@ class DataSource:
             the neighbourhood borough and the room type, or None if the query
             fails
         '''
-        return []
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT count(list_id) FROM airbnb where neighbourhood = \'" + \
+                    str(neighbourhood) + "\' and room_type = \'" + \
+                    str(room_type) + "\'"
+
+            cursor.execute(query)
+            return cursor.fetchall()
+        except Exception as e:
+            print("Something went wrong when executing the query:", e)
+            return None
+
 
     def getHostSingleListingPct(self):
         '''
@@ -206,6 +225,10 @@ class DataSource:
             a float of percentage of hosts having only one listing, or None if
             the query fails
         '''
+
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT "
         return None
 
     def getAllListings(self, neighbourhood_group, room_type, price_range):
@@ -329,7 +352,7 @@ class Listing:
         RETURN:
             None
         '''
-        
+
         self.listing_id = listing_tuple[0]
         self.listing_name = listing_tuple[1]
         self.host_id = listing_tuple[2]
