@@ -9,15 +9,15 @@
 	<body>
         <header>
 	      <div class="tag" id="name">
-	        <a href = "homePage.html"><h1>Airbnb in NYC</h1></a>
+	        <a href ="{{ url_for('homePage') }}"><h1>Airbnb in NYC</h1></a>
 	        <div id="tagline">
 	          <p>All you need to know about Airbnb in NYC</p>
 	        </div>
 	      </div>
 	      <nav>
 	        <a href="#"class="change active-page">About the Data</a>
-	        <a href="overallPage.html" class="change">Visualize Data</a>
-	        <a href="hostPage.html" class="change">For Hosts</a>
+	        <a href="{{ url_for('overall') }}" class="change">Visualize Data</a>
+	        <a href="{{ url_for('hostSearch') }}" class="change">For Hosts</a>
 	        <a href="#" class="change">Contact</a>
 	      </nav>
 	    </header>
