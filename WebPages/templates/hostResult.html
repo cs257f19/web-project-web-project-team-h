@@ -56,31 +56,18 @@
          id: 'mapbox.streets',
          accessToken: 'your.mapbox.access.token'
        }).addTo(mymap);
-       var locations = [["Clean & quiet apt home by the park", 40.64749, -73.97237],
-       ["Large and Cozy Private Bedroom", 40.64106, -73.97426],
-       ["SUPER BIG AND COZY PRIVATE BEDROOM", 40.64302, -73.97255],
-       ["Private clean pleasant spacious room.", 40.64277, -73.97296],
-       ["QUIET, SPACIOUS, COMFORTABLE, & GREAT LOCATION", 40.64573, -73.98013],
-       ["Vintage Chic Haven in Kensington, Brooklyn", 40.63547, -73.97417],
-       ["private spacious sunny bedroom", 40.63381, -73.9714],
-       ["Cozy Retreat in Brooklyn Apartment", 40.6412, -73.9786],
-       ["Welcome to Kensington", 40.63402, -73.97556],
-       ["Two Porches & Private Room", 40.6413, -73.98233],
-       ["Cozy rooms with private bath", 40.64487, -73.97895],
-       ["Large 1 Bedroom apartment with office room.", 40.64449, -73.97238],
-       ["Cozy Two-bedroom Apt in a Cute House in Brooklyn!", 40.6367, -73.97434],
-       ["Private room for 2 in cool BK apt", 40.64469, -73.97086],
-       ["Clean & Cozy Private Room", 40.63953, -73.97214],
-       ["Oasis in Kensington", 40.64321, -73.98294],
-       ["Welcome to Brooklyn!", 40.63694, -73.97487],
-       ["Brooklyn Bargain for August!", 40.64455, -73.98298],
-       ["BK Room Available 5/17-5/24", 40.64345, -73.98258],
-       ["Brooklyn private room", 40.64423, -73.98224]
-       ];
+       var locations = []
+       {%for listing in database.getSameHouseType(result)%}
+       locations.push([{{ listing.getListingName() }}, { listing.getLatitude() }}, { listing.getLongitude() }}])
+       {%endfor%}
        var customPopup = "<p><strong>Name</strong></p><strong>Listing ID</strong><p>neigiboorhood</p>" +
            "<p>neighborhood group</p><p>room type</p>" +
            "<strong>price</strong></p>minimum night</p><p>revieus per month</p><p>Availability</p>";
        var arrLen = locations.length;
+       var customOptions = {
+           'maxWidth': '500',
+           'className': 'custom'
+       }
        for (var i = 0; i < locations.length; i++) {
            var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
            marker.bindPopup(customPopup,customOptions).openPopup();
