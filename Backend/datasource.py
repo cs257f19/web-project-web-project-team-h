@@ -167,7 +167,7 @@ class DataSource:
 
     def getListingInfo(self, listing_id):
         '''
-        Returns a list of a single tuple of informations of given listing id.
+        Returns a list of all informations of a lising of the given listing id.
         Audience: tourists, hosts
 
         PARAMETERS:
