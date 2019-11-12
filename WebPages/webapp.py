@@ -31,7 +31,7 @@ def hostResult():
         db.connect('qine', 'ruby434seal')
         host_id = result['id']
         host_info = db.getHostInfo(host_id)
-        return render_template('hostResult.html',result=host_info)
+        return render_template('hostResult.html',results=host_info)
 
 @app.route('/overall')
 def overall():

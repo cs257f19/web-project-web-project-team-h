@@ -33,24 +33,25 @@
         <h1 class="heading">Result</h1>
         <img class="pic" src="avatar.png" alt="avatar" width="150" height="150">
         <div class="user_info">
-          <p>Host ID: {{ result[0].getHostId() }}</p>
-          <p>Host name: {{ result[0].getHostName() }}</p>
-          <p>Number of Reviews: {{ result[0].getNumReviews() }}</p>
-          <p>Review Per Month: {{ result[0].getReviewsPerMonth() }}</p>
+          <p>Host ID: {{ results[0].getHostId() }}</p>
+          <p>Host name: {{ results[0].getHostName() }}</p>
         </div>
 
       </div>
     </section>
 
+{% for result in results %}
     <section class="mapSection">
+        <p>Number of Reviews: {{ result.getNumReviews() }}</p>
+          <p>Review Per Month: {{ result.getReviewsPerMonth() }}</p>
       <h2>Houses in the same neighborhood with the same room type</h2>
-    <div id="mapid"  style=" height: 375px"></div>
+    <div id="{{ result.getListingId() }}"  style=" height: 375px"></div>
     </section>
 
     <script>
-       var mymap = L.map('mapid').setView([40.640610, -73.975242], 13);
+       var mymap = L.map('{{ result.getListingId() }}').setView([40.640610, -73.975242], 13);
        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
-         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetVisual Data</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+         attribution: '',
          maxZoom: 18,
          id: 'mapbox.streets',
          accessToken: 'your.mapbox.access.token'
@@ -76,12 +77,16 @@
        ["BK Room Available 5/17-5/24", 40.64345, -73.98258],
        ["Brooklyn private room", 40.64423, -73.98224]
        ];
+       var customPopup = "<p><strong>Name</strong></p><strong>Listing ID</strong><p>neigiboorhood</p>" +
+           "<p>neighborhood group</p><p>room type</p>" +
+           "<strong>price</strong></p>minimum night</p><p>revieus per month</p><p>Availability</p>";
        var arrLen = locations.length;
        for (var i = 0; i < locations.length; i++) {
            var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
-           marker.bindPopup(locations[i][0]).openPopup();
+           marker.bindPopup(customPopup,customOptions).openPopup();
         }
         var marker = L.marker([51.5, -0.09]).addTo(mymap);
     </script>
+{% endfor %}
 </body>
 </html>
