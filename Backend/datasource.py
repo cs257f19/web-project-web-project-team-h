@@ -211,7 +211,6 @@ class DataSource:
             query = "SELECT count(list_id) FROM airbnb where neighbourhood = \'" + \
                     str(neighbourhood) + "\' and room_type = \'" + \
                     str(room_type) + "\'"
-
             cursor.execute(query)
             return cursor.fetchall()
         except Exception as e:
@@ -629,28 +628,68 @@ def main():
     query.connect(user, password)
 
     # Query: host info
-    host_info = query.getHostInfo(2787)
+    # host_info = query.getHostInfo(2787)
+    #
+    # if host_info is not None:
+    #     print("Host info query results (only showing price here): ")
+    #     for item in host_info:
+    #         print(item.getPrice())
+    #
+    # # Query: price
+    # price = query.getPrice(5295)
+    #
+    # if price is not None:
+    #     print("Price query results: ")
+    #     for item in price:
+    #         print(item)
+    #
+    # # Query: availability
+    # availability = query.getAvailability(5295)
+    #
+    # if availability is not None:
+    #     print("Availability info query results: ")
+    #     for item in availability:
+    #         print(item)
 
-    if host_info is not None:
-        print("Host info query results (only showing price here): ")
-        for item in host_info:
-            print(item.getPrice())
-
-    # Query: price
-    price = query.getPrice(5295)
-
-    if price is not None:
-        print("Price query results: ")
-        for item in price:
+    num_reviews = query.getNumOfReviews(5295)
+    if num_reviews is not None:
+        print("Number of reviews for listing 5295 results:")
+        for item in num_reviews:
             print(item)
 
-    # Query: availability
-    availability = query.getAvailability(5295)
-
-    if availability is not None:
-        print("Availability info query results: ")
-        for item in availability:
+    listings = query.getSameHouseType("Kensington", "Private room")
+    if listings is not None:
+        print("Listings in Kensington and roomtype is private: ")
+        for item in listings:
             print(item)
+
+    price_of_nei = query.getPriceOfNeighbourhood("Kensington")
+    if price_of_nei is not None:
+        print("prices of listings in Kensing are: ")
+        for item in price_of_nei:
+            print(item)
+
+    single_listing = query.getListingInfo(5295)
+    if single_listing is not None:
+        print("listing info of 5295 is: ")
+        for item in single_listing:
+            print(item)
+
+    num_of_listing = query.getNumOfListings("Brooklyn", "Private room")
+    if num_of_listing is not None:
+        print("Number of private rooms in Brooklyn is: ")
+        for item in num_of_listing:
+            print(item)
+
+    sig_lst_pct = query.getHostSingleListingPct()
+    if sig_lst_pct is not None:
+        print("percentage of host having single listing is: ")
+        for item in sig_lst_pct:
+            print(item)
+
+    #all_listing = query.getAllListings("Brooklyn", "Private room", (95, 150))
+
+
 
     # Disconnect from database
     query.disconnect()
