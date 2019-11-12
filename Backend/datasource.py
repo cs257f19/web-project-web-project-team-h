@@ -300,7 +300,7 @@ class DataSource:
             cursor = self.connection.cursor()
             query = "SELECT AVG(availability_365) FROM airbnb where " + \
                     "neighbourhood_group = \'" + str(neighbourhood_group) + \
-                    "\' and room_type = \'" + str(room_type)
+                    "\' and room_type = \'" + str(room_type) + "\'"
             cursor.execute(query)
             return cursor.fetchall()
         except Exception as e:
@@ -448,6 +448,9 @@ class Listing:
         RETURN:
             the specific id for the given listing
         '''
+        if self.listing_id is None:
+            print("Listing not exists.")
+            return 0
         return self.listing_id
 
     def getListingName(self):
@@ -460,6 +463,9 @@ class Listing:
         RETURN:
             the specific description for the given listing
         '''
+        if self.listing_name is None:
+            print("Listing name is not available for this listing.")
+            return "Unavailable listing name"
         return self.listing_name
 
     def getHostId(self):
@@ -472,6 +478,9 @@ class Listing:
         RETURN:
             the specific host id for the given listing
         '''
+        if self.host_id is None:
+            print("Host not exists.")
+            return 0
         return self.host_id
 
     def getHostName(self):
@@ -484,6 +493,9 @@ class Listing:
         RETURN:
             the host name for the given listing
         '''
+        if self.host_name is None:
+            print("Host name not available for this listing.")
+            return "Unavailable"
         return self.host_name
 
     def getNbhGroup(self):
@@ -496,6 +508,9 @@ class Listing:
         RETURN:
             the neighbourhood borough for the given listing.
         '''
+        if self.neighbourhood_group is None:
+            print("Neighbourhood borough for this listing is not available.")
+            return "Unavailable"
         return self.neighbourhood_group
 
     def getNbh(self):
@@ -508,6 +523,9 @@ class Listing:
         RETURN:
             the neighbourhood area for the given listing.
         '''
+        if self.neighbourhood is None:
+            print("Neighbourhood for this listing is not available.")
+            return "Unavailable"
         return self.neighbourhood
 
     def getLatitude(self):
@@ -520,6 +538,9 @@ class Listing:
         RETURN:
             the latitude for the given listing.
         '''
+        if self.latitude is None:
+            print("Latitude for this listing not available.")
+            return 0
         return self.latitude
 
     def getLongitude(self):
@@ -532,6 +553,9 @@ class Listing:
         RETURN:
             the longitude for the given listing.
         '''
+        if self.longitude is None:
+            print("Longitude for this listing is not available.")
+            return 0
         return self.longitude
 
     def getRoomType(self):
@@ -544,6 +568,9 @@ class Listing:
         RETURN:
             the room type for the given listing.
         '''
+        if self.room_type is None:
+            print("Room type for this listing not available.")
+            return "Unavailable"
         return self.room_type
 
     def getPrice(self):
@@ -556,6 +583,9 @@ class Listing:
         RETURN:
             the price for the given listing.
         '''
+        if self.price is None:
+            print("Price for this listing not available.")
+            return 0
         return self.price
 
     def getNumReviews(self):
@@ -568,6 +598,9 @@ class Listing:
         RETURN:
             the number of reviews for the given listing.
         '''
+        if self.num_reviews is None:
+            print("Number of reviews for this listing not available.")
+            return 0
         return self.num_reviews
 
     def getMinNights(self):
@@ -580,6 +613,9 @@ class Listing:
         RETURN:
             the minimum nights required to stay for the given listing.
         '''
+        if self.minimum_nights is None:
+            print("Number of the minimum nights required for this listing not available.")
+            return 0
         return self.minimum_nights
 
     def getReviewsPerMonth(self):
@@ -592,6 +628,9 @@ class Listing:
         RETURN:
             the number of reviews per month for the given listing.
         '''
+        if self.reviews_per_month is None:
+            print("Number of reviews per month for this listing not available.")
+            return 0
         return self.reviews_per_month
 
     def getHostListingCount(self):
@@ -604,6 +643,9 @@ class Listing:
         RETURN:
             the number of listings under the same host for the given listing.
         '''
+        if self.host_listings_count is None:
+            print("Number of listings under the same host not available.")
+            return 0
         return self.host_listings_count
 
     def getNumAvailableDays(self):
@@ -616,6 +658,10 @@ class Listing:
         RETURN:
             the number of available days for the given listing.
         '''
+        if self.availability is None:
+            print("Number of availability for this listing not available.")
+            return 0
+        #print(self.availability)
         return self.availability
 
 
