@@ -57,22 +57,22 @@
          accessToken: 'your.mapbox.access.token'
        }).addTo(mymap);
        var locations = [];
-       console.log('db returns: '+{{database.getSameHouseType(result.getNbh(), result.getRoomType())|length}})
        {% for listing in database.getSameHouseType(result.getNbh(), result.getRoomType()) %}
-       locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }}])
-       console.log(locations)
+       locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
+       "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
+       "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
+       ,"{{ listing.getNumAvailableDays() }}"])
        {% endfor %}
-       console.log(locations)
-       var customPopup = "<div class='popup'><p><strong>{{result.getListingName()}}</strong></p><strong>{{result.getListingId()}}</strong></p>" +
-           "<p>{{result.getNbhGroup()}}</p><p>{{result.getRoomType()}}</p>" +
-           "<strong>${{result.getPrice()}}/night</strong></p>{{result.getMinNights()}} night minimum</p>"  +
-           "<p>{{result.getReviewsPerMonth()}} reviews/month</p><p>Available {{result.getNumAvailableDays()}} days"+"/year </p></div>";
        var arrLen = locations.length;
        var customOptions = {
            'maxWidth': '500',
            'className': 'custom'
        }
        for (var i = 0; i < locations.length; i++) {
+           var customPopup = "<div class='popup'><p><strong>"+locations[i][3]+"</strong></p><strong>"+locations[i][4]+"</strong></p>" +
+           "<p>"+locations[i][5]+"</p><p>"+locations[i][6]+"</p>" +
+           "<strong>$"+locations[i][7]+"/night</strong></p>"+locations[i][8]+" night minimum</p>"  +
+           "<p>"+locations[i][9]+" reviews/month</p><p>Available "+locations[i][10]+" days"+"/year </p></div>";
            var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
            marker.bindPopup(customPopup,customOptions).openPopup();
         }
