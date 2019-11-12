@@ -71,7 +71,7 @@ section {
   padding: 20px;
 }
 
-section p, h2 {
+section p, h2,h3 {
   margin-left: 80px;
   margin-right: 80px;
   font-size:21px;
@@ -148,6 +148,5 @@ font-size: 21px;
   margin-bottom: 0;
 }
 
-.leaflet-popup-content .popup p strong {
-color:#4ab1d4;
-}
+h2, .leaflet-popup-content .popup p strong {
+color:#00A699

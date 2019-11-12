@@ -31,10 +31,10 @@
     <section>
       <div class="clearfix">
         <h1 class="heading">Result</h1>
-        <img class="pic" src="avatar.png" alt="avatar" width="150" height="150">
         <div class="user_info">
           <p>Host ID: {{ results[0].getHostId() }}</p>
           <p>Host name: {{ results[0].getHostName() }}</p>
+          <p><strong>Below are all the listings that belong to this host and their information</strong></p>
         </div>
 
       </div>
@@ -49,7 +49,7 @@
         <p>Number of Reviews: {{ result.getNumReviews() }}</p>
           <p>Review Per Month: {{ result.getReviewsPerMonth() }}</p>
         <p>Availablility: {{ result.getNumAvailableDays() }}</p>
-      <h2>Houses in the same neighborhood with the same room type</h2>
+      <h3>Houses in the same neighborhood with the same room type</h3>
     <div id="{{ result.getListingId() }}"  style=" height: 375px"></div>
     </section>
 
@@ -74,9 +74,9 @@
            'className': 'custom'
        }
        for (var i = 0; i < locations.length; i++) {
-           var customPopup = "<div class='popup'><p><strong>"+locations[i][3]+"</strong></p>"+locations[i][4]+"</p>" +
+           var customPopup = "<div class='popup'><p><strong>"+locations[i][3]+"</strong></p><p>"+locations[i][4]+"</p>" +
            "<p>"+locations[i][5]+"</p><p>"+locations[i][6]+"</p>" +
-           "<u>$"+locations[i][7]+"</u>/night</p><p><u>"+locations[i][8]+"</u> night minimum</p>"  +
+           "<p><u>$"+locations[i][7]+"</u>/night</p><p><u>"+locations[i][8]+"</u> night minimum</p>"  +
            "<p><u>"+locations[i][9]+"</u> reviews/month</p><p>Available <u>"+locations[i][10]+"</u> days"+"/year </p></div>";
            var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
            marker.bindPopup(customPopup,customOptions);
