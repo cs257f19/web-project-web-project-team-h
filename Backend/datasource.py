@@ -127,7 +127,7 @@ class DataSource:
             room_type - the listing space type
 
         RETURN:
-            a list of listing_ids in the neighbourhood area of the specified
+            a list of Listing objects in the neighbourhood area of the specified
             room type, or None if the query fails
         '''
         try:
@@ -136,7 +136,9 @@ class DataSource:
                     str(neighbourhood) + "\' and room_type = \'" + \
                     str(room_type) + "\'"
             cursor.execute(query)
-            return cursor.fetchall()
+            listing_tuples = cursor.fetchall()
+            listings = [Listing(a_tuple) for a_tuple in listing_tuples]
+            return listings
         except Exception as e:
             print ("Something went wrong when executing the query: ", e)
             return None
@@ -179,7 +181,11 @@ class DataSource:
             cursor = self.connection.cursor()
             query = "SELECT * FROM airbnb where listing_id = " + str(listing_id)
             cursor.execute(query)
-            return cursor.fetchall()
+            listing_tuples = cursor.fetchall()
+            assert len(listing_tuples)==1, \
+                   'the listing id does not exist or is not unique'
+            listings = [Listing(a_tuple) for a_tuple in listing_tuples]
+            return listings
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
@@ -225,7 +231,6 @@ class DataSource:
             a float of percentage of hosts having only one listing, or None if
             the query fails
         '''
-
         try:
             cursor = self.connection.cursor()
             query = "SELECT "
