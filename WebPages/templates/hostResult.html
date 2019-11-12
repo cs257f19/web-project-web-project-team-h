@@ -40,13 +40,12 @@
       </div>
     </section>
 
-    {% set count = [0] %}
-{% if count < products|length %}
+{% for result in results %}
     <section class="mapSection">
         <p>Number of Reviews: {{ result.getNumReviews() }}</p>
           <p>Review Per Month: {{ result.getReviewsPerMonth() }}</p>
       <h2>Houses in the same neighborhood with the same room type</h2>
-    <div id="{{ count }}"  style=" height: 375px"></div>
+    <div id="{{ result.getListingId() }}"  style=" height: 375px"></div>
     </section>
 
     <script>
