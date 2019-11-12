@@ -144,10 +144,10 @@ font-size: 21px;
 }
 
 .leaflet-popup-content p {
-margin:1px 1px;
+  margin-top:0;
+  margin-bottom: 0;
 }
 
 .leaflet-popup-content p strong {
 color:#4ab1d4;
-margin:1px 1px;
 }
