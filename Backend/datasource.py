@@ -132,7 +132,7 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT id FROM airbnb where neighbourhood = \'" + \
+            query = "SELECT * FROM airbnb where neighbourhood = \'" + \
                     str(neighbourhood) + "\' and room_type = \'" + \
                     str(room_type) + "\'"
             cursor.execute(query)
