@@ -56,10 +56,13 @@
          id: 'mapbox.streets',
          accessToken: 'your.mapbox.access.token'
        }).addTo(mymap);
-       var locations = []
-       {%for listing in database.getSameHouseType(result.getNbhGroup(), result.getRoomType())%}
-       locations.push([{{ listing.getListingName() }}, { listing.getLatitude() }}, { listing.getLongitude() }}])
-       {%endfor%}
+       var locations = [];
+       console.log('db returns: '+{{database.getSameHouseType(result.getNbh(), result.getRoomType())|length}})
+       {% for listing in database.getSameHouseType(result.getNbh(), result.getRoomType()) %}
+       locations.push([{{ listing.getListingName() }}, {{ listing.getLatitude() }}, {{ listing.getLongitude() }}])
+       console.log(locations)
+       {% endfor %}
+       console.log(locations)
        var customPopup = "<p><strong>Name</strong></p><strong>Listing ID</strong><p>neigiboorhood</p>" +
            "<p>neighborhood group</p><p>room type</p>" +
            "<strong>price</strong></p>minimum night</p><p>revieus per month</p><p>Availability</p>";
