@@ -42,8 +42,13 @@
 
 {% for result in results %}
     <section class="mapSection">
+        <h2>{{ result.getListingName() }}</h2>
+          <p>Neighborhood: {{ result.getNbh() }}</p>
+        <p>Type of Room: {{ result.getRoomType() }}</p>
+        <p>Price per Night: {{ result.getPrice() }}</p>
         <p>Number of Reviews: {{ result.getNumReviews() }}</p>
           <p>Review Per Month: {{ result.getReviewsPerMonth() }}</p>
+        <p>Availablility: {{ result.getNumAvailableDays() }}</p>
       <h2>Houses in the same neighborhood with the same room type</h2>
     <div id="{{ result.getListingId() }}"  style=" height: 375px"></div>
     </section>
@@ -69,10 +74,10 @@
            'className': 'custom'
        }
        for (var i = 0; i < locations.length; i++) {
-           var customPopup = "<div class='popup'><p><strong>"+locations[i][3]+"</strong></p><strong>"+locations[i][4]+"</strong></p>" +
+           var customPopup = "<div class='popup'><p><strong>"+locations[i][3]+"</strong></p>"+locations[i][4]+"</p>" +
            "<p>"+locations[i][5]+"</p><p>"+locations[i][6]+"</p>" +
-           "<strong>$"+locations[i][7]+"/night</strong></p>"+locations[i][8]+" night minimum</p>"  +
-           "<p>"+locations[i][9]+" reviews/month</p><p>Available "+locations[i][10]+" days"+"/year </p></div>";
+           "<u>$"+locations[i][7]+"</u>/night</p><p><u>"+locations[i][8]+"</u> night minimum</p>"  +
+           "<p><u>"+locations[i][9]+"</u> reviews/month</p><p>Available <u>"+locations[i][10]+"</u> days"+"/year </p></div>";
            var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
            marker.bindPopup(customPopup,customOptions);
         }
