@@ -63,10 +63,10 @@
        console.log(locations)
        {% endfor %}
        console.log(locations)
-       var customPopup = "<p><strong>{{result.getListingName()}}</strong></p><strong>{{result.getListingId()}}</strong></p>" +
+       var customPopup = "<div class='popup'><p><strong>{{result.getListingName()}}</strong></p><strong>{{result.getListingId()}}</strong></p>" +
            "<p>{{result.getNbhGroup()}}</p><p>{{result.getRoomType()}}</p>" +
-           "<strong>${{result.getPrice()}}/night</strong></p>{{result.getMinNights()}} night minimum</p>  +
-           "<p>{{result.getReviewsPerMonth()}} reviews/month</p><p>Available {{result.getNumAvailableDays()}} days"+"/year </p>";
+           "<strong>${{result.getPrice()}}/night</strong></p>{{result.getMinNights()}} night minimum</p>"  +
+           "<p>{{result.getReviewsPerMonth()}} reviews/month</p><p>Available {{result.getNumAvailableDays()}} days"+"/year </p></div>";
        var arrLen = locations.length;
        var customOptions = {
            'maxWidth': '500',
