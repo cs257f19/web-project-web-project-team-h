@@ -49,7 +49,7 @@
     </section>
 
     <script>
-       var mymap = L.map('{{ result.getListingId() }}').setView([40.640610, -73.975242], 13);
+       var mymap = L.map('{{ result.getListingId() }}').setView([40.720610, -73.975242], 10);
        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
          attribution: '',
          maxZoom: 18,
@@ -74,7 +74,7 @@
            "<strong>$"+locations[i][7]+"/night</strong></p>"+locations[i][8]+" night minimum</p>"  +
            "<p>"+locations[i][9]+" reviews/month</p><p>Available "+locations[i][10]+" days"+"/year </p></div>";
            var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
-           marker.bindPopup(customPopup,customOptions).openPopup();
+           marker.bindPopup(customPopup,customOptions);
         }
         var marker = L.marker([51.5, -0.09]).addTo(mymap);
     </script>
