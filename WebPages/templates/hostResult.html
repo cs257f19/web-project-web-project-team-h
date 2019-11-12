@@ -59,13 +59,13 @@
        var locations = [];
        console.log('db returns: '+{{database.getSameHouseType(result.getNbh(), result.getRoomType())|length}})
        {% for listing in database.getSameHouseType(result.getNbh(), result.getRoomType()) %}
-       locations.push([{{ listing.getListingName() }}, {{ listing.getLatitude() }}, {{ listing.getLongitude() }}])
+       locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }}])
        console.log(locations)
        {% endfor %}
        console.log(locations)
-       var customPopup = "<p><strong>Name</strong></p><strong>Listing ID</strong><p>neigiboorhood</p>" +
-           "<p>neighborhood group</p><p>room type</p>" +
-           "<strong>price</strong></p>minimum night</p><p>revieus per month</p><p>Availability</p>";
+       var customPopup = "<p><strong>{{result.getListingName()}}</strong></p><strong>{{result.getListingId()}}</strong></p>" +
+           "<p>{{result.getNbhGroup()}}</p><p>{{result.getRoomType()}}</p>" +
+           "<strong>{{result.getPrice()}}</strong></p>{{result.getMinNights()}}</p><p>{{result.getReviewsPerMonth()}}</p><p>{{result.getNumAvailableDays()}}</p>";
        var arrLen = locations.length;
        var customOptions = {
            'maxWidth': '500',

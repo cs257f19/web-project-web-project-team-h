@@ -142,3 +142,12 @@ font-size: 21px;
   text-decoration: none;
   color: black;
 }
+
+.leaflet-popup-content p {
+margin:1px 1px;
+}
+
+.leaflet-popup-content p strong {
+color:#4ab1d4;
+margin:1px 1px;
+}
