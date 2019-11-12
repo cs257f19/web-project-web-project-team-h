@@ -40,16 +40,17 @@
       </div>
     </section>
 
-{% for result in results %}
+    {% set count = [0] %}
+{% if count < products|length %}
     <section class="mapSection">
         <p>Number of Reviews: {{ result.getNumReviews() }}</p>
           <p>Review Per Month: {{ result.getReviewsPerMonth() }}</p>
       <h2>Houses in the same neighborhood with the same room type</h2>
-    <div id="{{ result.getListingName() }}"  style=" height: 375px"></div>
+    <div id="{{ count }}"  style=" height: 375px"></div>
     </section>
 
     <script>
-       var mymap = L.map('{{ result.getListingName() }}').setView([40.640610, -73.975242], 13);
+       var mymap = L.map('{{ count }}').setView([40.640610, -73.975242], 13);
        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
          attribution: '',
          maxZoom: 18,
@@ -87,6 +88,7 @@
         }
         var marker = L.marker([51.5, -0.09]).addTo(mymap);
     </script>
+    {# increment count by 1 #}
 {% endfor %}
 </body>
 </html>
