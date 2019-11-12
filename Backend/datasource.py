@@ -226,10 +226,11 @@ class DataSource:
             the query fails
         '''
 
-        try:
-            cursor = self.connection.cursor()
-            query = "SELECT "
-        return None
+        # try:
+        #     cursor = self.connection.cursor()
+        #     query = "SELECT "
+        # return None
+        return 1
 
     def getAllListings(self, neighbourhood_group, room_type, price_range):
         '''
