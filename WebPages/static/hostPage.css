@@ -151,3 +151,7 @@ input[type=submit] {
 h2, .leaflet-popup-content .popup p strong {
   color: #00A699;
 }
+
+#mapid {
+  height:375px;
+}

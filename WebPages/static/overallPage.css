@@ -88,4 +88,6 @@ div.data div.dataviz {
   flex: 1.2;
 }
 
-
+#mapid {
+  height: 700px;
+}
