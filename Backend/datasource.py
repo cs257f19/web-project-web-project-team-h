@@ -468,7 +468,6 @@ class Listing:
             print("Listing name is not available for this listing.")
             return "Unavailable listing name"
         self.listing_name = self.listing_name.replace('\n','')
-        self.listing_name = self.listing_name.line.rstrip('\n')
         return self.listing_name
 
     def getHostId(self):
