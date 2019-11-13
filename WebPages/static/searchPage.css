@@ -60,3 +60,22 @@ header nav a{
   font-size:22px;
   padding:20px 0;
 }
+
+h1 {
+  margin: 0px;
+}
+
+section {
+  background-color: rgb(255,255,255,0.8);
+  width:80%;
+  margin:100px auto;
+  padding: 20px;
+}
+
+section p, h2,h3 {
+  margin-left: 80px;
+  margin-right: 80px;
+  font-size:21px;
+  color:#484848;
+  text-align: justify;
+}
