@@ -28,6 +28,13 @@ def hostSearch():
     '''
     return render_template('hostPage.html')
 
+@app.route('/listingSearch')
+def listingSearch():
+    '''
+    Return hostSearch.html
+    '''
+    return render_template('searchPage.html')
+
 @app.route('/hostResult',methods = ['POST', 'GET'])
 def hostResult():
     '''
