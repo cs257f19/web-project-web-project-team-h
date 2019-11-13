@@ -77,5 +77,15 @@ section {
 }
 
 .info div{
-  flex:1;
+  flex: 1;
 }
+
+.data {
+  display: flex;
+}
+
+.data .dataviz {
+  flex: 2;
+}
+
+
