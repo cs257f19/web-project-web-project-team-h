@@ -412,7 +412,7 @@ class Listing:
     '''
     def __init__(self, listing_tuple):
         '''
-        Constructor of the class
+        Constructor of the class.
 
         PARAMETERS:
             listing_tuple - a tuple includes all the information of the listing,
@@ -445,7 +445,8 @@ class Listing:
             None
 
         RETURN:
-            the specific id for the given listing
+            the specific id for the given listing, or 0 if the listing id does
+            not exist
         '''
         if self.listing_id is None:
             print("Listing not exists.")
@@ -460,12 +461,14 @@ class Listing:
             None
 
         RETURN:
-            the specific description for the given listing
+            the specific description for the given listing, or a string
+            "Unavailable listing name" is the listing name does not exist
         '''
         if self.listing_name is None:
             print("Listing name is not available for this listing.")
             return "Unavailable listing name"
         self.listing_name = self.listing_name.replace('\n','')
+        self.listing_name = self.listing_name.line.rstrip('\n')
         return self.listing_name
 
     def getHostId(self):
@@ -476,7 +479,8 @@ class Listing:
             None
 
         RETURN:
-            the specific host id for the given listing
+            the specific host id for the given listing, or 0 if the host id does
+            not exist
         '''
         if self.host_id is None:
             print("Host not exists.")
@@ -491,7 +495,8 @@ class Listing:
             None
 
         RETURN:
-            the host name for the given listing
+            the host name for the given listing, or "Unavailable" if the host
+            name does not exist
         '''
         if self.host_name is None:
             print("Host name not available for this listing.")
@@ -506,7 +511,8 @@ class Listing:
             None
 
         RETURN:
-            the neighbourhood borough for the given listing.
+            the neighbourhood borough for the given listing, or the neighbourhood
+            group does not exist
         '''
         if self.neighbourhood_group is None:
             print("Neighbourhood borough for this listing is not available.")
@@ -517,11 +523,12 @@ class Listing:
         '''
         Returns the neighbourhood area for the given listing.
 
-        PARAMETERS:prices of listings in Kensing ar
+        PARAMETERS:
             None
 
         RETURN:
-            the neighbourhood area for the given listing.
+            the neighbourhood area for the given listing, or the neighbourhood
+            does not exist
         '''
         if self.neighbourhood is None:
             print("Neighbourhood for this listing is not available.")
@@ -536,7 +543,8 @@ class Listing:
             None
 
         RETURN:
-            the latitude for the given listing.
+            the latitude for the given listing, or 0 if the latitude does not
+            exist
         '''
         if self.latitude is None:
             print("Latitude for this listing not available.")
@@ -551,7 +559,8 @@ class Listing:
             None
 
         RETURN:
-            the longitude for the given listing.
+            the longitude for the given listing, or 0 if the longitude does not
+            exist
         '''
         if self.longitude is None:
             print("Longitude for this listing is not available.")
@@ -566,7 +575,8 @@ class Listing:
             None
 
         RETURN:
-            the room type for the given listing.
+            the room type for the given listing, or "Unavailable" if the room
+            type does not exist
         '''
         if self.room_type is None:
             print("Room type for this listing not available.")
@@ -581,7 +591,7 @@ class Listing:
             None
 
         RETURN:
-            the price for the given listing.
+            the price for the given listing, or 0 if the price does not exist
         '''
         if self.price is None:
             print("Price for this listing not available.")
@@ -596,7 +606,8 @@ class Listing:
             None
 
         RETURN:
-            the number of reviews for the given listing.
+            the number of reviews for the given listing, or 0 if the number of
+            reviews does not exist
         '''
         if self.num_reviews is None:
             print("Number of reviews for this listing not available.")
@@ -611,7 +622,8 @@ class Listing:
             None
 
         RETURN:
-            the minimum nights required to stay for the given listing.
+            the minimum nights required to stay for the given listing, or 0 if
+            the minimum number of nights does not exist
         '''
         if self.minimum_nights is None:
             print("Number of the minimum nights required for this listing not available.")
@@ -626,7 +638,8 @@ class Listing:
             None
 
         RETURN:
-            the number of reviews per month for the given listing.
+            the number of reviews per month for the given listing, or 0 if the
+            number of reviews per month does not exist
         '''
         if self.reviews_per_month is None:
             print("Number of reviews per month for this listing not available.")
@@ -641,7 +654,8 @@ class Listing:
             None
 
         RETURN:
-            the number of listings under the same host for the given listing.
+            the number of listings under the same host for the given listing, or
+            0 if the number of listings under the same host does not exist
         '''
         if self.host_listings_count is None:
             print("Number of listings under the same host not available.")
@@ -656,12 +670,12 @@ class Listing:
             None
 
         RETURN:
-            the number of available days for the given listing.
+            the number of available days for the given listing, or 0 if the
+            number of available days does not exist
         '''
         if self.availability is None:
             print("Number of availability for this listing not available.")
             return 0
-        #print(self.availability)
         return self.availability
 
 
