@@ -3,8 +3,12 @@ This is the repository for the term-long database-driven web project in CS 257, 
 
 To run the website:
 - $python3 webapp.py perlman.mathcs.carleton.edu <PORT-NUMBER>
+
 webapp.py is located in the Webpages folder
 
+Current interactive feature is in the "For Host" part of our website.
+We ask the user for a host id and then displays them relevant information of
+their listings and listings of the same room type in the same neighborhood
 
 Contents:
 - Personas: directory, contains all personas developed for this project
