@@ -24,20 +24,17 @@
       <p class="opening">
         Gain valuable insights into the performance of over 40 thousands airbnb houses across New York City. This site allows travellers, Airbnb host and people who work in the tourism industry to choose a satisfying housing and better understand the critical trends of Airbnb housing market in New York City in a easy and straight-forward manner.
       </p>
-      <img src="airbnb.png" alt="A logo of Airbnb" style="border-radius: 50%;" class="opening">
+      <img src="{{ url_for('static', filename='airbnb.png') }}" alt="A logo of Airbnb" style="border-radius: 50%;" class="opening">
     </section>
     <div id = "audiences">
       <div class = "audience">
         <h2><a href="{{ url_for('hostSearch') }}" class="change">Hosts</a></h3>
         <ul>
           <li>
-            Figuring out the popular locations by neighborhoods
+            Understanding performance of similar listings
           </li>
           <li>
             Getting knowledge of reasonable prices within current neighborhoods
-          </li>
-          <li>
-            Popular styles, e.g. number of rooms and requirements for renters
           </li>
         </ul>
       </div>
