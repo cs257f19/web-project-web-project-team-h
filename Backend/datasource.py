@@ -465,6 +465,7 @@ class Listing:
         if self.listing_name is None:
             print("Listing name is not available for this listing.")
             return "Unavailable listing name"
+        self.listing_name = self.listing_name.replace('\n','')
         return self.listing_name
 
     def getHostId(self):
