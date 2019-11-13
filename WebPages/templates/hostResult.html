@@ -34,6 +34,7 @@
             <input type="submit" value="Back to Host Search" />
           </form>
         <h1 class="heading">Result</h1>
+          {% if results %}
         <div class="user_info">
           <p>Host ID: {{ results[0].getHostId() }}</p>
           <p>Host name: {{ results[0].getHostName() }}</p>
@@ -86,6 +87,11 @@
         }
         var marker = L.marker([51.5, -0.09]).addTo(mymap);
     </script>
+    {% else %}
+    <p><strong>Please enter a valid host name and host id!</strong></p>
+    </div>
+    </section>
+
 {% endfor %}
 </body>
 </html>
