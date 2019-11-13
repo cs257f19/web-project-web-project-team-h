@@ -33,8 +33,8 @@
           <form action="{{ url_for('hostSearch') }}">
             <input type="submit" value="Back to Host Search" />
           </form>
-        <h1 class="heading">Result</h1>
           {% if results %}
+        <h1 class="heading">Result</h1>
         <div class="user_info">
           <p>Host ID: {{ results[0].getHostId() }}</p>
           <p>Host name: {{ results[0].getHostName() }}</p>
