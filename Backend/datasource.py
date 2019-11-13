@@ -517,7 +517,7 @@ class Listing:
         '''
         Returns the neighbourhood area for the given listing.
 
-        PARAMETERS:
+        PARAMETERS:prices of listings in Kensing ar
             None
 
         RETURN:
@@ -549,7 +549,7 @@ class Listing:
 
         PARAMETERS:
             None
-
+prices of listings in Kensing ar
         RETURN:
             the longitude for the given listing.
         '''
@@ -597,7 +597,7 @@ class Listing:
 
         RETURN:
             the number of reviews for the given listing.
-        '''
+s of listings in Kensing ar       '''
         if self.num_reviews is None:
             print("Number of reviews for this listing not available.")
             return 0
@@ -608,7 +608,7 @@ class Listing:
         Returns the minimum nights required to stay for the given listing.
 
         PARAMETERS:
-            None
+            Noneprices of listings in Kensing ar
 
         RETURN:
             the minimum nights required to stay for the given listing.
@@ -740,4 +740,4 @@ def main():
     # Disconnect from database
     query.disconnect()
 
-main()
+#main()
