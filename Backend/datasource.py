@@ -421,7 +421,6 @@ class Listing:
         RETURN:
             None
         '''
-
         self.listing_id = listing_tuple[0]
         self.listing_name = listing_tuple[1]
         self.host_id = listing_tuple[2]
@@ -549,7 +548,7 @@ class Listing:
 
         PARAMETERS:
             None
-prices of listings in Kensing ar
+
         RETURN:
             the longitude for the given listing.
         '''
@@ -597,7 +596,7 @@ prices of listings in Kensing ar
 
         RETURN:
             the number of reviews for the given listing.
-s of listings in Kensing ar       '''
+        '''
         if self.num_reviews is None:
             print("Number of reviews for this listing not available.")
             return 0
@@ -608,7 +607,7 @@ s of listings in Kensing ar       '''
         Returns the minimum nights required to stay for the given listing.
 
         PARAMETERS:
-            Noneprices of listings in Kensing ar
+            None
 
         RETURN:
             the minimum nights required to stay for the given listing.
