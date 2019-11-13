@@ -84,8 +84,8 @@ section {
   display: flex;
 }
 
-.data .dataviz {
-  flex: 2;
+div.data div.dataviz {
+  flex: 1.2;
 }
 
 
