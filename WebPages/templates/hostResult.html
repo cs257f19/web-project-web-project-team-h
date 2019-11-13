@@ -87,11 +87,13 @@
         }
         var marker = L.marker([51.5, -0.09]).addTo(mymap);
     </script>
-    {% else %}
+
+
+{% endfor %}
+{% else %}
     <p><strong>Please enter a valid host name and host id!</strong></p>
     </div>
     </section>
-
-{% endfor %}
+{% endif %}
 </body>
 </html>
