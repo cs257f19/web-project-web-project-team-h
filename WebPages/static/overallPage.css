@@ -72,10 +72,10 @@ section {
   padding: 20px;
 }
 
-#info {
+.info {
   display: flex;
 }
 
-#info div{
+.info div{
   flex:1;
 }
