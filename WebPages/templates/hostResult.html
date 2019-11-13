@@ -69,7 +69,7 @@
        locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
        "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
        "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
-       ,"{{ listing.getNumAvailableDays() }}"])
+       "{{ listing.getNumAvailableDays() }}"])
        {% endfor %}
        var arrLen = locations.length;
        var customOptions = {
