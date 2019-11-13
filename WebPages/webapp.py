@@ -9,22 +9,31 @@ app= flask.Flask(__name__)
 
 @app.route('/')
 def homePage():
+    '''
+    Return homePage.html
+    '''
     return render_template('homePage.html')
 
 @app.route('/data')
 def dataPage():
+    '''
+    Return dataPage.html
+    '''
     return render_template('dataPage.html')
-
-# @app.route('/hostSearch')
-# def hostSearch():
-#     return render_template('hostPage.html')
 
 @app.route('/hostSearch')
 def hostSearch():
-   return render_template('hostPage.html')
+    '''
+    Return hostSearch.html
+    '''
+    return render_template('hostPage.html')
 
 @app.route('/hostResult',methods = ['POST', 'GET'])
 def hostResult():
+    '''
+    Get called when the submit button is clicked on hostPage.html
+    Return homeResult.html with data entered in hostPage.html
+    '''
     if request.method == 'POST':
         result = request.form
         db = DataSource()
@@ -35,6 +44,9 @@ def hostResult():
 
 @app.route('/overall')
 def overall():
+    '''
+    Return overallPage.html
+    '''
     return render_template('overallPage.html')
 
 if __name__=='__main__':
