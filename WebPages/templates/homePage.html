@@ -17,7 +17,7 @@
       <a href="{{ url_for('dataPage') }}" class="change">About the Data</a>
       <a href="{{ url_for('overall') }}" class="change">Visualize Data</a>
       <a href="{{ url_for('hostSearch') }}" class="change">For Hosts</a>
-      <a href="#" class="change">Contact</a>
+      <a href="{{ url_for('listingSearch') }}" class="change">Listing Search</a>
     </nav>
   </header>
   <section>
@@ -28,7 +28,7 @@
   </section>
   <div id = "audiences">
     <div class = "audience">
-      <h2><a href="{{ url_for('hostSearch') }}" class="change">Hosts</a></h3>
+      <h2><a href="{{ url_for('hostSearch') }}" class="change">Hosts</a></h2>
         <ul>
           <li>
             Understanding performance of similar listings
@@ -39,7 +39,7 @@
         </ul>
       </div>
       <div class = "audience">
-        <h2><a href="#" class="change">Tourists</a></h3>
+        <h2><a href="#" class="change">Tourists</a></h2>
           <ul>
             <li>
               Reviewing the popular housing and availability to figure out where to stay
@@ -53,7 +53,7 @@
           </ul>
         </div>
         <div class = "audience">
-          <h2><a href="#" class="change">Business Owner</a></h3>
+          <h2><a href="#" class="change">Business Owner</a></h2>
             <ul>
               <li>
                 Knowing average price of neighborhoods to determine the location of their target customers
@@ -61,7 +61,7 @@
             </ul>
           </div>
           <div class = "audience">
-            <h2><a href="{{ url_for('overall') }}" class="change">Investigators/ Researchers</a></h3>
+            <h2><a href="{{ url_for('overall') }}" class="change">Investigators/ Researchers</a></h2>
               <ul>
                 <li>
                   Knowing trends of pricing according to neighborhood variation

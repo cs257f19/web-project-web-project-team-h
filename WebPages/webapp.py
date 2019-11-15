@@ -28,6 +28,13 @@ def hostSearch():
     '''
     return render_template('hostPage.html')
 
+@app.route('/listingSearch')
+def listingSearch():
+    '''
+    Return hostSearch.html
+    '''
+    return render_template('searchPage.html')
+
 @app.route('/hostResult',methods = ['POST', 'GET'])
 def hostResult():
     '''
@@ -47,7 +54,23 @@ def overall():
     '''
     Return overallPage.html
     '''
-    return render_template('overallPage.html')
+    db = DataSource()
+    db.connect('qine', 'ruby434seal')
+
+    average_reviews_per_month = db.getAverageNumOfReviews()/12
+    total_reviews = db.getTotalReviews()
+    average_price = db.getAveragePriceNbh()
+
+    average_availability = db.getAverageAvailability()
+
+    entire_home_count = db.getCertainRoomTypeCount('Entire home/apt')
+    private_room_count = db.getCertainRoomTypeCount('Private room')
+    private_room_count = db.getCertainRoomTypeCount('Shared room')
+
+    #host_single_count = db.??
+    #host_multiple_count = db.??
+
+    return render_template('overallPage.html', database=db)
 
 if __name__=='__main__':
     if len(sys.argv) != 3:

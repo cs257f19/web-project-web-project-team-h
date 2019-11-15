@@ -119,12 +119,6 @@ font-size: 21px;
   margin-left: 50px;
 }
 
-/*#mapid {
-  margin:100px auto;
-  padding: 20px;
-  width:80%;
-}*/
-
 .mapSection #mapid{
   margin: 30px 0 0 0;
 }
@@ -150,4 +144,8 @@ input[type=submit] {
 
 h2, .leaflet-popup-content .popup p strong {
   color: #00A699;
+}
+
+.mapid {
+  height:375px;
 }
