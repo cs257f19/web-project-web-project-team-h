@@ -50,7 +50,6 @@ def hostResult():
         return render_template('hostResult.html',results=host_info, database=db)
 
 @app.route('/listingResult',methods = ['POST', 'GET'])
-@app.route('/listingResult')
 def listingResult():
     '''
     Return listingResult.html
