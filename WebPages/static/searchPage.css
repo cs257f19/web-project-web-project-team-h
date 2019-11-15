@@ -88,6 +88,7 @@ input[type=submit] {
   margin:10px 0;
 }
 
-#mapid {
+.mapid {
+  position: relative;
   height: 700px;
 }
