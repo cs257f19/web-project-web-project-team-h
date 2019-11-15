@@ -277,7 +277,7 @@ class DataSource:
 
     def getAllListings(self, neighbourhood_group, room_type, price_range):
         '''
-        Returns a list of tuples of listings' information given the
+        Returns a list of Listing objects that contains listing info given the
         neighbourhood borough and the room type and a tuple of price range
         Audience: tourists, investigators/researchers
 
@@ -287,22 +287,22 @@ class DataSource:
             price_range - minimum and maximum accepting price
 
         RETURN:
-            a list of tuples of listings' information given the neighbourhood
-            borough and the room type and the price range, or None if the query
-            fails
+            a list of Listing objects that contains listing info given the 
+            neighbourhood borough and the room type and the price range, 
+            or None if the query fails
         '''
         try:
             cursor = self.connection.cursor()
             min_price = price_range[0]
             max_price = price_range[1]
+            print('min p', min_price)
             query = "SELECT * FROM airbnb where neighbourhood_group = \'" + \
                     str(neighbourhood_group) + "\' and room_type = \'" + \
                     str(room_type) + "\' and price > " + str(min_price) + \
                     " and price < " + str(max_price)
+            print('query', query)
             cursor.execute(query)
             listing_tuples = cursor.fetchall()
-            assert len(listing_tuples)==1, \
-                   'the listing id does not exist or is not unique'
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
             return listings
         except Exception as e:
@@ -810,11 +810,13 @@ def main():
             print(item)
 
     #all_listing = query.getAllListings("Brooklyn", "Private room", (95, 150))
-    '''
+    
     single, multiple = query.getSingleMultipleListing()
     print(single)
     print(multiple)
+    '''
 
+    all_listing = query.getAllListings("Brooklyn", "Private room", (95, 150))
 
 
     # Disconnect from database
