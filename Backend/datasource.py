@@ -240,6 +240,9 @@ class DataSource:
                 listing_num[num] += 1
 
             return listing_num
+        except Exception as e:
+            print("Something went wrong when executing the query:", e)
+            return None
 
     def getHostSingleListingPct(self):
         '''
