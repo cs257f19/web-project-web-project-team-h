@@ -259,7 +259,8 @@ class DataSource:
                         "neighbourhood_group = \'" + str(neighbourhood_group) + \
                         "\' and room_type = \'" + str(room_type) + "\'"
             cursor.execute(query)
-            return float(cursor.fetchall()[0][0])
+            average = float(cursor.fetchall()[0][0])
+            return round(average, 2)
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
@@ -287,7 +288,8 @@ class DataSource:
                         "neighbourhood_group = \'" + str(neighbourhood_group) + \
                         "\' and room_type = \'" + str(room_type)+"\'"
             cursor.execute(query)
-            return float(cursor.fetchall()[0][0])
+            average = float(cursor.fetchall()[0][0])
+            return round(average, 2)
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
@@ -315,7 +317,8 @@ class DataSource:
                         "neighbourhood_group = \'" + str(neighbourhood_group) + \
                         "\' and room_type = \'" + str(room_type) + "\'"
             cursor.execute(query)
-            return float(cursor.fetchall()[0][0])
+            average = float(cursor.fetchall()[0][0])
+            return round(average, 2)
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
@@ -343,7 +346,8 @@ class DataSource:
                         "neighbourhood = \'" + str(neighbourhood) + \
                         "\' and room_type = \'" + str(room_type) + "\'"
             cursor.execute(query)
-            return cursor.fetchall()
+            average = float(cursor.fetchall()[0][0])
+            return round(average, 2)
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
