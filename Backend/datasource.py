@@ -234,14 +234,14 @@ class DataSource:
                 host_listings_num[host_id] += 1
 
             listing_num = {}
-            for host, num in host_listings_num:
+            for host, num in host_listings_num.items():
                 if num not in listing_num:
                     listing_num[num] = 0
                 listing_num[num] += 1
 
             return listing_num
         except Exception as e:
-            print("Something went wrong when executing the query:", e)
+            print("Something went wrong when getting the number of listing for hosts:", e)
             return None
 
     def getSingleMultipleListing(self):
@@ -768,7 +768,7 @@ def main():
     #     print("Availability info query results: ")
     #     for item in availability:
     #         print(item)
-
+    '''
     num_reviews = query.getNumOfReviews(5295)
     if num_reviews is not None:
         print("Number of reviews for listing 5295 results:")
@@ -806,10 +806,14 @@ def main():
             print(item)
 
     #all_listing = query.getAllListings("Brooklyn", "Private room", (95, 150))
+    '''
+    single, multiple = query.getSingleMultipleListing()
+    print(single)
+    print(multiple)
 
 
 
     # Disconnect from database
     query.disconnect()
 
-#main()
+main()
