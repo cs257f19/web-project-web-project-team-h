@@ -240,25 +240,36 @@
 
     var maxNumListing = 0;
     var count = 1;
-console.log({{host_listings}});   
-        {% for key, value in host_listings.items() %}
-           if ({{key}}>maxNumListing) {
-               maxNumListing = {{key}};
-}
-	       hostListings[{{key}}]={{value}};
-        {% endfor %}
-console.log(maxNumListing);
-console.log(hostListings);
-
-    while (count<11){
-        if (count in hostListings){
-        listings.push({group:count,value:hostListings[count]});
-        }else{
-        listings.push({group:count,value:0});
-}
-        count += 1;
+    console.log({{host_listings}});   
+    {% for key, value in host_listings.items() %}
+    if ({{key}}>maxNumListing) {
+     maxNumListing = {{key}};
     }
-console.log(listings);
+    hostListings[{{key}}]={{value}};
+   {% endfor %}
+   console.log(maxNumListing);
+   console.log(hostListings);
+
+   while (count<11){
+    if (count in hostListings){
+      listings.push({group:count,value:hostListings[count]});
+    }else{
+      listings.push({group:count,value:0});
+    }
+    count += 1;
+  }
+  console.log(listings);
+  var data1 = [
+   {group: 0, value: 0},
+   {group: 1, value: 3339},
+   {group: 2, value: 1171},
+   {group: 3, value: 1171},
+   {group: 4, value: 11},
+   {group: 5, value: 24},
+   {group: 6, value: 51},
+   {group: 7, value: 91},
+   {group: 8, value: 17}
+];
     // set the dimensions and margins of the graph
     var margin = {top: 2, right: 2, bottom: 20, left: 40},
     width = 270 - margin.left - margin.right,
@@ -283,7 +294,7 @@ console.log(listings);
 
     // Add Y axis
     var y = d3.scaleLinear()
-    .domain([0, 33000])
+    .domain([0, 3400])
     .range([ height, 0]);
     svg3.append("g")
     .attr("class", "myYaxis")
