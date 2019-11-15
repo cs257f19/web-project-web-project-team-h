@@ -66,7 +66,7 @@ class DataSource:
             query = "SELECT number_of_reviews FROM airbnb where id = " + \
                     str(listing_id)
             cursor.execute(query)
-            return cursor.fetchall()
+            return cursor.fetchall()[0][0]
         except Exception as e:
             print ("Something went wrong when executing the query: ", e)
             return None
@@ -164,6 +164,27 @@ class DataSource:
         except Exception as e:
             print ("Something went wrong when executing the query: ", e)
             return None
+
+    def getAllListingOfType(self, room_type):
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT * FROM airbnb where room_type = \'" + \
+                    str(room_type) + "\'"
+            cursor.execute(query)
+            listing_tuples = cursor.fetchall()
+            listings = [Listing(a_tuple) for a_tuple in listing_tuples]
+            print("here")
+            return listings
+        except Exception as e:
+            print("Something went wrong when try to get listings for type:", e)
+            return None
+
+    def getListingsForAllType(self):
+        result = {}
+        result["Private"] = self.getAllListingOfType("Private room")
+        result["Shared"] = self.getAllListingOfType("Shared room")
+        result["Entire"] = self.getAllListingOfType("Entire home/apt")
+        return result
 
     def getListingInfo(self, listing_id):
         '''
@@ -814,8 +835,10 @@ def main():
     single, multiple = query.getSingleMultipleListing()
     print(single)
     print(multiple)
+    result = query.getListingsForAllType()
+    length = len(result["Private"])
+    print(length)
     '''
-
     all_listing = query.getAllListings("Brooklyn", "Private room", (95, 150))
 
 
