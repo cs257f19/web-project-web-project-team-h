@@ -49,6 +49,26 @@ def hostResult():
         host_info = db.getHostInfo(host_id)
         return render_template('hostResult.html',results=host_info, database=db)
 
+@app.route('/listingResult',methods = ['POST', 'GET'])
+@app.route('/listingResult')
+def listingResult():
+    '''
+    Return listingResult.html
+    '''
+    if request.method == 'POST':
+        result = request.form
+        host_id = result['id']
+        min_price = result['min price']
+        max_price = result['max price']
+        nbh_group = result['neighborhood group']
+        room_type = result['room type']
+        price_range = (min_price, max_price)
+
+        db = DataSource()
+        db.connect('qine', 'ruby434seal')
+        listings = db.getAllListings(nbh_group, room_type, price_range)
+        return render_template('searchResult.html', results=listings, database=db)
+
 @app.route('/overall')
 def overall():
     '''
@@ -65,12 +85,24 @@ def overall():
 
     entire_home_count = db.getCertainRoomTypeCount('Entire home/apt')
     private_room_count = db.getCertainRoomTypeCount('Private room')
-    private_room_count = db.getCertainRoomTypeCount('Shared room')
+    shared_room_count = db.getCertainRoomTypeCount('Shared room')
 
-    #host_single_count = db.??
-    #host_multiple_count = db.??
+    host_listings = db.getNumHostNumListing()
+    single_multiple_listings = db.getSingleMultipleListing()
+    host_single_count = single_multiple_listings[0]
+    host_multiple_count = single_multiple_listings[1]
 
-    return render_template('overallPage.html', database=db)
+    return render_template('overallPage.html', database=db,
+                            average_reviews_per_month=average_reviews_per_month,
+                            total_reviews=total_reviews,
+                            average_price=average_price,
+                            average_availability=average_availability,
+                            entire_home_count=entire_home_count,
+                            private_room_count=private_room_count,
+                            shared_room_count=shared_room_count,
+                            host_listings=host_listings,
+                            host_single_count=host_single_count,
+                            host_multiple_count=host_multiple_count)
 
 if __name__=='__main__':
     if len(sys.argv) != 3:
