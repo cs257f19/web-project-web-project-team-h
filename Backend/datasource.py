@@ -217,6 +217,30 @@ class DataSource:
             print("Something went wrong when executing the query:", e)
             return None
 
+    def getNumHostNumListing(self):
+        '''
+
+        '''
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT host_id FROM airbnb"
+            cursor.execute(query)
+            all_info = cursor.fetchall()
+            host_listings_num = {}
+            for host in all_info:
+                host_id = host[0]
+                if host_id not in host_listings_num:
+                    host_listings_num[host_id] = 0
+                host_listings_num[host_id] += 1
+
+            listing_num = {}
+            for host, num in host_listings_num:
+                if num not in listing_num:
+                    listing_num[num] = 0
+                listing_num[num] += 1
+
+            return listing_num
+
     def getHostSingleListingPct(self):
         '''
         Returns a float of percentage of hosts having only one listing
@@ -231,23 +255,13 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT host_id FROM airbnb"
+            query = "SELECT SUM(host_id) FROM airbnb"
             cursor.execute(query)
-            all_info = cursor.fetchall()
-            num_listings = {}
-            for host in all_info:
-                host_id = host[0]
-                if host_id not in num_listings:
-                    num_listings[host_id] = 0
-                num_listings[host_id] += 1
+            total = cursor.fetchall()[0][0]
+            listing_num = self.getNumHostNumListing()
+            single_listing = listing_num[1]
+            return float(single_listing/total)
 
-            count = 0
-            sum = 0
-            for host, num_listing in num_listings:
-                sum += 1
-                if num_listing == 1:
-                    count +=1
-            return count/sum
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
@@ -282,7 +296,7 @@ class DataSource:
             print("Something went wrong when executing the query:", e)
             return None
 
-    def getAverageAvailability(self, neighbourhood_group, room_type):
+    def getAverageAvailability(self, neighbourhood_group=None, room_type=None):
         '''
         Returns the average available nights for listings given the
         neighbourhood borough and room type.
@@ -298,16 +312,19 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT AVG(availability_365) FROM airbnb where " + \
-                    "neighbourhood_group = \'" + str(neighbourhood_group) + \
-                    "\' and room_type = \'" + str(room_type) + "\'"
+            if neighbourhood_group is None and room_type is None:
+                query = "SELECT AVG(availability_365) FROM airbnb"
+            else:
+                query = "SELECT AVG(availability_365) FROM airbnb where " + \
+                        "neighbourhood_group = \'" + str(neighbourhood_group) + \
+                        "\' and room_type = \'" + str(room_type) + "\'"
             cursor.execute(query)
-            return cursor.fetchall()
+            return float(cursor.fetchall()[0][0])
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
 
-    def getAverageNumOfReviews(self, neighbourhood_group, room_type):
+    def getAverageNumOfReviews(self, neighbourhood_group=None, room_type=None):
         '''
         Returns the average number of reviews for listings given the
         neighbourhood borough and room type.
@@ -323,16 +340,19 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT AVG(number_of_reviews) FROM airbnb where " + \
-                    "neighbourhood_group = \'" + str(neighbourhood_group) + \
-                    "\' and room_type = \'" + str(room_type)
+            if neighbourhood_group is None and room_type is None:
+                query = "SELECT AVG(number_of_reviews) FROM airbnb"
+            else:
+                query = "SELECT AVG(number_of_reviews) FROM airbnb where " + \
+                        "neighbourhood_group = \'" + str(neighbourhood_group) + \
+                        "\' and room_type = \'" + str(room_type)+"\'"
             cursor.execute(query)
-            return cursor.fetchall()
+            return float(cursor.fetchall()[0][0])
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
 
-    def getAveragePriceNbhGroup(self, neighbourhood_group, room_type):
+    def getAveragePriceNbhGroup(self, neighbourhood_group=None, room_type=None):
         '''
         Returns the average price for listings given the neighbourhood borough
         and room type.
@@ -348,16 +368,19 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT AVG(price) FROM airbnb where " + \
-                    "neighbourhood_group = \'" + str(neighbourhood_group) + \
-                    "\' and room_type = \'" + str(room_type)
+            if neighbourhood_group is None and room_type is None:
+                query = "SELECT AVG(price) FROM airbnb"
+            else:
+                query = "SELECT AVG(price) FROM airbnb where " + \
+                        "neighbourhood_group = \'" + str(neighbourhood_group) + \
+                        "\' and room_type = \'" + str(room_type) + "\'"
             cursor.execute(query)
-            return cursor.fetchall()
+            return float(cursor.fetchall()[0][0])
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
 
-    def getAveragePriceNbh(self, neighbourhood, room_type):
+    def getAveragePriceNbh(self, neighbourhood=None, room_type=None):
         '''
         Returns the average price for listings given the neighbourhood area
         and room type.
@@ -373,11 +396,38 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT AVG(price) FROM airbnb where " + \
-                    "neighbourhood = \'" + str(neighbourhood) + \
-                    "\' and room_type = \'" + str(room_type)
+            if neighbourhood is None and room_type is None:
+                query = "SELECT AVG(price) FROM airbnb"
+            else:
+                query = "SELECT AVG(price) FROM airbnb where " + \
+                        "neighbourhood = \'" + str(neighbourhood) + \
+                        "\' and room_type = \'" + str(room_type) + "\'"
             cursor.execute(query)
             return cursor.fetchall()
+        except Exception as e:
+            print("Something went wrong when executing the query:", e)
+            return None
+
+    def getCertainRoomTypeCount(self, room_type):
+        '''
+        Helper function for getRoomTypeForAll(self)
+        '''
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT COUNT(id) FROM airbnb where room_type = \'" + \
+                    str(room_type) + "\'"
+            cursor.execute(query)
+            return cursor.fetchall()[0][0]
+        except Exception as e:
+            print("Something went wrong when executing the query:", e)
+            return None
+
+    def getTotalReviews(self):
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT SUM(number_of_reviews) FROM airbnb"
+            cursor.execute(query)
+            return cursor.fetchall()[0][0]
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
