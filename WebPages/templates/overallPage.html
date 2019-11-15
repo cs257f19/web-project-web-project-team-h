@@ -236,6 +236,7 @@
   <script>
     // create 2 data_set
     var listings = [];
+    var hostListings = {};
 
     var maxNumListing = 0;
     var count = 1;
@@ -243,16 +244,18 @@ console.log({{host_listings}});
         {% for key, value in host_listings.items() %}
            if ({{key}}>maxNumListing) {
                maxNumListing = {{key}};
-           }
+}
+	       hostListings[{{key}}]={{value}};
         {% endfor %}
 console.log(maxNumListing);
-    while (count<11){console.log(count);console.log({{host_listings.get(count)}});
-        {% if host_listings.count is defined %}
-        listings.push(group:count,value:{{host_listings.get(count)}});
-        {% else %}
-console.log("a");
+console.log(hostListings);
+
+    while (count<11){
+        if (count in hostListings){
+        listings.push({group:count,value:hostListings[count]});
+        }else{
         listings.push({group:count,value:0});
-        {% endif %}
+}
         count += 1;
     }
 console.log(listings);
@@ -280,7 +283,7 @@ console.log(listings);
 
     // Add Y axis
     var y = d3.scaleLinear()
-    .domain([0, 30])
+    .domain([0, 33000])
     .range([ height, 0]);
     svg3.append("g")
     .attr("class", "myYaxis")
