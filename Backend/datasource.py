@@ -294,7 +294,11 @@ class DataSource:
                     str(room_type) + "\' and price > " + str(min_price) + \
                     " and price < " + str(max_price)
             cursor.execute(query)
-            return cursor.fetchall()
+            listing_tuples = cursor.fetchall()
+            assert len(listing_tuples)==1, \
+                   'the listing id does not exist or is not unique'
+            listings = [Listing(a_tuple) for a_tuple in listing_tuples]
+            return listings
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
