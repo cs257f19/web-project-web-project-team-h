@@ -56,7 +56,6 @@ def listingResult():
     '''
     if request.method == 'POST':
         result = request.form
-        host_id = result['id']
         min_price = result['min price']
         max_price = result['max price']
         nbh_group = result['neighborhood group']
