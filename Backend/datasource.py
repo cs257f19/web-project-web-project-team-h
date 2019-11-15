@@ -244,6 +244,20 @@ class DataSource:
             print("Something went wrong when executing the query:", e)
             return None
 
+    def getSingleMultipleListing(self):
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT COUNT(host_id) FROM airbnb"
+            cursor.execute(query)
+            total = cursor.fetchall()[0][0]
+            listing_num = self.getNumHostNumListing()
+            single_listing = listing_num[1]
+            multiple_listing = total - single_listing
+            return (single_listing, multiple_listing)
+        except Exception as e:
+            print("Something went wrong when executing get single and multiple listing:", e)
+            return None
+
     def getHostSingleListingPct(self):
         '''
         Returns a float of percentage of hosts having only one listing
@@ -256,18 +270,10 @@ class DataSource:
             a float of percentage of hosts having only one listing, or None if
             the query fails
         '''
-        try:
-            cursor = self.connection.cursor()
-            query = "SELECT SUM(host_id) FROM airbnb"
-            cursor.execute(query)
-            total = cursor.fetchall()[0][0]
-            listing_num = self.getNumHostNumListing()
-            single_listing = listing_num[1]
-            return float(single_listing/total)
-
-        except Exception as e:
-            print("Something went wrong when executing the query:", e)
-            return None
+        single, multiple = self.getSingleMultipleListing()
+        total = single + multiple
+        percentage = float(single/total)
+        return percentage
 
     def getAllListings(self, neighbourhood_group, room_type, price_range):
         '''
