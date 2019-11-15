@@ -239,23 +239,23 @@
 
     var maxNumListing = 0;
     var count = 1;
-
-    {% for listing in host_listings %}
-        {% for key, value in listing.items() %}
-           if (key>maxNumListing) {
-               maxNumListing = key;
+console.log({{host_listings}});   
+        {% for key, value in host_listings.items() %}
+           if ({{key}}>maxNumListing) {
+               maxNumListing = {{key}};
            }
         {% endfor %}
-    {% endfor %}
-
-    while (count<maxNumListing){
-        {% if count in host_listings %}
-        listings.push({group:count,value:host_listing[count]});
+console.log(maxNumListing);
+    while (count<11){console.log(count);console.log({{host_listings.get(count)}});
+        {% if host_listings.count is defined %}
+        listings.push(group:count,value:{{host_listings.get(count)}});
         {% else %}
+console.log("a");
         listings.push({group:count,value:0});
         {% endif %}
         count += 1;
     }
+console.log(listings);
     // set the dimensions and margins of the graph
     var margin = {top: 2, right: 2, bottom: 20, left: 40},
     width = 270 - margin.left - margin.right,
