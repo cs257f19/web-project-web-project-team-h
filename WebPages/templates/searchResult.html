@@ -23,8 +23,8 @@
     <nav>
       <a href="{{ url_for('dataPage') }}" class="change">About the Data</a>
       <a href="{{ url_for('overall') }}" class="change">Visualize Data</a>
-      <a href="{{ url_for('hostSearch') }}" class="change active-page">For Hosts</a>
-      <a href="{{ url_for('listingSearch') }}" class="change">Listing Search</a>
+      <a href="{{ url_for('hostSearch') }}" class="change">For Hosts</a>
+      <a href="{{ url_for('listingSearch') }}" class="change active-page">Listing Search</a>
     </nav>
   </header>
 
@@ -35,34 +35,32 @@
 
 {% for listing in results %}
 <script>
-   var mymap = L.map('{{ listing.getListingId() }}').setView([40.720610, -73.975242], 10);
-   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
-     attribution: '',
-     maxZoom: 18,
-     id: 'mapbox.streets',
-     accessToken: 'your.mapbox.access.token'
-   }).addTo(mymap);
-   var locations = [];
-
-   locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
-     "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
-     "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
-     "{{ listing.getNumAvailableDays() }}"])
-
-   var arrLen = locations.length;
-   var customOptions = {
-     'maxWidth': '500',
-     'className': 'custom'
-   }
-   for (var i = 0; i < locations.length; i++) {
-     var customPopup = "<div class='popup'><p><strong>"+locations[i][3]+"</strong></p><p>"+locations[i][4]+"</p>" +
-     "<p>"+locations[i][5]+"</p><p>"+locations[i][6]+"</p>" +
-     "<p><u>$"+locations[i][7]+"</u>/night</p><p><u>"+locations[i][8]+"</u> night minimum</p>"  +
-     "<p><u>"+locations[i][9]+"</u> reviews/month</p><p>Available <u>"+locations[i][10]+"</u> days"+"/year </p></div>";
-     var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
-     marker.bindPopup(customPopup,customOptions);
-   }
- </script>
+ var mymap = L.map('{{ result.getListingId() }}').setView([40.720610, -73.975242], 10);
+ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
+   attribution: '',
+   maxZoom: 18,
+   id: 'mapbox.streets',
+   accessToken: 'your.mapbox.access.token'
+ }).addTo(mymap);
+ var locations = [];
+ locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
+   "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
+   "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
+   "{{ listing.getNumAvailableDays() }}"])
+ var arrLen = locations.length;
+ var customOptions = {
+   'maxWidth': '500',
+   'className': 'custom'
+ }
+ for (var i = 0; i < locations.length; i++) {
+   var customPopup = "<div class='popup'><p><strong>"+locations[i][3]+"</strong></p><p>"+locations[i][4]+"</p>" +
+   "<p>"+locations[i][5]+"</p><p>"+locations[i][6]+"</p>" +
+   "<p><u>$"+locations[i][7]+"</u>/night</p><p><u>"+locations[i][8]+"</u> night minimum</p>"  +
+   "<p><u>"+locations[i][9]+"</u> reviews/month</p><p>Available <u>"+locations[i][10]+"</u> days"+"/year </p></div>";
+   var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
+   marker.bindPopup(customPopup,customOptions);
+ }
+</script>
  {% endfor %}
 </body>
 </html>
