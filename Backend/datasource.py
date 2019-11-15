@@ -317,7 +317,7 @@ class DataSource:
             min_price = price_range[0]
             max_price = price_range[1]
             query = "SELECT * FROM airbnb where neighbourhood_group = \'" + \
-                    str(neighbourhood) + "\' and room_type = \'" + \
+                    str(neighbourhood_group) + "\' and room_type = \'" + \
                     str(room_type) + "\' and price > " + str(min_price) + \
                     " and price < " + str(max_price)
             cursor.execute(query)
