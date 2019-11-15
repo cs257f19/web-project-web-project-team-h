@@ -93,11 +93,16 @@ def overall():
     host_multiple_count = single_multiple_listings[1]
 
     return render_template('overallPage.html', database=db,
-                            average_reviews_per_month, total_reviews,
-                            average_price, average_availability,
-                            entire_home_count, private_room_count,
-                            shared_room_count, host_listings, host_single_count,
-                            host_multiple_count)
+                            average_reviews_per_month=average_reviews_per_month,
+                            total_reviews=total_reviews,
+                            average_price=average_price,
+                            average_availability=average_availability,
+                            entire_home_count=entire_home_count,
+                            private_room_count=private_room_count,
+                            shared_room_count=shared_room_count,
+                            host_listings=host_listings,
+                            host_single_count=host_single_count,
+                            host_multiple_count=host_multiple_count)
 
 if __name__=='__main__':
     if len(sys.argv) != 3:
