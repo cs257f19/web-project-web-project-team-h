@@ -91,6 +91,11 @@ def overall():
     host_single_count = single_multiple_listings[0]
     host_multiple_count = single_multiple_listings[1]
 
+    type_listings = db.getListingsForAllType()
+    private_listings_list = type_listings['Private']
+    shared_listings_list = type_listing['Shared']
+    entire_listings_list = type_listing['Entire']
+
     return render_template('overallPage.html', database=db,
                             average_reviews_per_month=average_reviews_per_month,
                             total_reviews=total_reviews,
@@ -101,7 +106,10 @@ def overall():
                             shared_room_count=shared_room_count,
                             host_listings=host_listings,
                             host_single_count=host_single_count,
-                            host_multiple_count=host_multiple_count)
+                            host_multiple_count=host_multiple_count,
+                            private_listings_list=private_listings_list,
+                            shared_listings_list=shared_listings_list,
+                            entire_listings_list=entire_listings_list)
 
 if __name__=='__main__':
     if len(sys.argv) != 3:
