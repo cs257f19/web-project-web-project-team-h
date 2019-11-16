@@ -76,7 +76,7 @@ def overall():
     db = DataSource()
     db.connect('qine', 'ruby434seal')
 
-    average_reviews_per_month = db.getAverageNumOfReviews()/12
+    average_reviews_per_month = round(db.getAverageNumOfReviews()/12, 2)
     total_reviews = db.getTotalReviews()
     average_price = db.getAveragePriceNbh()
 
