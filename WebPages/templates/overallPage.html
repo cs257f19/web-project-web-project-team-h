@@ -41,13 +41,12 @@
       <p>Airbnb guests may leave a review after their stay, and these can be used as an indicator of airbnb
       activity (although not all guests leave a review, so the actual booking activity would be much higher).</p>
       <div class="data">
-        <div id="my_dataviz" class="dataviz"></div>
+        <div id="activity_dataviz" class="dataviz"></div>
         <div>
           <ul>
-            <li>Average 112 nights/year</li>
-            <li>On average 1.1{{ average_reviews_per_month }} reviews/listing/month</li>
-            <li>Total 1,143,036{{ total_reviews }} reviews</li>
-            <li>On average $151{{ average_price }} price/nigh</li>
+            <li>On average {{ average_reviews_per_month }} reviews/listing/month</li>
+            <li>Total {{ total_reviews }} reviews</li>
+            <li>On average ${{ average_price }} price/nigh</li>
           </ul>
         </div>
       </div>
@@ -56,12 +55,12 @@
       <h3>Room Type</h3>
       <p>Airbnb hosts can list entire homes/apartments, private or shared rooms.</p>
       <div class="data">
-        <div id="my_dataviz1" class="dataviz"></div>
+        <div id="room_type_dataviz" class="dataviz"></div>
         <div>
           <ul>
-            <li>25296{{ entire_home_count }} entire home/apartments</li>
-            <li>22397{{ private_room_count }} private roome</li>
-            <li>1171{{ shared_room_count }} shared rooms</li>
+            <li>{{ entire_home_count }} entire home/apartments</li>
+            <li>{{ private_room_count }} private roome</li>
+            <li>{{ shared_room_count }} shared rooms</li>
           </ul>
         </div>
       </div>
@@ -73,10 +72,10 @@
       <p>An Airbnb host can setup a calendar for their listing so that it is only available for a few days or weeks a year.
       Somel listings are available all year round.</p>
       <div class="data">
-        <div id="my_dataviz2" class="dataviz"></div>
+        <div id="availability_dataviz" class="dataviz"></div>
         <div>
           <ul>
-            <li>On average 112.5{{ average_availability }} days/year</li>
+            <li>On average {{ average_availability }} days/year</li>
           </ul>
         </div>
       </div>
@@ -86,11 +85,11 @@
       <p>Some Airbnb hosts have multiple listings.
       A host may list separate rooms in the same apartment, or multiple apartments or homes available in their entirity.</p>
       <div class="data">
-        <div id="my_dataviz3" class="dataviz"></div>
+        <div id="listing_per_host_dataviz" class="dataviz"></div>
         <div>
           <ul>
-            <li>32203{{ host_single_count }}hosts with single listings</li>
-            <li>16661{{ host_multiple_count }}hosts with multi listings</li>
+            <li>{{ host_single_count }}hosts with single listings</li>
+            <li>{{ host_multiple_count }}hosts with multi listings</li>
           </ul>
         </div>
       </div>
@@ -185,7 +184,7 @@
     height = 120 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3.select("#my_dataviz1")
+    var svg = d3.select("#room_type_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -240,13 +239,13 @@
 
     var maxNumListing = 0;
     var count = 2;
-    console.log({{host_listings}});   
+    console.log({{host_listings}});
     {% for key, value in host_listings.items() %}
     if ({{key}}>maxNumListing) {
      maxNumListing = {{key}};
     }
     hostListings[{{key}}]={{value}};
-   {% endfor %}
+    {% endfor %}
 
    while (count<11){
     if (count in hostListings){
@@ -255,7 +254,7 @@
       listings.push({group:count,value:0});
     }
     count += 1;
-  }
+    }
 
     // set the dimensions and margins of the graph
     var margin = {top: 2, right: 2, bottom: 20, left: 40},
@@ -263,7 +262,7 @@
     height = 120 - margin.top - margin.bottom;
 
     // append the svg3 object to the body of the page
-    var svg3 = d3.select("#my_dataviz3")
+    var svg3 = d3.select("#listing_per_host_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)

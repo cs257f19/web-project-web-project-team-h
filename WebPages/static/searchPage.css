@@ -92,3 +92,8 @@ input[type=submit] {
   position: relative;
   height: 700px;
 }
+
+.heading{
+  font-size:30px;
+  color:#00A699;
+}
