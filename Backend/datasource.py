@@ -98,6 +98,12 @@ class DataSource:
             return None
 
     def getAllListingOfType(self, room_type):
+        '''
+        Returns a list of listing objects of given room room_type.
+        Helper function for self.getListingsForAllType()
+
+
+        '''
         try:
             cursor = self.connection.cursor()
             query = "SELECT * FROM airbnb where room_type = \'" + \
@@ -224,8 +230,8 @@ class DataSource:
             max_price = price_range[1]
             query = "SELECT * FROM airbnb where neighbourhood_group = \'" + \
                     str(neighbourhood_group) + "\' and room_type = \'" + \
-                    str(room_type) + "\' and price > " + str(min_price) + \
-                    " and price < " + str(max_price)
+                    str(room_type) + "\' and price >= " + str(min_price) + \
+                    " and price <= " + str(max_price)
             cursor.execute(query)
             listing_tuples = cursor.fetchall()
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
