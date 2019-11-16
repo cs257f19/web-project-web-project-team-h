@@ -96,6 +96,8 @@ def overall():
     shared_listings_list = type_listings['Shared']
     entire_listings_list = type_listings['Entire']
 
+    availability_dict = db.getAllAvailability()
+
     return render_template('overallPage.html', database=db,
                             average_reviews_per_month=average_reviews_per_month,
                             total_reviews=total_reviews,
@@ -109,7 +111,8 @@ def overall():
                             host_multiple_count=host_multiple_count,
                             private_listings_list=private_listings_list,
                             shared_listings_list=shared_listings_list,
-                            entire_listings_list=entire_listings_list)
+                            entire_listings_list=entire_listings_list,
+                            availability_dict=availability_dict)
 
 if __name__=='__main__':
     if len(sys.argv) != 3:
