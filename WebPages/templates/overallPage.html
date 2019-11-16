@@ -88,8 +88,8 @@
         <div id="listing_per_host_dataviz" class="dataviz"></div>
         <div>
           <ul>
-            <li>{{ host_single_count }}hosts with single listings</li>
-            <li>{{ host_multiple_count }}hosts with multi listings</li>
+            <li>{{ host_single_count }} hosts with single listings</li>
+            <li>{{ host_multiple_count }} hosts with multi listings</li>
           </ul>
         </div>
       </div>
@@ -133,20 +133,29 @@
    maxZoom: 18,
    id: 'mapbox.streets',
    accessToken: 'your.mapbox.access.token'
- }).addTo(mymap);
-  var locations = [["Clean & quiet apt home by the park", 40.64749, -73.97237],
-  ["Large and Cozy Private Bedroom", 40.64106, -73.97426],
-  ["SUPER BIG AND COZY PRIVATE BEDROOM", 40.64302, -73.97255],
-  ["Private clean pleasant spacious room.", 40.64277, -73.97296],
-  ["QUIET, SPACIOUS, COMFORTABLE, & GREAT LOCATION", 40.64573, -73.98013],
-  ["Vintage Chic Haven in Kensington, Brooklyn", 40.63547, -73.97417],
-  ["private spacious sunny bedroom", 40.63381, -73.9714],
-  ["Cozy Retreat in Brooklyn Apartment", 40.6412, -73.9786],
-  ["Welcome to Kensington", 40.63402, -73.97556],
-  ["Two Porches & Private Room", 40.6413, -73.98233]
-  ];
-       // create popup contents
-       var customPopup = "<p><strong>Name</strong></p><strong>Listing ID</strong><p>neigiboorhood</p><p>neighborhood group</p><p>room type</p><strong>price</strong></p>minimum night</p><p>revieus per month</p><p>Availability</p>";
+  }).addTo(mymap);
+
+  var locations_entire = [];
+  var locations_private = [];
+  var locations_shared = [];
+  {% for listing in entire_listings_list %}
+  locations_entire.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
+    "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
+    "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
+    "{{ listing.getNumAvailableDays() }}"])
+  {% endfor %}
+  {% for listing in private_listings_list %}
+  locations_private.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
+    "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
+    "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
+    "{{ listing.getNumAvailableDays() }}"])
+  {% endfor %}
+  {% for listing in shared_listings_list %}
+  locations_shared.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
+    "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
+    "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
+    "{{ listing.getNumAvailableDays() }}"])
+  {% endfor %}
 
     // specify popup options
     var customOptions =
@@ -155,10 +164,25 @@
       'className' : 'custom'
     }
     for (var i = 0; i < locations.length; i++) {
-     marker = L.marker([locations[i][1],locations[i][2]], {icon: myIcon}).bindPopup(customPopup,customOptions).addTo(entire_home_apt);
-     marker1 = L.marker([locations[i][1]+0.02,locations[i][2]], {icon: myIcon1}).bindPopup(customPopup,customOptions).addTo(private_room);
-     marker3 = L.marker([locations[i][1]+0.05,locations[i][2]], {icon: myIcon2}).bindPopup(customPopup,customOptions).addTo(shared_room);
-   }
+     // create popup contents
+     var customPopup_entire = "<div class='popup'><p><strong>"+locations_entire[i][3]+"</strong></p><p>"+locations_entire[i][4]+"</p>" +
+     "<p>"+locations_entire[i][5]+"</p><p>"+locations_entire[i][6]+"</p>" +
+     "<p><u>$"+locations_entire[i][7]+"</u>/night</p><p><u>"+locations_entire[i][8]+"</u> night minimum</p>"  +
+     "<p><u>"+locations_entire[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_entire[i][10]+"</u> days"+"/year </p></div>";
+     marker_entire = L.marker([locations_entire[i][1],locations_entire[i][2]], {icon: myIcon}).bindPopup(customPopup_entire,customOptions).addTo(entire_home_apt);
+
+     var customPopup_private = "<div class='popup'><p><strong>"+locations_private[i][3]+"</strong></p><p>"+locations_private[i][4]+"</p>" +
+     "<p>"+locations_private[i][5]+"</p><p>"+locations_private[i][6]+"</p>" +
+     "<p><u>$"+locations_private[i][7]+"</u>/night</p><p><u>"+locations_private[i][8]+"</u> night minimum</p>"  +
+     "<p><u>"+locations_private[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_private[i][10]+"</u> days"+"/year </p></div>";
+     marker_private = L.marker([locations_private[i][1],locations_private[i][2]], {icon: myIcon1}).bindPopup(customPopup_private,customOptions).addTo(private_room);
+
+     var customPopup_shared = "<div class='popup'><p><strong>"+locations_shared[i][3]+"</strong></p><p>"+locations_shared[i][4]+"</p>" +
+     "<p>"+locations_shared[i][5]+"</p><p>"+locations_shared[i][6]+"</p>" +
+     "<p><u>$"+locations_shared[i][7]+"</u>/night</p><p><u>"+locations_shared[i][8]+"</u> night minimum</p>"  +
+     "<p><u>"+locations_shared[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_shared[i][10]+"</u> days"+"/year </p></div>";
+     marker_shared = L.marker([locations_shared[i][1],locations_shared[i][2]], {icon: myIcon2}).bindPopup(customPopup_shared,customOptions).addTo(shared_room);
+    }
 
    mymap.addLayer(entire_home_apt);
    mymap.addLayer(private_room);
@@ -230,6 +254,84 @@
 
     // Initialize the plot with the first dataset
     update(data1)
+
+  </script>
+  <script>//
+    // create 2 data_set
+    var listings1 = [];
+    var availabilityListings = {};
+
+    var maxNumListing = 0;
+    var count = 1;
+    console.log({{availability_dict}});
+    {% for key, value in availability_dict.items() %}
+    if ({{key}}>maxNumListing) {
+     maxNumListing = {{key}};
+    }
+    availabilityListings[{{key}}]={{value}};
+   {% endfor %}
+  console.log({{ availability_dict }})
+
+   while (count<366){
+    if (count in availabilityListings){
+      listings1.push({group:count,value:availabilityListings[count]});
+    }else{
+      listings1.push({group:count,value:0});
+    }
+    count += 1;
+    }
+
+    // set the dimensions and margins of the graph
+    var margin = {top: 2, right: 2, bottom: 20, left: 40},
+    width = 270 - margin.left - margin.right,
+    height = 120 - margin.top - margin.bottom;
+
+    // append the svg3 object to the body of the page
+    var svg2 = d3.select("#availability_dataviz")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform",
+      "translate(" + margin.left + "," + margin.top + ")");
+
+    // X axis
+    var x = d3.scaleBand()
+    .range([ 0, width ])
+    .domain(listings1.map(function(d) { return d.group; }));
+    svg2.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x).ticks(5))
+
+    // Add Y axis
+    var y = d3.scaleLinear()
+    .domain([0, 500])
+    .range([ height, 0]);
+    svg2.append("g")
+    .attr("class", "myYaxis")
+    .call(d3.axisLeft(y).ticks(3));
+
+    // A function that create / update the plot for a given variable:
+    function update(data) {
+
+      var u = svg2.selectAll("rect")
+      .data(data)
+
+      u
+      .enter()
+      .append("rect")
+      .merge(u)
+      .transition()
+      .duration(1000)
+      .attr("x", function(d) { return x(d.group); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("width", x.bandwidth())
+      .attr("height", function(d) { return height - y(d.value); })
+      .attr("fill", "#69b3a2")
+    }
+
+    // Initialize the plot with the first dataset
+    update(listings1)
 
   </script>
   <script>
