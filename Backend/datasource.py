@@ -214,26 +214,41 @@ class DataSource:
             price_range - minimum and maximum accepting price
 
         RETURN:
-            a list of Listing objects that contains listing info given the 
-            neighbourhood borough and the room type and the price range, 
+            a list of Listing objects that contains listing info given the
+            neighbourhood borough and the room type and the price range,
             or None if the query fails
         '''
         try:
             cursor = self.connection.cursor()
             min_price = price_range[0]
             max_price = price_range[1]
-            print('min p', min_price)
             query = "SELECT * FROM airbnb where neighbourhood_group = \'" + \
                     str(neighbourhood_group) + "\' and room_type = \'" + \
                     str(room_type) + "\' and price > " + str(min_price) + \
                     " and price < " + str(max_price)
-            print('query', query)
             cursor.execute(query)
             listing_tuples = cursor.fetchall()
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
             return listings
         except Exception as e:
             print("Something went wrong when executing the query:", e)
+            return None
+
+    def getAllAvailability(self):
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT availability_365 FROM airbnb"
+            cursor.execute(query)
+            result = cursor.fetchall()
+            availability = {}
+            for listing in result:
+                listing_availability = listing[0]
+                if listing_availability not in availability:
+                    availability[listing_availability] = 0
+                availability[listing_availability] += 1
+            return availability
+        except Exception as e:
+            print("Something went wrong when getting availability for all:", e)
             return None
 
     def getAverageAvailability(self, neighbourhood_group=None, room_type=None):
@@ -723,7 +738,7 @@ def main():
             print(item)
 
     #all_listing = query.getAllListings("Brooklyn", "Private room", (95, 150))
-    
+
     single, multiple = query.getSingleMultipleListing()
     print(single)
     print(multiple)
@@ -731,7 +746,8 @@ def main():
     length = len(result["Private"])
     print(length)
     '''
-    all_listing = query.getAllListings("Brooklyn", "Private room", (95, 150))
+    result = query.getAllAvailability()
+    print(result[1])
 
 
     # Disconnect from database
