@@ -311,6 +311,24 @@ class DataSource:
             print("Something went wrong when getting availability for all:", e)
             return None
 
+    def getNumListingPriceRange(self, min, max):
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT COUNT(id) FROM airbnb where price >" + str(min) + \
+                    "and price <= " + str(max)
+            cursor.execute(query)
+            return cursor.fetchall()[0][0]
+        except Exception as e:
+            print("Something went wrong when getting the number of listings of certain prices:", e)
+            return None
+
+    def getPriceQuantile(self):
+        listing_100 = self.getNumListingPriceRange(0,100)
+        listing_200 = self.getNumListingPriceRange(100,200)
+        listing_300 = self.getNumListingPriceRange(200,300)
+        listing_above = self.getNumListingPriceRange(300, float("inf"))
+        return (listing_100, listing_200, listing_300, listing_above)
+
     def getAverageAvailability(self, neighbourhood_group=None, room_type=None):
         '''
         Returns the average available nights for listings given the
@@ -806,8 +824,8 @@ def main():
     length = len(result["Private"])
     print(length)
     '''
-    result = query.getAllAvailability()
-    print(result[1])
+    result = query.getNumListingPriceRange(300, float("inf"))
+    print(result)
 
 
     # Disconnect from database
