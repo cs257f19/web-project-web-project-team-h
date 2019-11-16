@@ -93,8 +93,8 @@ def overall():
 
     type_listings = db.getListingsForAllType()
     private_listings_list = type_listings['Private']
-    shared_listings_list = type_listing['Shared']
-    entire_listings_list = type_listing['Entire']
+    shared_listings_list = type_listings['Shared']
+    entire_listings_list = type_listings['Entire']
 
     return render_template('overallPage.html', database=db,
                             average_reviews_per_month=average_reviews_per_month,
