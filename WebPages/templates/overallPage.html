@@ -234,7 +234,7 @@
   </script>
   <script>//
     // create 2 data_set
-    var listings = [];
+    var listings1 = [];
     var availabilityListings = {};
 
     var maxNumListing = 0;
@@ -250,9 +250,9 @@
 
    while (count<366){
     if (count in availabilityListings){
-      listings.push({group:count,value:availabilityListings[count]});
+      listings1.push({group:count,value:availabilityListings[count]});
     }else{
-      listings.push({group:count,value:0});
+      listings1.push({group:count,value:0});
     }
     count += 1;
     }
@@ -263,7 +263,7 @@
     height = 120 - margin.top - margin.bottom;
 
     // append the svg3 object to the body of the page
-    var svg3 = d3.select("#availability_dataviz")
+    var svg2 = d3.select("#availability_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -274,8 +274,8 @@
     // X axis
     var x = d3.scaleBand()
     .range([ 0, width ])
-    .domain(listings.map(function(d) { return d.group; }));
-    svg3.append("g")
+    .domain(listings1.map(function(d) { return d.group; }));
+    svg2.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).ticks(4, "f"))
 
@@ -283,14 +283,14 @@
     var y = d3.scaleLinear()
     .domain([0, 500])
     .range([ height, 0]);
-    svg3.append("g")
+    svg2.append("g")
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y).ticks(4, "f"));
 
     // A function that create / update the plot for a given variable:
     function update(data) {
 
-      var u = svg3.selectAll("rect")
+      var u = svg2.selectAll("rect")
       .data(data)
 
       u
@@ -307,7 +307,7 @@
     }
 
     // Initialize the plot with the first dataset
-    update(listings)
+    update(listings1)
 
   </script>
   <script>
