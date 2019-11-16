@@ -163,20 +163,22 @@
       'maxWidth': '500',
       'className' : 'custom'
     }
-    for (var i = 0; i < locations.length; i++) {
+    for (var i = 0; i < locations_entire.length; i++) {
      // create popup contents
      var customPopup_entire = "<div class='popup'><p><strong>"+locations_entire[i][3]+"</strong></p><p>"+locations_entire[i][4]+"</p>" +
      "<p>"+locations_entire[i][5]+"</p><p>"+locations_entire[i][6]+"</p>" +
      "<p><u>$"+locations_entire[i][7]+"</u>/night</p><p><u>"+locations_entire[i][8]+"</u> night minimum</p>"  +
      "<p><u>"+locations_entire[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_entire[i][10]+"</u> days"+"/year </p></div>";
      marker_entire = L.marker([locations_entire[i][1],locations_entire[i][2]], {icon: myIcon}).bindPopup(customPopup_entire,customOptions).addTo(entire_home_apt);
-
+    }
+    for (var i = 0; i < locations_private.length; i++) {
      var customPopup_private = "<div class='popup'><p><strong>"+locations_private[i][3]+"</strong></p><p>"+locations_private[i][4]+"</p>" +
      "<p>"+locations_private[i][5]+"</p><p>"+locations_private[i][6]+"</p>" +
      "<p><u>$"+locations_private[i][7]+"</u>/night</p><p><u>"+locations_private[i][8]+"</u> night minimum</p>"  +
      "<p><u>"+locations_private[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_private[i][10]+"</u> days"+"/year </p></div>";
      marker_private = L.marker([locations_private[i][1],locations_private[i][2]], {icon: myIcon1}).bindPopup(customPopup_private,customOptions).addTo(private_room);
-
+    }
+    for (var i = 0; i < locations_shared.length; i++) {
      var customPopup_shared = "<div class='popup'><p><strong>"+locations_shared[i][3]+"</strong></p><p>"+locations_shared[i][4]+"</p>" +
      "<p>"+locations_shared[i][5]+"</p><p>"+locations_shared[i][6]+"</p>" +
      "<p><u>$"+locations_shared[i][7]+"</u>/night</p><p><u>"+locations_shared[i][8]+"</u> night minimum</p>"  +
