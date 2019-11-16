@@ -326,7 +326,7 @@ class DataSource:
         listing_100 = self.getNumListingPriceRange(0,100)
         listing_200 = self.getNumListingPriceRange(100,200)
         listing_300 = self.getNumListingPriceRange(200,300)
-        listing_above = self.getNumListingPriceRange(300, float("inf"))
+        listing_above = self.getNumListingPriceRange(300, 10000000)
         return (listing_100, listing_200, listing_300, listing_above)
 
     def getAverageAvailability(self, neighbourhood_group=None, room_type=None):
@@ -824,8 +824,8 @@ def main():
     length = len(result["Private"])
     print(length)
     '''
-    result = query.getNumListingPriceRange(300, float("inf"))
-    print(result)
+    #result = query.getNumListingPriceRange(300, float("inf"))
+    #print(result)
 
 
     # Disconnect from database
