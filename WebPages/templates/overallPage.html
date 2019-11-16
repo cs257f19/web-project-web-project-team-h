@@ -301,7 +301,7 @@
     .domain(listings1.map(function(d) { return d.group; }));
     svg2.append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).ticks(5))
+    .call(d3.axisBottom(x).tickValues([0,50,100,150,200,250,300,350]))
 
     // Add Y axis
     var y = d3.scaleLinear()
