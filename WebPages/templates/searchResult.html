@@ -60,7 +60,7 @@ var listings = new L.LayerGroup();
    "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
    "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
    "{{ listing.getNumAvailableDays() }}"])
-
+{% endfor %}
  var arrLen = locations.length;
  var customOptions = {
    'maxWidth': '500',
@@ -77,7 +77,6 @@ var listings = new L.LayerGroup();
  }
  mymap.addLayer(listings);
 </script>
- {% endfor %}
 {% else %}
  <p><strong>Please make sure all your inputs are correct!</strong></p>
 </div>
