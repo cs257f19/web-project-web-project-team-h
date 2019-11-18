@@ -39,8 +39,8 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT * FROM airbnb where host_id = " + str(host_id)
-            cursor.execute(query)
+            query = "SELECT * FROM airbnb where host_id = %s"
+            cursor.execute(query, host_id)
             listing_tuples = cursor.fetchall()
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
             return listings
@@ -826,6 +826,8 @@ def main():
     '''
     #result = query.getNumListingPriceRange(300, float("inf"))
     #print(result)
+    result = query.getHostInfo(2787)
+    print(result)
 
 
     # Disconnect from database
