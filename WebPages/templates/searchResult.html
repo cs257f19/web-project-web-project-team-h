@@ -29,13 +29,25 @@
   </header>
 
   <section class="mapSection">
+      <form action="{{ url_for('listingSearch') }}">
+        <input type="submit" value="Back to Listing Search" />
+      </form>
+      {% if results %}
     <h1 class="heading">Result</h1>
     <div id="my_dataviz" class="mapid"></div>
   </section>
 
 
 <script>
- var mymap = L.map('my_dataviz').setView([40.720610, -73.975242], 10);
+var myIcon = L.icon({
+    iconUrl: '{{ url_for('static', filename='icon1.png') }}',
+    iconSize:     [6, 6],
+    iconAnchor:   [22, 94],
+    iconAnchor:   [6, 6],
+    popupAnchor:  [-3, -6]
+  });
+var listings = new L.LayerGroup();
+ var mymap = L.map('my_dataviz').setView([40.720610, -73.975242], 11);
  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
    attribution: '',
    maxZoom: 18,
@@ -48,7 +60,7 @@
    "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
    "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
    "{{ listing.getNumAvailableDays() }}"])
- {% endfor %}
+{% endfor %}
  var arrLen = locations.length;
  var customOptions = {
    'maxWidth': '500',
@@ -59,10 +71,16 @@
    "<p>"+locations[i][5]+"</p><p>"+locations[i][6]+"</p>" +
    "<p><u>$"+locations[i][7]+"</u>/night</p><p><u>"+locations[i][8]+"</u> night minimum</p>"  +
    "<p><u>"+locations[i][9]+"</u> reviews/month</p><p>Available <u>"+locations[i][10]+"</u> days"+"/year </p></div>";
-   var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
-   marker.bindPopup(customPopup,customOptions);
+   //var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
+   var marker = L.marker([locations[i][1],locations[i][2]], {icon: myIcon}).bindPopup(customPopup,customOptions).addTo(listings);
+   //marker.bindPopup(customPopup,customOptions);
  }
+ mymap.addLayer(listings);
 </script>
-
+{% else %}
+ <p><strong>Please make sure all your inputs are correct!</strong></p>
+</div>
+</section>
+{% endif %}
 </body>
 </html>
