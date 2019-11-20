@@ -92,3 +92,7 @@ input[type=submit] {
   position: relative;
   height: 700px;
 }
+
+h2, .leaflet-popup-content .popup p strong {
+  color: #00A699;
+}
