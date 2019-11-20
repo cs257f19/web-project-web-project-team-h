@@ -93,6 +93,10 @@ input[type=submit] {
   height: 700px;
 }
 
+
+h2, .leaflet-popup-content .popup p strong {
+  color: #00A699;
+
 .heading{
   font-size:30px;
   color:#00A699;
