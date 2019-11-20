@@ -99,102 +99,102 @@
 
 <section class="mapSection">
   <h2>Houses in the same neighborhood with the same room type</h2>
-  <div id="mapid22"></div>
+  <div id="mapid"></div>
 </section>
 <script src="https://d3js.org/d3.v4.js"> </script>
 <script>
-  var myIcon = L.icon({
-    iconUrl: '{{ url_for('static', filename='icon1.png') }}',
-    iconSize:     [6, 6],
-    iconAnchor:   [22, 94],
-    iconAnchor:   [6, 6],
-    popupAnchor:  [-3, -6]
-  });
-  var myIcon1 = L.icon({
-    iconUrl: '{{ url_for('static', filename='icon2.png') }}',
-    iconSize:     [6, 6],
-    iconAnchor:   [22, 94],
-    iconAnchor:   [6, 6],
-    popupAnchor:  [-3, -6]
-  });
-  var myIcon2 = L.icon({
-    iconUrl: '{{ url_for('static', filename='icon3.jpg') }}',
-    iconSize:     [6, 6],
-    iconAnchor:   [22, 94],
-    iconAnchor:   [6, 6],
-    popupAnchor:  [-3, -6]
-  });
-  var entire_home_apt = new L.LayerGroup();
-  var private_room = new L.LayerGroup();
-  var shared_room = new L.LayerGroup();
-  var mymap = L.map('mapid').setView([40.730610, -73.975242], 11);
-  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
-   attribution: '',
-   maxZoom: 18,
-   id: 'mapbox.streets',
-   accessToken: 'your.mapbox.access.token'
-  }).addTo(mymap);
-
-  var locations_entire = [];
-  var locations_private = [];
-  var locations_shared = [];
-  {% for listing in entire_listings_list %}
-  locations_entire.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
-    "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
-    "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
-    "{{ listing.getNumAvailableDays() }}"])
-  {% endfor %}
-  {% for listing in private_listings_list %}
-  locations_private.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
-    "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
-    "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
-    "{{ listing.getNumAvailableDays() }}"])
-  {% endfor %}
-  {% for listing in shared_listings_list %}
-  locations_shared.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
-    "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
-    "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
-    "{{ listing.getNumAvailableDays() }}"])
-  {% endfor %}
-
-    // specify popup options
-    var customOptions =
-    {
-      'maxWidth': '500',
-      'className' : 'custom'
-    }
-    for (var i = 0; i < locations_entire.length; i++) {
-     // create popup contents
-     var customPopup_entire = "<div class='popup'><p><strong>"+locations_entire[i][3]+"</strong></p><p>"+locations_entire[i][4]+"</p>" +
-     "<p>"+locations_entire[i][5]+"</p><p>"+locations_entire[i][6]+"</p>" +
-     "<p><u>$"+locations_entire[i][7]+"</u>/night</p><p><u>"+locations_entire[i][8]+"</u> night minimum</p>"  +
-     "<p><u>"+locations_entire[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_entire[i][10]+"</u> days"+"/year </p></div>";
-     marker_entire = L.marker([locations_entire[i][1],locations_entire[i][2]], {icon: myIcon}).bindPopup(customPopup_entire,customOptions).addTo(entire_home_apt);
-    }
-    for (var i = 0; i < locations_private.length; i++) {
-     var customPopup_private = "<div class='popup'><p><strong>"+locations_private[i][3]+"</strong></p><p>"+locations_private[i][4]+"</p>" +
-     "<p>"+locations_private[i][5]+"</p><p>"+locations_private[i][6]+"</p>" +
-     "<p><u>$"+locations_private[i][7]+"</u>/night</p><p><u>"+locations_private[i][8]+"</u> night minimum</p>"  +
-     "<p><u>"+locations_private[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_private[i][10]+"</u> days"+"/year </p></div>";
-     marker_private = L.marker([locations_private[i][1],locations_private[i][2]], {icon: myIcon1}).bindPopup(customPopup_private,customOptions).addTo(private_room);
-    }
-    for (var i = 0; i < locations_shared.length; i++) {
-     var customPopup_shared = "<div class='popup'><p><strong>"+locations_shared[i][3]+"</strong></p><p>"+locations_shared[i][4]+"</p>" +
-     "<p>"+locations_shared[i][5]+"</p><p>"+locations_shared[i][6]+"</p>" +
-     "<p><u>$"+locations_shared[i][7]+"</u>/night</p><p><u>"+locations_shared[i][8]+"</u> night minimum</p>"  +
-     "<p><u>"+locations_shared[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_shared[i][10]+"</u> days"+"/year </p></div>";
-     marker_shared = L.marker([locations_shared[i][1],locations_shared[i][2]], {icon: myIcon2}).bindPopup(customPopup_shared,customOptions).addTo(shared_room);
-    }
-
-   mymap.addLayer(entire_home_apt);
-   mymap.addLayer(private_room);
-   mymap.addLayer(shared_room);
-   var overlayMaps = {
-    "Entire home/apt": entire_home_apt,
-    "Private room":private_room,
-    "Shared room":shared_room,
-  };
-  L.control.layers(null, overlayMaps).addTo(mymap);
+  {#var myIcon = L.icon({#}
+  {#  iconUrl: '{{ url_for('static', filename='icon1.png') }}',#}
+  {#  iconSize:     [6, 6],#}
+  {#  iconAnchor:   [22, 94],#}
+  {#  iconAnchor:   [6, 6],#}
+  {#  popupAnchor:  [-3, -6]#}
+  {#});#}
+  {#var myIcon1 = L.icon({#}
+  {#  iconUrl: '{{ url_for('static', filename='icon2.png') }}',#}
+  {#  iconSize:     [6, 6],#}
+  {#  iconAnchor:   [22, 94],#}
+  {#  iconAnchor:   [6, 6],#}
+  {#  popupAnchor:  [-3, -6]#}
+  {#});#}
+  {#var myIcon2 = L.icon({#}
+  {#  iconUrl: '{{ url_for('static', filename='icon3.jpg') }}',#}
+  {#  iconSize:     [6, 6],#}
+  {#  iconAnchor:   [22, 94],#}
+  {#  iconAnchor:   [6, 6],#}
+  {#  popupAnchor:  [-3, -6]#}
+  {#});#}
+  {#var entire_home_apt = new L.LayerGroup();#}
+  {#var private_room = new L.LayerGroup();#}
+  {#var shared_room = new L.LayerGroup();#}
+  {#var mymap = L.map('mapid').setView([40.730610, -73.975242], 11);#}
+  {#L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {#}
+  {# attribution: '',#}
+  {# maxZoom: 18,#}
+  {# id: 'mapbox.streets',#}
+  {# accessToken: 'your.mapbox.access.token'#}
+  {#}).addTo(mymap);#}
+  {##}
+  {#var locations_entire = [];#}
+  {#var locations_private = [];#}
+  {#var locations_shared = [];#}
+  {#{% for listing in entire_listings_list %}#}
+  {#locations_entire.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},#}
+  {#  "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",#}
+  {#  "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",#}
+  {#  "{{ listing.getNumAvailableDays() }}"])#}
+  {#{% endfor %}#}
+  {#{% for listing in private_listings_list %}#}
+  {#locations_private.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},#}
+  {#  "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",#}
+  {#  "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",#}
+  {#  "{{ listing.getNumAvailableDays() }}"])#}
+  {#{% endfor %}#}
+  {#{% for listing in shared_listings_list %}#}
+  {#locations_shared.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},#}
+  {#  "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",#}
+  {#  "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",#}
+  {#  "{{ listing.getNumAvailableDays() }}"])#}
+  {#{% endfor %}#}
+  {##}
+  {#  // specify popup options#}
+  {#  var customOptions =#}
+  {#  {#}
+  {#    'maxWidth': '500',#}
+  {#    'className' : 'custom'#}
+  {#  }#}
+  {#  for (var i = 0; i < locations_entire.length; i++) {#}
+  {#   // create popup contents#}
+  {#   var customPopup_entire = "<div class='popup'><p><strong>"+locations_entire[i][3]+"</strong></p><p>"+locations_entire[i][4]+"</p>" +#}
+  {#   "<p>"+locations_entire[i][5]+"</p><p>"+locations_entire[i][6]+"</p>" +#}
+  {#   "<p><u>$"+locations_entire[i][7]+"</u>/night</p><p><u>"+locations_entire[i][8]+"</u> night minimum</p>"  +#}
+  {#   "<p><u>"+locations_entire[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_entire[i][10]+"</u> days"+"/year </p></div>";#}
+  {#   marker_entire = L.marker([locations_entire[i][1],locations_entire[i][2]], {icon: myIcon}).bindPopup(customPopup_entire,customOptions).addTo(entire_home_apt);#}
+  {#  }#}
+  {#  for (var i = 0; i < locations_private.length; i++) {#}
+  {#   var customPopup_private = "<div class='popup'><p><strong>"+locations_private[i][3]+"</strong></p><p>"+locations_private[i][4]+"</p>" +#}
+  {#   "<p>"+locations_private[i][5]+"</p><p>"+locations_private[i][6]+"</p>" +#}
+  {#   "<p><u>$"+locations_private[i][7]+"</u>/night</p><p><u>"+locations_private[i][8]+"</u> night minimum</p>"  +#}
+  {#   "<p><u>"+locations_private[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_private[i][10]+"</u> days"+"/year </p></div>";#}
+  {#   marker_private = L.marker([locations_private[i][1],locations_private[i][2]], {icon: myIcon1}).bindPopup(customPopup_private,customOptions).addTo(private_room);#}
+  {#  }#}
+  {#  for (var i = 0; i < locations_shared.length; i++) {#}
+  {#   var customPopup_shared = "<div class='popup'><p><strong>"+locations_shared[i][3]+"</strong></p><p>"+locations_shared[i][4]+"</p>" +#}
+  {#   "<p>"+locations_shared[i][5]+"</p><p>"+locations_shared[i][6]+"</p>" +#}
+  {#   "<p><u>$"+locations_shared[i][7]+"</u>/night</p><p><u>"+locations_shared[i][8]+"</u> night minimum</p>"  +#}
+  {#   "<p><u>"+locations_shared[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_shared[i][10]+"</u> days"+"/year </p></div>";#}
+  {#   marker_shared = L.marker([locations_shared[i][1],locations_shared[i][2]], {icon: myIcon2}).bindPopup(customPopup_shared,customOptions).addTo(shared_room);#}
+  {#  }#}
+  {##}
+  {# mymap.addLayer(entire_home_apt);#}
+  {# mymap.addLayer(private_room);#}
+  {# mymap.addLayer(shared_room);#}
+  {# var overlayMaps = {#}
+  {#  "Entire home/apt": entire_home_apt,#}
+  {#  "Private room":private_room,#}
+  {#  "Shared room":shared_room,#}
+  {#};#}
+  {#L.control.layers(null, overlayMaps).addTo(mymap);#}
 </script>
 <script>
     // create 2 data_set
