@@ -32,9 +32,17 @@
       <form action="{{ url_for('listingSearch') }}">
         <input type="submit" value="Back to Listing Search" />
       </form>
-      {% if results %}
-    <h1 class="heading">Result</h1>
-    <div id="my_dataviz" class="mapid"></div>
+      {% if results%}
+      {% else if results == 0 %}
+       <p><strong>Please make sure min price is less than or equal to max price!</strong></p>
+      </div>
+      </section>
+      {% else if results == 1 %}
+       <p><strong>No listings are found for your criterion.</strong></p>
+      </div>
+      </section>
+      <h1 class="heading">Result</h1>
+      <div id="my_dataviz" class="mapid"></div>
   </section>
 
 
