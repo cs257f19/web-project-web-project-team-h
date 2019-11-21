@@ -98,6 +98,8 @@ def overall():
 
     availability_dict = db.getAllAvailability()
 
+    price_dict = db.getPriceQuantile()
+
     return render_template('overallPage.html', database=db,
                             average_reviews_per_month=average_reviews_per_month,
                             total_reviews=total_reviews,
@@ -112,7 +114,8 @@ def overall():
                             private_listings_list=private_listings_list,
                             shared_listings_list=shared_listings_list,
                             entire_listings_list=entire_listings_list,
-                            availability_dict=availability_dict)
+                            availability_dict=availability_dict,
+                            price_dict=price_dict)
 
 if __name__=='__main__':
     if len(sys.argv) != 3:
