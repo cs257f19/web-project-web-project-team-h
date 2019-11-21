@@ -219,8 +219,8 @@ class DataSource:
             if min_price > max_price:
                 return None
             query = "SELECT * FROM airbnb where neighbourhood_group = %s and" + \
-                    "room_type = %s and price >= %s and price <= %s ORDER BY" + \
-                    "number_of_reviews DESC"
+                    " room_type = %s and price >= %s and price <= %s ORDER BY" + \
+                    " number_of_reviews DESC"
             cursor.execute(query, (neighbourhood_group, room_type, str(min_price), str(max_price),))
             listing_tuples = cursor.fetchall()
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
@@ -683,8 +683,8 @@ def main():
         for item in sig_lst_pct:
             print(item)
     '''
-    all_listing = query.getAllListings("Brooklyn", "Private room", (95, 150))
-    print(all_listing)
+    all_listing = query.getAllListings("Brooklyn", "Private room", (20, 100))
+    print(len(all_listing))
 
     '''
     single, multiple = query.getSingleMultipleListing()
