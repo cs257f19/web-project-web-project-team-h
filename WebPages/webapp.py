@@ -56,8 +56,9 @@ def listingResult():
     '''
     if request.method == 'POST':
         result = request.form
-        min_price = result['min price']
-        max_price = result['max price']
+        min_price = int(result['min price'])
+        max_price = int(result['max price'])
+        
         nbh_group = result['neighborhood group']
         room_type = result['room type']
         price_range = (min_price, max_price)
@@ -78,7 +79,7 @@ def overall():
 
     average_reviews_per_month = round(db.getAverageNumOfReviews()/12, 2)
     total_reviews = db.getTotalReviews()
-    average_price = db.getAveragePriceNbh()
+    average_price = db.getAveragePrice()
 
     average_availability = db.getAverageAvailability()
 
