@@ -205,8 +205,8 @@
 
 // set the dimensions and margins of the graph
 var width = 270
-    height = 110
-    margin = {top:10,right:40,bottom:10,left:100};
+    height = 123
+    margin = {top:10,right:40,bottom:0,left:100};
 
 // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
 var radius = 200 / 2 - 60
@@ -284,11 +284,9 @@ svg
         return (midangle < Math.PI ? 'start' : 'end')
     })
 svg.append("text")
-        .attr("x", (width / 2))
-        .attr("y", 0 - (margin.top / 2))
+        .attr("x",5)
+        .attr("y", 0 -50)
         .attr("text-anchor", "middle")
-        .style("font-size", "16px")
-        .style("text-decoration", "underline")
         .text("Distribution of price/night");
 </script>
 <script>
@@ -338,7 +336,7 @@ svg.append("text")
       .text("num of listings");
 
     // A function that create / update the plot for a given variable:
-    {#function update(data) {#}
+    function update(data) {
 
       var u = svg1.selectAll("rect")
       .data(data)
@@ -354,10 +352,10 @@ svg.append("text")
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
       .attr("fill", "#00A699")
-    {#}#}
+    }
 
     // Initialize the plot with the first dataset
-    {#update(data1)#}
+    update(data1)
 
   </script>
   <script>//
