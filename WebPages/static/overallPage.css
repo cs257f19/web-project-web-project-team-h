@@ -84,10 +84,10 @@ section {
   display: flex;
 }
 
-div.data div.dataviz {
-  flex: 1.2;
-}
-
 #mapid {
   height: 700px;
+}
+
+#price_dataviz path {
+  stroke:none;
 }
