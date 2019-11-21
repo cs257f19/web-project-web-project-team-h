@@ -41,7 +41,7 @@
       <p>Airbnb guests may leave a review after their stay, and these can be used as an indicator of airbnb
       activity (although not all guests leave a review, so the actual booking activity would be much higher).</p>
       <div class="data">
-        <div id="activity_dataviz" class="dataviz"></div>
+        <div id="price_dataviz" class="dataviz"></div>
         <div>
           <ul>
             <li>On average {{ average_reviews_per_month }} reviews/listing/month</li>
@@ -178,7 +178,6 @@
   {#   "<p>"+locations_private[i][5]+"</p><p>"+locations_private[i][6]+"</p>" +#}
   {#   "<p><u>$"+locations_private[i][7]+"</u>/night</p><p><u>"+locations_private[i][8]+"</u> night minimum</p>"  +#}
   {#   "<p><u>"+locations_private[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_private[i][10]+"</u> days"+"/year </p></div>";#}
->>>>>>> 90e4b07bea6ee3b27daf9f431c07de3c18719e4d
      {#marker_private = L.marker([locations_private[i][1],locations_private[i][2]], {icon: myIcon1}).bindPopup(customPopup_private,customOptions).addTo(private_room);#}
   {#      marker_private = L.marker([locations_private[i][1],locations_private[i][2]], {icon: myIcon1}).bindPopup(customPopup_private,customOptions).addTo(private_room);#}
   {#  }#}
@@ -201,6 +200,88 @@
   {#};#}
   {#L.control.layers(null, overlayMaps).addTo(mymap);#}
 </script>
+  <script>
+
+// set the dimensions and margins of the graph
+var width = 150
+    height = 150
+    margin = 10
+
+// The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
+var radius = Math.min(width, height) / 2 - margin
+
+// append the svg object to the div called 'my_dataviz'
+var svg = d3.select("#price_dataviz")
+  .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+// Create dummy data
+var data = {a: {{ price_dict[0] }}, b: {{ price_dict[1] }}, c:{{ price_dict[2] }}, d:{{ price_dict[3] }}}
+
+// set the color scale
+var color = d3.scaleOrdinal()
+  .domain(data)
+  .range(["#00A699", "#FF5A5F", "#FC642D", "#484848"])
+
+// Compute the position of each group on the pie:
+var pie = d3.pie()
+  .value(function(d) {return d.value; })
+var data_ready = pie(d3.entries(data))
+
+// Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+svg
+  .selectAll('whatever')
+  .data(data_ready)
+  .enter()
+  .append('path')
+  .attr('d', d3.arc()
+    .innerRadius(20)         // This is the size of the donut hole
+    .outerRadius(radius)
+  )
+  .attr('fill', function(d){ return(color(d.data.key)) })
+  .attr("stroke", "black")
+  .style("stroke-width", "2px")
+  .style("opacity", 0.7)
+
+// Add the polylines between chart and labels:
+svg
+  .selectAll('allPolylines')
+  .data(data_ready)
+  .enter()
+  .append('polyline')
+    .attr("stroke", "black")
+    .style("fill", "none")
+    .attr("stroke-width", 1)
+    .attr('points', function(d) {
+      var posA = arc.centroid(d) // line insertion in the slice
+      var posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
+      var posC = outerArc.centroid(d); // Label position = almost the same as posB
+      var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
+      posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
+      return [posA, posB, posC]
+    })
+
+// Add the polylines between chart and labels:
+svg
+  .selectAll('allLabels')
+  .data(data_ready)
+  .enter()
+  .append('text')
+    .text( function(d) { console.log(d.data.key) ; return d.data.key } )
+    .attr('transform', function(d) {
+        var pos = outerArc.centroid(d);
+        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+        pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+        return 'translate(' + pos + ')';
+    })
+    .style('text-anchor', function(d) {
+        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+        return (midangle < Math.PI ? 'start' : 'end')
+    })
+</script>
 <script>
     // create 2 data_set
     var data1 = [
@@ -215,7 +296,7 @@
     height = 120 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
-    var svg = d3.select("#room_type_dataviz")
+    var svg1 = d3.select("#room_type_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -228,7 +309,7 @@
     .range([ 0, width ])
     .domain(data1.map(function(d) { return d.group; }))
     .padding(0.2);
-    svg.append("g")
+    svg1.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
 
@@ -236,14 +317,14 @@
     var y = d3.scaleLinear()
     .domain([0, 28000])
     .range([ height, 0]);
-    svg.append("g")
+    svg1.append("g")
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y).ticks(2, "f"));
 
     // A function that create / update the plot for a given variable:
     function update(data) {
 
-      var u = svg.selectAll("rect")
+      var u = svg1.selectAll("rect")
       .data(data)
 
       u
@@ -256,7 +337,7 @@
       .attr("y", function(d) { return y(d.value); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
-      .attr("fill", "#69b3a2")
+      .attr("fill", "#00A699")
     }
 
     // Initialize the plot with the first dataset
@@ -334,7 +415,7 @@
       .attr("y", function(d) { return y(d.value); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
-      .attr("fill", "#69b3a2")
+      .attr("fill", "#00A699")
     }
 
     // Initialize the plot with the first dataset
@@ -411,7 +492,7 @@
       .attr("y", function(d) { return y(d.value); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
-      .attr("fill", "#69b3a2")
+      .attr("fill", "#00A699")
     }
 
     // Initialize the plot with the first dataset
