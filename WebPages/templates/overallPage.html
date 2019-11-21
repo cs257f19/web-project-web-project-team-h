@@ -373,9 +373,9 @@ svg
     }
 
     // set the dimensions and margins of the graph
-    var margin = {top: 2, right: 2, bottom: 20, left: 40},
+    var margin = {top: 2, right: 2, bottom: 32, left: 50},
     width = 270 - margin.left - margin.right,
-    height = 120 - margin.top - margin.bottom;
+    height = 140 - margin.top - margin.bottom;
 
     // append the svg3 object to the body of the page
     var svg2 = d3.select("#availability_dataviz")
@@ -396,7 +396,7 @@ svg
     svg2.append("text")
       .attr("transform",
             "translate(" + (width/2) + " ," +
-                           (height + margin.top + 20) + ")")
+                           (height + margin.top + 27) + ")")
       .style("text-anchor", "middle")
       .text("num of days available in a year");
 
@@ -406,8 +406,7 @@ svg
     .range([ height, 0]);
     svg2.append("g")
     .attr("class", "myYaxis")
-    .call(d3.axisLeft(y).ticks(3))
-    .text("num of listings");
+    .call(d3.axisLeft(y).ticks(3));
     svg2.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
@@ -463,9 +462,9 @@ svg
     }
 
     // set the dimensions and margins of the graph
-    var margin = {top: 2, right: 2, bottom: 20, left: 40},
+    var margin = {top: 2, right: 2, bottom: 20, left: 55},
     width = 270 - margin.left - margin.right,
-    height = 120 - margin.top - margin.bottom;
+    height = 140 - margin.top - margin.bottom;
 
     // append the svg3 object to the body of the page
     var svg3 = d3.select("#listing_per_host_dataviz")
