@@ -39,8 +39,8 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT * FROM airbnb where host_id =" + str(host_id)
-            cursor.execute(query)
+            query = "SELECT * FROM airbnb where host_id = %s"
+            cursor.execute(query, (str(host_id),))
             listing_tuples = cursor.fetchall()
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
             return listings
@@ -64,10 +64,8 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT * FROM airbnb where neighbourhood = \'" + \
-                    str(neighbourhood) + "\' and room_type = \'" + \
-                    str(room_type) + "\'"
-            cursor.execute(query)
+            query = "SELECT * FROM airbnb where neighbourhood = %s and room_type = %s"
+            cursor.execute(query, (neighbourhood, room_type, ))
             listing_tuples = cursor.fetchall()
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
             return listings
@@ -89,9 +87,8 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT price FROM airbnb where neighbourhood = \'" + \
-                    str(neighbourhood) + "\'"
-            cursor.execute(query)
+            query = "SELECT price FROM airbnb where neighbourhood = %s"
+            cursor.execute(query, (neighbourhood, ))
             return cursor.fetchall()
         except Exception as e:
             print ("Something went wrong when executing the query: ", e)
@@ -111,9 +108,8 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT * FROM airbnb where room_type = \'" + \
-                    str(room_type) + "\'"
-            cursor.execute(query)
+            query = "SELECT * FROM airbnb where room_type = %s"
+            cursor.execute(query, (room_type, ))
             listing_tuples = cursor.fetchall()
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
             return listings
@@ -140,32 +136,6 @@ class DataSource:
         result["Shared"] = self.getAllListingOfType("Shared room")
         result["Entire"] = self.getAllListingOfType("Entire home/apt")
         return result
-
-    def getNumOfListings(self, neighbourhood_group, room_type):
-        '''
-        Returns a list of a single integer which is the number of listings given
-        the neighbourhood borough and the room type.
-        Audience: tourists, business owners, investigators/researchers
-
-        PARAMETERS:
-            neighbourhood_group - one of five boroughs of New York City
-            room_type - the listing space type
-
-        RETURN:
-            a list of a single integer which is the number of listings given
-            the neighbourhood borough and the room type, or None if the query
-            fails
-        '''
-        try:
-            cursor = self.connection.cursor()
-            query = "SELECT count(list_id) FROM airbnb where neighbourhood = \'" + \
-                    str(neighbourhood) + "\' and room_type = \'" + \
-                    str(room_type) + "\'"
-            cursor.execute(query)
-            return cursor.fetchall()
-        except Exception as e:
-            print("Something went wrong when executing the query:", e)
-            return None
 
     def getNumHostNumListing(self):
         '''
@@ -269,11 +239,8 @@ class DataSource:
             max_price = price_range[1]
             if min_price > max_price:
                 return None
-            query = "SELECT * FROM airbnb where neighbourhood_group = \'" + \
-                    str(neighbourhood_group) + "\' and room_type = \'" + \
-                    str(room_type) + "\' and price >= " + str(min_price) + \
-                    " and price <= " + str(max_price)
-            cursor.execute(query)
+            query = "SELECT * FROM airbnb where neighbourhood_group = %s and room_type = %s and price >= %s and price <= %s"
+            cursor.execute(query, (neighbourhood_group, room_type, str(min_price), str(max_price),))
             listing_tuples = cursor.fetchall()
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
             return listings
@@ -314,9 +281,8 @@ class DataSource:
     def getNumListingPriceRange(self, min, max):
         try:
             cursor = self.connection.cursor()
-            query = "SELECT COUNT(id) FROM airbnb where price >" + str(min) + \
-                    "and price <= " + str(max)
-            cursor.execute(query)
+            query = "SELECT COUNT(id) FROM airbnb where price > %s and price <= %s"
+            cursor.execute(query, (str(min), str(max),))
             return cursor.fetchall()[0][0]
         except Exception as e:
             print("Something went wrong when getting the number of listings of certain prices:", e)
@@ -377,10 +343,8 @@ class DataSource:
             if neighbourhood_group is None and room_type is None:
                 query = "SELECT AVG(number_of_reviews) FROM airbnb"
             else:
-                query = "SELECT AVG(number_of_reviews) FROM airbnb where " + \
-                        "neighbourhood_group = \'" + str(neighbourhood_group) + \
-                        "\' and room_type = \'" + str(room_type)+"\'"
-            cursor.execute(query)
+                query = "SELECT AVG(number_of_reviews) FROM airbnb where neighbourhood_group = %s and room_type = %s"
+            cursor.execute(query, (neighbourhood_group, room_type,))
             average = float(cursor.fetchall()[0][0])
             return round(average, 2)
         except Exception as e:
@@ -406,10 +370,8 @@ class DataSource:
             if neighbourhood_group is None and room_type is None:
                 query = "SELECT AVG(price) FROM airbnb"
             else:
-                query = "SELECT AVG(price) FROM airbnb where " + \
-                        "neighbourhood_group = \'" + str(neighbourhood_group) + \
-                        "\' and room_type = \'" + str(room_type) + "\'"
-            cursor.execute(query)
+                query = "SELECT AVG(price) FROM airbnb where neighbourhood_group = %s and room_type = %s"
+            cursor.execute(query, (neighbourhood_group, room_type))
             average = float(cursor.fetchall()[0][0])
             return round(average, 2)
         except Exception as e:
@@ -789,14 +751,14 @@ def main():
     #     for item in price:
     #         print(item)
     #
+    
     '''
-
     listings = query.getSameHouseType("Kensington", "Private room")
     if listings is not None:
         print("Listings in Kensington and roomtype is private: ")
         for item in listings:
             print(item)
-
+    
     price_of_nei = query.getPriceOfNeighbourhood("Kensington")
     if price_of_nei is not None:
         print("prices of listings in Kensing are: ")
@@ -814,9 +776,11 @@ def main():
         print("percentage of host having single listing is: ")
         for item in sig_lst_pct:
             print(item)
+    '''
+    all_listing = query.getAllListings("Brooklyn", "Private room", (95, 150))
+    print(all_listing)
 
-    #all_listing = query.getAllListings("Brooklyn", "Private room", (95, 150))
-
+    '''
     single, multiple = query.getSingleMultipleListing()
     print(single)
     print(multiple)
