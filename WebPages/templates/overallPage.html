@@ -38,8 +38,8 @@
    <div class="info">
     <div>
       <h3>Activity</h3>
-      <p>Airbnb guests may leave a review after their stay, and these can be used as an indicator of airbnb
-      activity (although not all guests leave a review, so the actual booking activity would be much higher).</p>
+      <p>Airbnb guests may leave a review after their stay about how they think about this listing. Even though not
+          every leave a review, popular listings tend to have more reviews.</p>
       <div class="data">
         <div id="price_dataviz" class="dataviz"></div>
         <div>
@@ -53,7 +53,8 @@
     </div>
     <div>
       <h3>Room Type</h3>
-      <p>Airbnb hosts can list entire homes/apartments, private or shared rooms.</p>
+      <p>Airbnb hosts can list entire homes/apartments, private or shared rooms.
+      Airbnb guest can choose what type of listing they want.</p>
       <div class="data">
         <div id="room_type_dataviz" class="dataviz"></div>
         <div>
@@ -69,8 +70,8 @@
   <div class="info">
     <div>
       <h3>Availability</h3>
-      <p>An Airbnb host can setup a calendar for their listing so that it is only available for a few days or weeks a year.
-      Somel listings are available all year round.</p>
+      <p>An Airbnb host can setup a calendar for their listing that will show the availability of this listing.
+      Somel listings are available all year round while some only for a few weeks or days.</p>
       <div class="data">
         <div id="availability_dataviz" class="dataviz"></div>
         <div>
@@ -82,8 +83,8 @@
     </div>
     <div>
       <h3>Listings per Host</h3>
-      <p>Some Airbnb hosts have multiple listings.
-      A host may list separate rooms in the same apartment, or multiple apartments or homes available in their entirity.</p>
+      <p>Some Airbnb hosts have multiple listings and others have only one listing.
+      A host may list separate rooms in the same apartment, or multiple apartments or homes available in their entirety.</p>
       <div class="data">
         <div id="listing_per_host_dataviz" class="dataviz"></div>
         <div>
@@ -320,7 +321,8 @@ svg
     .range([ height, 0]);
     svg1.append("g")
     .attr("class", "myYaxis")
-    .call(d3.axisLeft(y).ticks(2, "f"));
+    .call(d3.axisLeft(y).ticks(2, "f"))
+    .text("num of listings");
 
     // A function that create / update the plot for a given variable:
     function update(data) {
@@ -359,7 +361,7 @@ svg
     }
     availabilityListings[{{key}}]={{value}};
    {% endfor %}
-  console.log({{ availability_dict }})
+  console.log({{ availability_dict }});
 
    while (count<366){
     if (count in availabilityListings){
@@ -391,6 +393,7 @@ svg
     svg2.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).tickValues([0,50,100,150,200,250,300,350]))
+    .text("num of days available in a year");
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -398,13 +401,14 @@ svg
     .range([ height, 0]);
     svg2.append("g")
     .attr("class", "myYaxis")
-    .call(d3.axisLeft(y).ticks(3));
+    .call(d3.axisLeft(y).ticks(3))
+    .text("num of listings");
 
     // A function that create / update the plot for a given variable:
     function update(data) {
 
       var u = svg2.selectAll("rect")
-      .data(data)
+      .data(data);
 
       u
       .enter()
@@ -416,7 +420,7 @@ svg
       .attr("y", function(d) { return y(d.value); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
-      .attr("fill", "#00A699")
+      .attr("fill", "#00A699");
     }
 
     // Initialize the plot with the first dataset
@@ -468,6 +472,7 @@ svg
     svg3.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
+    .text("num of hosts");
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -475,13 +480,14 @@ svg
     .range([ height, 0]);
     svg3.append("g")
     .attr("class", "myYaxis")
-    .call(d3.axisLeft(y).ticks(5, "f"));
+    .call(d3.axisLeft(y).ticks(5, "f"))
+    .text("listings per host");
 
     // A function that create / update the plot for a given variable:
     function update(data) {
 
       var u = svg3.selectAll("rect")
-      .data(data)
+      .data(data);
 
       u
       .enter()
@@ -493,7 +499,7 @@ svg
       .attr("y", function(d) { return y(d.value); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
-      .attr("fill", "#00A699")
+      .attr("fill", "#00A699");
     }
 
     // Initialize the plot with the first dataset
