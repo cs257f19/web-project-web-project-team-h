@@ -313,7 +313,7 @@ svg
     .padding(0.2);
     svg1.append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x))
+    .call(d3.axisBottom(x));
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -392,8 +392,13 @@ svg
     .domain(listings1.map(function(d) { return d.group; }));
     svg2.append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).tickValues([0,50,100,150,200,250,300,350]))
-    .text("num of days available in a year");
+    .call(d3.axisBottom(x).tickValues([0,50,100,150,200,250,300,350]));
+    svg2.append("text")
+      .attr("transform",
+            "translate(" + (width/2) + " ," +
+                           (height + margin.top + 20) + ")")
+      .style("text-anchor", "middle")
+      .text("num of days available in a year");
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -403,7 +408,13 @@ svg
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y).ticks(3))
     .text("num of listings");
-
+    svg2.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("num of listings");
     // A function that create / update the plot for a given variable:
     function update(data) {
 
@@ -480,8 +491,15 @@ svg
     .range([ height, 0]);
     svg3.append("g")
     .attr("class", "myYaxis")
-    .call(d3.axisLeft(y).ticks(5, "f"))
-    .text("listings per host");
+    .call(d3.axisLeft(y).ticks(5, "f"));
+
+    svg3.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("listings per host");
 
     // A function that create / update the plot for a given variable:
     function update(data) {
