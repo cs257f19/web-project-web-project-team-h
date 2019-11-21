@@ -219,7 +219,7 @@ var svg = d3.select("#price_dataviz")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 // Create dummy data
-var data = {a: {{ price_dict[0] }}, b: {{ price_dict[1] }}, c:{{ price_dict[2] }}, d:{{ price_dict[3] }}}
+var data = {d:{{ price_dict[3] }}, a: {{ price_dict[0] }}, b: {{ price_dict[1] }}, c:{{ price_dict[2] }}}
 
 // set the color scale
 var color = d3.scaleOrdinal()
