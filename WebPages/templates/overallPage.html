@@ -283,6 +283,13 @@ svg
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
         return (midangle < Math.PI ? 'start' : 'end')
     })
+svg.append("text")
+        .attr("x", (width / 2))
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")
+        .style("font-size", "16px")
+        .style("text-decoration", "underline")
+        .text("Distribution of price/night");
 </script>
 <script>
     // create 2 data_set
@@ -293,7 +300,7 @@ svg
     ];
 
     // set the dimensions and margins of the graph
-    var margin = {top: 2, right: 2, bottom: 20, left: 40},
+    var margin = {top: 2, right: 2, bottom: 20, left: 50},
     width = 270 - margin.left - margin.right,
     height = 120 - margin.top - margin.bottom;
 
@@ -321,11 +328,17 @@ svg
     .range([ height, 0]);
     svg1.append("g")
     .attr("class", "myYaxis")
-    .call(d3.axisLeft(y).ticks(2, "f"))
-    .text("num of listings");
+    .call(d3.axisLeft(y).ticks(2, "f"));
+    svg1.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("num of listings");
 
     // A function that create / update the plot for a given variable:
-    function update(data) {
+    {#function update(data) {#}
 
       var u = svg1.selectAll("rect")
       .data(data)
@@ -341,10 +354,10 @@ svg
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
       .attr("fill", "#00A699")
-    }
+    {#}#}
 
     // Initialize the plot with the first dataset
-    update(data1)
+    {#update(data1)#}
 
   </script>
   <script>//
@@ -483,6 +496,12 @@ svg
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
     .text("num of hosts");
+    svg3.append("text")
+      .attr("transform",
+            "translate(" + (width/2) + " ," +
+                           (height + margin.top + 27) + ")")
+      .style("text-anchor", "middle")
+      .text("num of hosts");
 
     // Add Y axis
     var y = d3.scaleLinear()

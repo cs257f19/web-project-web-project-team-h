@@ -58,7 +58,7 @@ def listingResult():
         result = request.form
         min_price = int(result['min price'])
         max_price = int(result['max price'])
-        
+
         nbh_group = result['neighborhood group']
         room_type = result['room type']
         price_range = (min_price, max_price)
@@ -66,7 +66,6 @@ def listingResult():
         db = DataSource()
         db.connect('qine', 'ruby434seal')
         listings = db.getAllListings(nbh_group, room_type, price_range)
-        print('number of listings: ', len(listings))
         return render_template('searchResult.html', results=listings, database=db)
 
 @app.route('/overall')
