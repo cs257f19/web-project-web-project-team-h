@@ -283,6 +283,13 @@ svg
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
         return (midangle < Math.PI ? 'start' : 'end')
     })
+svg.append("text")
+        .attr("x", (width / 2))
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")
+        .style("font-size", "16px")
+        .style("text-decoration", "underline")
+        .text("Distribution of price/night");
 </script>
 <script>
     // create 2 data_set
@@ -331,7 +338,7 @@ svg
       .text("num of listings");
 
     // A function that create / update the plot for a given variable:
-    function update(data) {
+    {#function update(data) {#}
 
       var u = svg1.selectAll("rect")
       .data(data)
@@ -347,10 +354,10 @@ svg
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
       .attr("fill", "#00A699")
-    }
+    {#}#}
 
     // Initialize the plot with the first dataset
-    update(data1)
+    {#update(data1)#}
 
   </script>
   <script>//
