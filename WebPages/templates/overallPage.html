@@ -203,9 +203,9 @@
   <script>
 
 // set the dimensions and margins of the graph
-var width = 450
-    height = 450
-    margin = 40
+var width = 250
+    height = 250
+    margin = 20
 
 // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
 var radius = Math.min(width, height) / 2 - margin
@@ -224,7 +224,7 @@ var data = {a: {{ price_dict[0] }}, b: {{ price_dict[1] }}, c:{{ price_dict[2] }
 // set the color scale
 var color = d3.scaleOrdinal()
   .domain(data)
-  .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"])
+  .range(["#00A699", "#FF5A5F", "#FC642D", "#484848"])
 
 // Compute the position of each group on the pie:
 var pie = d3.pie()
@@ -302,7 +302,7 @@ svg
       .attr("y", function(d) { return y(d.value); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
-      .attr("fill", "#69b3a2")
+      .attr("fill", "#00A699")
     }
 
     // Initialize the plot with the first dataset
@@ -380,7 +380,7 @@ svg
       .attr("y", function(d) { return y(d.value); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
-      .attr("fill", "#69b3a2")
+      .attr("fill", "#00A699")
     }
 
     // Initialize the plot with the first dataset
@@ -457,7 +457,7 @@ svg
       .attr("y", function(d) { return y(d.value); })
       .attr("width", x.bandwidth())
       .attr("height", function(d) { return height - y(d.value); })
-      .attr("fill", "#69b3a2")
+      .attr("fill", "#00A699")
     }
 
     // Initialize the plot with the first dataset
