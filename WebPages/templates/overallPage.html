@@ -293,7 +293,7 @@ svg
     ];
 
     // set the dimensions and margins of the graph
-    var margin = {top: 2, right: 2, bottom: 20, left: 50},
+    var margin = {top: 2, right: 2, bottom: 20, left: 55},
     width = 270 - margin.left - margin.right,
     height = 120 - margin.top - margin.bottom;
 
@@ -468,7 +468,7 @@ svg
     }
 
     // set the dimensions and margins of the graph
-    var margin = {top: 2, right: 2, bottom: 20, left: 55},
+    var margin = {top: 2, right: 2, bottom: 30, left: 55},
     width = 270 - margin.left - margin.right,
     height = 140 - margin.top - margin.bottom;
 
@@ -487,8 +487,7 @@ svg
     .domain(listings.map(function(d) { return d.group; }));
     svg3.append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x))
-    .text("num of hosts");
+    .call(d3.axisBottom(x));
     svg3.append("text")
       .attr("transform",
             "translate(" + (width/2) + " ," +

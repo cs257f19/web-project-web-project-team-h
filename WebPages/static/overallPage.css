@@ -91,3 +91,11 @@ section {
 #price_dataviz path {
   stroke:none;
 }
+
+g text {
+  font-size: 15px;
+}
+
+.tick text {
+  font-size: 10px;
+}
