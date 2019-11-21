@@ -203,9 +203,9 @@
   <script>
 
 // set the dimensions and margins of the graph
-var width = 250
-    height = 250
-    margin = 20
+var width = 150
+    height = 150
+    margin = 10
 
 // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
 var radius = Math.min(width, height) / 2 - margin
@@ -238,7 +238,7 @@ svg
   .enter()
   .append('path')
   .attr('d', d3.arc()
-    .innerRadius(100)         // This is the size of the donut hole
+    .innerRadius(20)         // This is the size of the donut hole
     .outerRadius(radius)
   )
   .attr('fill', function(d){ return(color(d.data.key)) })
