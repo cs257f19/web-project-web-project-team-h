@@ -69,7 +69,7 @@
    var locations = [];
    {% for listing in database.getSameHouseType(result.getNbh(), result.getRoomType()) %}
    locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
-     "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",
+     "{{ listing.getListingName() }}",
      "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
      "{{ listing.getNumAvailableDays() }}"])
    {% endfor %}
