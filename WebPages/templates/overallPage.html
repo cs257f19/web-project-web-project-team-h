@@ -156,7 +156,7 @@
   {#  "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getNbhGroup() }}",#}
   {#  "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",#}
   {#  "{{ listing.getNumAvailableDays() }}"])#}
-
+  {##}
   {#{% endfor %}#}
   {##}
   {#  // specify popup options#}
@@ -167,28 +167,28 @@
   {#  }#}
   {#  for (var i = 0; i < locations_entire.length; i++) {#}
   {#   // create popup contents#}
-  {#   var customPopup_entire = "<div class='popup'><p><strong>"+locations_entire[i][3]+"</strong></p><p>"+locations_entire[i][4]+"</p>" +#}
-  {#   "<p>"+locations_entire[i][5]+"</p><p>"+locations_entire[i][6]+"</p>" +#}
-  {#   "<p><u>$"+locations_entire[i][7]+"</u>/night</p><p><u>"+locations_entire[i][8]+"</u> night minimum</p>"  +#}
-  {#   "<p><u>"+locations_entire[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_entire[i][10]+"</u> days"+"/year </p></div>";#}
-  {#   marker_entire = L.marker([locations_entire[i][1],locations_entire[i][2]], {icon: myIcon}).bindPopup(customPopup_entire,customOptions).addTo(entire_home_apt);#}
+     {#var customPopup_entire = "<div class='popup'><p><strong>"+locations_entire[i][3]+"</strong></p><p>"+locations_entire[i][4]+"</p>" +#}
+     {#"<p>"+locations_entire[i][5]+"</p><p>"+locations_entire[i][6]+"</p>" +#}
+     {#"<p><u>$"+locations_entire[i][7]+"</u>/night</p><p><u>"+locations_entire[i][8]+"</u> night minimum</p>"  +#}
+     {#"<p><u>"+locations_entire[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_entire[i][10]+"</u> days"+"/year </p></div>";#}
+     {#marker_entire = L.marker([locations_entire[i][1],locations_entire[i][2]], {icon: myIcon}).bindPopup(customPopup_entire,customOptions).addTo(entire_home_apt);#}
   {#      marker_entire = L.marker([locations_entire[i][1],locations_entire[i][2]], {icon: myIcon}).addTo(entire_home_apt);#}
   {#  }#}
   {#  for (var i = 0; i < locations_private.length; i++) {#}
-  {#   var customPopup_private = "<div class='popup'><p><strong>"+locations_private[i][3]+"</strong></p><p>"+locations_private[i][4]+"</p>" +#}
-  {#   "<p>"+locations_private[i][5]+"</p><p>"+locations_private[i][6]+"</p>" +#}
-  {#   "<p><u>$"+locations_private[i][7]+"</u>/night</p><p><u>"+locations_private[i][8]+"</u> night minimum</p>"  +#}
-  {#   "<p><u>"+locations_private[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_private[i][10]+"</u> days"+"/year </p></div>";#}
+     {#var customPopup_private = "<div class='popup'><p><strong>"+locations_private[i][3]+"</strong></p><p>"+locations_private[i][4]+"</p>" +#}
+     {#"<p>"+locations_private[i][5]+"</p><p>"+locations_private[i][6]+"</p>" +#}
+     {#"<p><u>$"+locations_private[i][7]+"</u>/night</p><p><u>"+locations_private[i][8]+"</u> night minimum</p>"  +#}
+     {#"<p><u>"+locations_private[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_private[i][10]+"</u> days"+"/year </p></div>";#}
      {#marker_private = L.marker([locations_private[i][1],locations_private[i][2]], {icon: myIcon1}).bindPopup(customPopup_private,customOptions).addTo(private_room);#}
-  {#      marker_private = L.marker([locations_private[i][1],locations_private[i][2]], {icon: myIcon1}).bindPopup(customPopup_private,customOptions).addTo(private_room);#}
+  {#      marker_private = L.marker([locations_private[i][1],locations_private[i][2]], {icon: myIcon1}).addTo(private_room);#}
   {#  }#}
   {#  for (var i = 0; i < locations_shared.length; i++) {#}
-  {#   var customPopup_shared = "<div class='popup'><p><strong>"+locations_shared[i][3]+"</strong></p><p>"+locations_shared[i][4]+"</p>" +#}
-  {#   "<p>"+locations_shared[i][5]+"</p><p>"+locations_shared[i][6]+"</p>" +#}
-  {#   "<p><u>$"+locations_shared[i][7]+"</u>/night</p><p><u>"+locations_shared[i][8]+"</u> night minimum</p>"  +#}
-  {#   "<p><u>"+locations_shared[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_shared[i][10]+"</u> days"+"/year </p></div>";#}
+     {#var customPopup_shared = "<div class='popup'><p><strong>"+locations_shared[i][3]+"</strong></p><p>"+locations_shared[i][4]+"</p>" +#}
+     {#"<p>"+locations_shared[i][5]+"</p><p>"+locations_shared[i][6]+"</p>" +#}
+     {#"<p><u>$"+locations_shared[i][7]+"</u>/night</p><p><u>"+locations_shared[i][8]+"</u> night minimum</p>"  +#}
+     {#"<p><u>"+locations_shared[i][9]+"</u> reviews/month</p><p>Available <u>"+locations_shared[i][10]+"</u> days"+"/year </p></div>";#}
      {#marker_shared = L.marker([locations_shared[i][1],locations_shared[i][2]], {icon: myIcon2}).bindPopup(customPopup_shared,customOptions).addTo(shared_room);#}
-  {#      marker_shared = L.marker([locations_shared[i][1],locations_shared[i][2]], {icon: myIcon2}).bindPopup(customPopup_shared,customOptions).addTo(shared_room);#}
+  {#      marker_shared = L.marker([locations_shared[i][1],locations_shared[i][2]], {icon: myIcon2}).addTo(shared_room);#}
   {#  }#}
   {##}
   {# mymap.addLayer(entire_home_apt);#}
@@ -205,8 +205,8 @@
 
 // set the dimensions and margins of the graph
 var width = 270
-    height = 110
-    margin = {top:10,right:40,bottom:10,left:100};
+    height = 123
+    margin = {top:10,right:40,bottom:0,left:100};
 
 // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
 var radius = 200 / 2 - 60
@@ -283,6 +283,11 @@ svg
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
         return (midangle < Math.PI ? 'start' : 'end')
     })
+svg.append("text")
+        .attr("x",5)
+        .attr("y", 0 -50)
+        .attr("text-anchor", "middle")
+        .text("Distribution of price/night");
 </script>
 <script>
     // create 2 data_set
@@ -293,7 +298,7 @@ svg
     ];
 
     // set the dimensions and margins of the graph
-    var margin = {top: 2, right: 2, bottom: 20, left: 50},
+    var margin = {top: 2, right: 2, bottom: 20, left: 55},
     width = 270 - margin.left - margin.right,
     height = 120 - margin.top - margin.bottom;
 
@@ -468,7 +473,7 @@ svg
     }
 
     // set the dimensions and margins of the graph
-    var margin = {top: 2, right: 2, bottom: 20, left: 55},
+    var margin = {top: 2, right: 2, bottom: 30, left: 55},
     width = 270 - margin.left - margin.right,
     height = 140 - margin.top - margin.bottom;
 
@@ -487,8 +492,7 @@ svg
     .domain(listings.map(function(d) { return d.group; }));
     svg3.append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x))
-    .text("num of hosts");
+    .call(d3.axisBottom(x));
     svg3.append("text")
       .attr("transform",
             "translate(" + (width/2) + " ," +
