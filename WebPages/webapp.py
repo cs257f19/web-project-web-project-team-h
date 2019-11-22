@@ -41,7 +41,7 @@ def hostResult():
     This function get called when the submit button is clicked on hostPage.html
 
     Return: render hostResult.html with the host id entered by user in
-    hostSearch.html entered in hostPage.html and ???
+    hostSearch.html entered in hostPage.html and a datasource object
     '''
     if request.method == 'POST':
         result = request.form
@@ -49,7 +49,6 @@ def hostResult():
         db.connect('qine', 'ruby434seal')
         host_id = result['id']
         host_info = db.getHostInfo(host_id)
-        #TODO: not pass in database
         return render_template('hostResult.html',results=host_info, database=db)
 
 @app.route('/listingResult',methods = ['POST', 'GET'])
