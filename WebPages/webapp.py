@@ -66,6 +66,7 @@ def listingResult():
         db = DataSource()
         db.connect('qine', 'ruby434seal')
         listings = db.getAllListings(nbh_group, room_type, price_range)
+        #print('listings: ', listings)
         return render_template('searchResult.html', results=listings, database=db)
 
 @app.route('/overall')
