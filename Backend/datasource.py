@@ -350,12 +350,18 @@ class DataSource:
             a dictionary taken neighborhood borough as keys and the number
             of listings in that neighborhood borough as values
         '''
-        result = {}
-        result["Brooklyn"] = self.getAveragePrice("Brooklyn")
-        result["Manhattan"] = self.getAveragePrice("Manhattan")
-        result["Queens"] = self.getAveragePrice("Queens")
-        result["Staten Island"] = self.getAveragePrice("Staten Island")
-        result["Bronx"] = self.getAveragePrice("Bronx")
+        #result = {}
+        #result["Brooklyn"] = self.getAveragePrice("Brooklyn")
+        #result["Manhattan"] = self.getAveragePrice("Manhattan")
+        #result["Queens"] = self.getAveragePrice("Queens")
+        #result["Staten Island"] = self.getAveragePrice("Staten Island")
+        #result["Bronx"] = self.getAveragePrice("Bronx")
+        result = []
+        result.append(('Brooklyn', self.getAveragePrice("Brooklyn")))
+        result.append(('Manhattan', self.getAveragePrice("Manhattan")))
+        result.append(('Queens', self.getAveragePrice("Queens")))
+        result.append(('Staten Island', self.getAveragePrice("Staten Island")))
+        result.append(('Bronx', self.getAveragePrice("Bronx")))
         return result
 
     def getCertainRoomTypeCount(self, room_type):
