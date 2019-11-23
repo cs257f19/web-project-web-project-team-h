@@ -79,9 +79,9 @@
      'className': 'custom'
    }
    for (var i = 0; i < locations.length; i++) {
-     var customPopup = "<div class='popup'><p><strong>"+locations[i][3]+"</strong></p><p>"+locations[i][6]+"</p>" +
-     "<p><u>$"+locations[i][7]+"</u>/night</p><p><u>"+locations[i][8]+"</u> night minimum</p>"  +
-     "<p><u>"+locations[i][9]+"</u> reviews/month</p><p>Available <u>"+locations[i][10]+"</u> days"+"/year </p></div>";
+     var customPopup = "<div class='popup'><p><strong>"+locations[i][3]+"</strong></p><p>"+locations[i][4]+"</p>" +
+     "<p><u>$"+locations[i][5]+"</u>/night</p><p><u>"+locations[i][6]+"</u> night minimum</p>"  +
+     "<p><u>"+locations[i][7]+"</u> reviews/month</p><p>Available <u>"+locations[i][8]+"</u> days"+"/year </p></div>";
      var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
      marker.bindPopup(customPopup,customOptions);
    }
