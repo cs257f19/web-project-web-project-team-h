@@ -14,7 +14,8 @@ class DataSource:
 		Note: exits if a connection cannot be established.
 		'''
         try:
-            self.connection = psycopg2.connect(host="localhost", database=user, user=user, password=password)
+            self.connection = psycopg2.connect(host="localhost", database=user,\
+                                               user=user, password=password)
         except Exception as e:
             print("Connection error: ", e)
             exit()
@@ -96,7 +97,8 @@ class DataSource:
             query = "SELECT host_id FROM airbnb"
             cursor.execute(query)
             all_info = cursor.fetchall()
-            # dict taken key - host ids, values - number of listings host owns
+
+            # keys:host ids; values:number of listings that host owns
             host_listings_num = {}
             # get the number of listings each host has
             for host in all_info:
@@ -104,8 +106,8 @@ class DataSource:
                 if host_id not in host_listings_num:
                     host_listings_num[host_id] = 0
                 host_listings_num[host_id] += 1
-            # dict taken key - number of listings, value - number of hosts having
-            # certain number of listings
+
+            # keys:number of listings; values:number of hosts with that many listings
             listing_num = {}
             # get number of hosts owning certain number of listings
             for host, num in host_listings_num.items():
@@ -340,22 +342,16 @@ class DataSource:
 
     def getAveragePriceNbhGroup(self):
         '''
-        Returns a dictionary taken neighborhood borough as keys and the number
-        of listings in that neighborhood borough as values.
+        Returns a list containing neighborhood boroughs the average price of
+        listings in the neighborhood boroughs.
 
         PARAMETERS:
             None
 
         RETURNS:
-            a dictionary taken neighborhood borough as keys and the number
-            of listings in that neighborhood borough as values
+            a list of five tuples, each is composed of the neighborhood borough
+            and the average price of listings in that neighborhood borough
         '''
-        #result = {}
-        #result["Brooklyn"] = self.getAveragePrice("Brooklyn")
-        #result["Manhattan"] = self.getAveragePrice("Manhattan")
-        #result["Queens"] = self.getAveragePrice("Queens")
-        #result["Staten Island"] = self.getAveragePrice("Staten Island")
-        #result["Bronx"] = self.getAveragePrice("Bronx")
         result = []
         result.append(('Brooklyn', self.getAveragePrice("Brooklyn")))
         result.append(('Manhattan', self.getAveragePrice("Manhattan")))
