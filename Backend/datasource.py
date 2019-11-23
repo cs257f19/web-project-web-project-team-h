@@ -48,19 +48,18 @@ class DataSource:
             print ("Something went wrong when executing the query: ", e)
             return None
 
-    def getSameHouseType(self, neighbourhood, room_type):
+    def getAllListingOfType(self, room_type, neighbourhood):
         '''
-        Returns a list of listings given the neighbourhood area and listing
-        space type.
-        Audience: hosts, investigators/researchers
+        Returns a list of listing objects of given room type and neighbourhood.
+        Audience: hosts
 
         PARAMETERS:
-            neighbourhood - the neighbourhood area
             room_type - the listing space type
+            neighbourhood - specific neighbourhood for each listing
 
         RETURN:
-            a list of Listing objects in the neighbourhood area of the specified
-            room type, or None if the query fails
+            a list of listing objects with given room type and neighbourhood or
+            None if the query fails
         '''
         try:
             cursor = self.connection.cursor()
@@ -70,57 +69,15 @@ class DataSource:
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
             return listings
         except Exception as e:
-            print ("Something went wrong when executing the query: ", e)
-            return None
-
-    def getAllListingOfType(self, room_type):
-        '''
-        Returns a list of listing objects of given room type.
-        Helper function for self.getListingsForAllType()
-
-        PARAMETERS:
-            room_type - the listing space type
-
-        RETURN:
-            a list of listing objects with given room type or None if the query
-            fails
-        '''
-        try:
-            cursor = self.connection.cursor()
-            query = "SELECT * FROM airbnb where room_type = %s"
-            cursor.execute(query, (room_type, ))
-            listing_tuples = cursor.fetchall()
-            listings = [Listing(a_tuple) for a_tuple in listing_tuples]
-            return listings
-        except Exception as e:
             print("Something went wrong when try to get listings for type:", e)
             return None
 
-    def getListingsForAllType(self):
-        '''
-        Returns a dictionary containing 3 keys of all room types and lists of
-        all listings of that room type using the helper function
-        self.getAllListingOfType(room_type)
-        Audience: tourists, researchers
-
-        PARAMETERS:
-            None
-
-        RETURN:
-            a dictionary containing 3 keys of all room types and lists of
-            all listings of that room type
-        '''
-        result = {}
-        result["Private"] = self.getAllListingOfType("Private room")
-        result["Shared"] = self.getAllListingOfType("Shared room")
-        result["Entire"] = self.getAllListingOfType("Entire home/apt")
-        return result
 
     def getNumHostNumListing(self):
         '''
         Returns a dictionary using the number of listings as keys and number
         of hosts owning that number of listings as values
-        Audience: researchers
+        Audience: researchers/investigators
 
         PARAMETERS:
             None
@@ -156,7 +113,7 @@ class DataSource:
         '''
         Returns a tuple with first entry as the number of hosts owning one listing,
         and second entry as the number of hosts owning multiple listings.
-        Audience: reseacher
+        Audience: reseacher/investigators
 
         PARAMETER:
             None
@@ -168,7 +125,7 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT COUNT(host_id) FROM airbnb"
+            query = "SELECT COUNT(DISTINCT host_id) FROM airbnb"
             cursor.execute(query)
             total = cursor.fetchall()[0][0]
             listing_num = self.getNumHostNumListing()
@@ -236,6 +193,7 @@ class DataSource:
         Returns a dictionary with 0 to 365 as keys indicating the availability
         of listings, and number of listings with that number of availability as
         values
+        Audience: researchers/investigators
 
         PARAMETERS:
             None
@@ -262,6 +220,20 @@ class DataSource:
             return None
 
     def getNumListingPriceRange(self, min, max):
+        '''
+        Returns the number of listings in the price range of given minimum and
+        maximum prices.
+        Helper function for self.getPriceQuantile()
+        Audience: researchers/investigators
+
+        PARAMETERS:
+            min - minimum price
+            max - maximum price
+
+        RETURNS:
+            the number of listings in the price range of given minimum and
+            maximum prices or None if the query fails
+        '''
         try:
             cursor = self.connection.cursor()
             query = "SELECT COUNT(id) FROM airbnb where price > %s and price <= %s"
@@ -272,6 +244,18 @@ class DataSource:
             return None
 
     def getPriceQuantile(self):
+        '''
+        Returns a tuple of 3 entries with the number of listings in the range:
+        0-100, 100-200, and above 200.
+        Audience: researchers/investigators
+
+        PARAMETERS:
+            None
+
+        RETURNS:
+            a tuple of 3 entries with the number of listings in the range:
+            0-100, 100-200, and above 200.
+        '''
         listing_100 = self.getNumListingPriceRange(0,100)
         listing_200 = self.getNumListingPriceRange(100,200)
         listing_above = self.getNumListingPriceRange(200,10000000)
@@ -343,7 +327,12 @@ class DataSource:
 
     def getCertainRoomTypeCount(self, room_type):
         '''
+        Returns the number of listings of given room type
         Helper function for getRoomTypeForAll(self)
+        Audience: reseachers/investigators
+
+        PARAMETERS:
+            room_type - the listing space type
         '''
         try:
             cursor = self.connection.cursor()
