@@ -32,16 +32,6 @@
       <form action="{{ url_for('listingSearch') }}">
         <input type="submit" value="Back to Listing Search" />
       </form>
-      {% if results %}
-      {% if results == 1 %}
-       <p><strong>Please make sure min price is less than or equal to max price!</strong></p>
-      </div>
-      </section>
-      {% elif results == 2 %}
-       <p><strong>No listings are found for your criterion.</strong></p>
-      </div>
-      </section>
-      {% else %}
       <h1 class="heading">Result</h1>
       <div id="my_dataviz" class="mapid"></div>
   </section>
@@ -86,11 +76,5 @@ var listings = new L.LayerGroup();
  }
  mymap.addLayer(listings);
 </script>
-{% endif %}
-{% else %}
- <p><strong>Please make sure all your inputs are correct!</strong></p>
-</div>
-</section>
-{% endif %}
 </body>
 </html>
