@@ -92,14 +92,18 @@ class DataSource:
             query = "SELECT host_id FROM airbnb"
             cursor.execute(query)
             all_info = cursor.fetchall()
+            # dict taken key - host ids, values - number of listings host owns
             host_listings_num = {}
+            # get the number of listings each host has
             for host in all_info:
                 host_id = host[0]
                 if host_id not in host_listings_num:
                     host_listings_num[host_id] = 0
                 host_listings_num[host_id] += 1
-
+            # dict taken key - number of listings, value - number of hosts having
+            # certain number of listings
             listing_num = {}
+            # get number of hosts owning certain number of listings
             for host, num in host_listings_num.items():
                 if num not in listing_num:
                     listing_num[num] = 0
@@ -304,9 +308,10 @@ class DataSource:
             print("Something went wrong when executing the query:", e)
             return None
 
-    def getAveragePrice(self):
+    def getAveragePrice(self, neighbourhood_group=None):
         '''
-        Returns the average price for listings.
+        Returns the average price for listings of given neighbourhood group if
+        it is in the input。
         Audience: investigators/researchers, business owners
 
         PARAMETERS:
@@ -317,18 +322,41 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT AVG(price) FROM airbnb"
-            cursor.execute(query)
+            if neighbourhood_group is None:
+                query = "SELECT AVG(price) FROM airbnb"
+                cursor.execute(query)
+            else:
+                query = "SELECT AVG(price) FROM airbnb where neighbourhood_group = %s"
+                cursor.execute(query, (neighbourhood_group,))
             average = float(cursor.fetchall()[0][0])
             return round(average, 2)
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
 
+    def getAveragePriceNbhGroup(self):
+        '''
+        Returns a dictionary taken neighborhood borough as keys and the number
+        of listings in that neighborhood borough as values.
+
+        PARAMETERS:
+            None
+
+        RETURNS:
+            a dictionary taken neighborhood borough as keys and the number
+            of listings in that neighborhood borough as values
+        '''
+        result = {}
+        result["Brooklyn"] = self.getAveragePrice("Brooklyn")
+        result["Manhattan"] = self.getAveragePrice("Manhattan")
+        result["Queens"] = self.getAveragePrice("Queens")
+        result["Staten Island"] = self.getAveragePrice("Staten Island")
+        result["Bronx"] = self.getAveragePrice("Bronx")
+        return result
+
     def getCertainRoomTypeCount(self, room_type):
         '''
         Returns the number of listings of given room type
-        Helper function for getRoomTypeForAll(self)
         Audience: reseachers/investigators
 
         PARAMETERS:
