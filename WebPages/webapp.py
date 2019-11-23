@@ -35,6 +35,16 @@ def listingSearch():
     '''
     return render_template('searchPage.html')
 
+@app.route('/errorPage')
+def errorPage(msg):
+    '''
+    PARAMETERS: 
+        msg: a string of message that will be displayed on the error page
+
+    Return: render errorPage.html with a display of the message
+    '''
+    return render_template('errorPage.html', msg=msg)
+
 @app.route('/hostResult',methods = ['POST', 'GET'])
 def hostResult():
     '''
@@ -49,6 +59,10 @@ def hostResult():
         db.connect('qine', 'ruby434seal')
         host_id = result['id']
         host_info = db.getHostInfo(host_id)
+
+        if not host_info:
+            return errorPage('Please enter a valid host id!')
+
         return render_template('hostResult.html',results=host_info, database=db)
 
 @app.route('/listingResult',methods = ['POST', 'GET'])
@@ -61,6 +75,12 @@ def listingResult():
     '''
     if request.method == 'POST':
         result = request.form
+       
+        # check for valid user input
+        if not result['min price'] or not result['max price']:
+            return errorPage('Please enter values for both min and max price.')
+        if 'neighborhood group' not in result or 'room type' not in result:
+            return errorPage('Please select a neighborhood group and a room type.')
 
         # get user input from searchPage.html
         min_price = int(result['min price'])
@@ -73,6 +93,15 @@ def listingResult():
         db.connect('qine', 'ruby434seal')
 
         listings = db.getAllListings(nbh_group, room_type, (min_price, max_price))
+        
+        # display error pages for edge cases
+        if not listings:
+            return errorPage('Please make sure all your inputs are correct!')
+        elif listings == 1:
+            return errorPage('Please make sure min price is less than or equal to max price!')
+        elif listings == 2:
+            return errorPage('No listings are found for your criterion.')
+
         return render_template('searchResult.html', results=listings)
 
 @app.route('/overall')
