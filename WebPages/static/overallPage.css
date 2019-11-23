@@ -65,9 +65,27 @@ h1 {
   margin: 0px;
 }
 
-table {
-  align: center;
+table, th, td {
+  font-size: 18px;
+  width: 50%;
 }
+
+table {
+  margin:auto;
+}
+
+th, td {
+  padding: 5px;
+  text-align: left;
+  border-bottom: 1px solid #30B099;
+}
+
+th {
+  background-color: #00A699;
+  color: white;
+}
+
+tr:hover {background-color: #C9F0E9;}
 
 section {
   background-color: rgb(255,255,255,0.8);

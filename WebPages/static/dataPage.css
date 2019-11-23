@@ -95,7 +95,7 @@ table, th, td {
 }
 
 table{
-    align: center;
+  margin:auto;
 }
 
 th, td {
