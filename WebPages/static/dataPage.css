@@ -94,6 +94,10 @@ table, th, td {
   width: 70%;
 }
 
+table{
+    align: center;
+}
+
 th, td {
   padding: 5px;
   text-align: left;
