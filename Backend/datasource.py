@@ -48,7 +48,7 @@ class DataSource:
             print ("Something went wrong when executing the query: ", e)
             return None
 
-    def getAllListingOfType(self, room_type, neighbourhood):
+    def getAllListingOfType(self, room_type, neighbourhood=None):
         '''
         Returns a list of listing objects of given room type and neighbourhood.
         Audience: hosts
@@ -63,8 +63,12 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT * FROM airbnb where neighbourhood = %s and room_type = %s"
-            cursor.execute(query, (neighbourhood, room_type, ))
+            if neighbourhood:
+                query = "SELECT * FROM airbnb where neighbourhood = %s and room_type = %s"
+                cursor.execute(query, (neighbourhood, room_type, ))
+            else:
+                query = "SELECT * FROM airbnb where room_type = %s"
+                cursor.execute(query, (room_type, ))
             listing_tuples = cursor.fetchall()
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
             return listings
@@ -362,14 +366,8 @@ class DataSource:
         PARAMETERS:
             room_type - the listing space type
         '''
-        try:
-            cursor = self.connection.cursor()
-            query = "SELECT COUNT(id) FROM airbnb where room_type = %s"
-            cursor.execute(query, (room_type,))
-            return cursor.fetchall()[0][0]
-        except Exception as e:
-            print("Something went wrong when executing the query:", e)
-            return None
+        listings = self.getAllListingOfType(room_type)
+        return len(listings)
 
     def getTotalReviews(self):
         '''
