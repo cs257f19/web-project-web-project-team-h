@@ -38,7 +38,7 @@ def listingSearch():
 @app.route('/errorPage')
 def errorPage(msg):
     '''
-    PARAMETERS: 
+    PARAMETERS:
         msg: a string of message that will be displayed on the error page
 
     Return: render errorPage.html with a display of the message
@@ -75,7 +75,7 @@ def listingResult():
     '''
     if request.method == 'POST':
         result = request.form
-       
+
         # check for valid user input
         if not result['min price'] or not result['max price']:
             return errorPage('Please enter values for both min and max price.')
@@ -93,7 +93,7 @@ def listingResult():
         db.connect('qine', 'ruby434seal')
 
         listings = db.getAllListings(nbh_group, room_type, (min_price, max_price))
-        
+
         # display error pages for edge cases
         if not listings:
             return errorPage('Please make sure all your inputs are correct!')
@@ -135,6 +135,9 @@ def overall():
     host_single_count = single_multiple_listings[0]
     host_multiple_count = single_multiple_listings[1]
 
+    # get information for the 'Average Neighborhood Group Price' section on overallPage.html
+    nbh_group_avg_price = db.getAveragePriceNbhGroup()
+
     return render_template('overallPage.html',
                             average_reviews_per_month=average_reviews_per_month,
                             total_reviews=total_reviews,
@@ -147,7 +150,8 @@ def overall():
                             shared_room_count=shared_room_count,
                             host_listings=host_listings,
                             host_single_count=host_single_count,
-                            host_multiple_count=host_multiple_count)
+                            host_multiple_count=host_multiple_count,
+                            nbh_group_avg_price=nbh_group_avg_price)
 
 if __name__=='__main__':
     if len(sys.argv) != 3:
