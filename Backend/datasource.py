@@ -342,22 +342,16 @@ class DataSource:
 
     def getAveragePriceNbhGroup(self):
         '''
-        Returns a dictionary taken neighborhood borough as keys and the number
-        of listings in that neighborhood borough as values.
+        Returns a list containing neighborhood boroughs the average price of
+        listings in the neighborhood boroughs.
 
         PARAMETERS:
             None
 
         RETURNS:
-            a dictionary taken neighborhood borough as keys and the number
-            of listings in that neighborhood borough as values
+            a list of five tuples, each is composed of the neighborhood borough
+            and the average price of listings in that neighborhood borough
         '''
-        #result = {}
-        #result["Brooklyn"] = self.getAveragePrice("Brooklyn")
-        #result["Manhattan"] = self.getAveragePrice("Manhattan")
-        #result["Queens"] = self.getAveragePrice("Queens")
-        #result["Staten Island"] = self.getAveragePrice("Staten Island")
-        #result["Bronx"] = self.getAveragePrice("Bronx")
         result = []
         result.append(('Brooklyn', self.getAveragePrice("Brooklyn")))
         result.append(('Manhattan', self.getAveragePrice("Manhattan")))

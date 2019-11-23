@@ -10,48 +10,81 @@ app= flask.Flask(__name__)
 @app.route('/')
 def homePage():
     '''
-    Return: render homePage.html
+    Renders the home page.
+
+    PARAMETERS:
+        None
+
+    RETURNS:
+        render homePage.html
     '''
     return render_template('homePage.html')
 
 @app.route('/data')
 def dataPage():
     '''
-    Return: render dataPage.html
+    Renders the "About Data" page.
+
+    PARAMETERS:
+        None
+
+    RETURNS:
+        render dataPage.html
     '''
     return render_template('dataPage.html')
 
 @app.route('/hostSearch')
 def hostSearch():
     '''
-    Return: render hostSearch.html
+    Renders the "For Host" search page.
+
+    PARAMETERS:
+        None
+
+    RETURNS:
+        render hostSearch.html
     '''
     return render_template('hostPage.html')
 
 @app.route('/listingSearch')
 def listingSearch():
     '''
-    Return: render hostSearch.html
+    Renders the "Listing Search" page.
+
+    PARAMETERS:
+        None
+
+    RETURNS:
+        render hostSearch.html
     '''
     return render_template('searchPage.html')
 
 @app.route('/errorPage')
 def errorPage(msg):
     '''
+    Renders the error page with desired message.
+
     PARAMETERS:
         msg: a string of message that will be displayed on the error page
 
-    Return: render errorPage.html with a display of the message
+    RETURNS:
+        render errorPage.html with a display of the message
     '''
     return render_template('errorPage.html', msg=msg)
 
 @app.route('/hostResult',methods = ['POST', 'GET'])
 def hostResult():
     '''
-    This function get called when the submit button is clicked on hostPage.html
+    This function get called when the submit button is clicked on hostPage.html,
+    it renders the "For Host" search result page when the host id input is
+    valid. Otherwise, it renders the error page.
 
-    Return: render hostResult.html with the host id entered by user in
-    hostSearch.html entered in hostPage.html and a datasource object
+    PARAMETERS:
+        None
+
+    RETURNS:
+        render hostResult.html with the host id entered by user in
+        hostSearch.html entered in hostPage.html and a datasource object
     '''
     if request.method == 'POST':
         result = request.form
@@ -68,10 +101,17 @@ def hostResult():
 @app.route('/listingResult',methods = ['POST', 'GET'])
 def listingResult():
     '''
-    This function get called when the search button is clicked on searchPage.html
+    This function get called when the search button is clicked on
+    searchPage.html, it renders the "Listing Search" result page when the inputs
+    are all valid and there are listings found for the given criterion.
+    Otherwise, it renders error page with descriptive messages.
 
-    Return: render the searchResult.html page with a list of listings that
-            satisfy the conditions entered by the user in searchPage.html
+    PARAMETERS:
+        None
+
+    RETURNS:
+        render the searchResult.html page with a list of listings that
+        satisfy the conditions entered by the user in searchPage.html
     '''
     if request.method == 'POST':
         result = request.form
@@ -107,8 +147,14 @@ def listingResult():
 @app.route('/overall')
 def overall():
     '''
-    Return: render overallPage.html with the needed information for researchers
-            and investigators.
+    Renders the "Visualize Data" page that gives the overall statistics. 
+
+    PARAMETERS:
+        None
+
+    RETURNS:
+        render overallPage.html with the needed information for researchers
+        and investigators.
     '''
     # initialize data source object
     db = DataSource()
