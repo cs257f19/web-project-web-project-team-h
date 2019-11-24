@@ -71,7 +71,8 @@
     <div>
       <h3>Availability</h3>
       <p>An Airbnb host can setup a calendar for their listing that will show the availability of this listing.
-      Somel listings are available all year round while some only for a few weeks or days.</p>
+      Somel listings are available all year round while some only for a few weeks or days.
+      (The plot below shows the distribution of availability of all the listings.)</p>
       <div class="data">
         <div id="availability_dataviz" class="dataviz"></div>
         <div>
@@ -84,7 +85,9 @@
     <div>
       <h3>Listings Per Host</h3>
       <p>Some Airbnb hosts have multiple listings and others have only one listing.
-      A host may list separate rooms in the same apartment, or multiple apartments or homes available in their entirety.</p>
+      A host may list separate rooms in the same apartment, or multiple apartments or homes available in their entirety.
+      (The plot below only show the distribution of the number of hosts with 2-10 listings. This is because most
+      host with myltiple listings fall in this category.)</p>
       <div class="data">
         <div id="listing_per_host_dataviz" class="dataviz"></div>
         <div>
@@ -159,7 +162,7 @@ var color = d3.scaleOrdinal()
 // compute the position of each group on the pie:
 var pie = d3.pie()
   .value(function(d) {return d.value; })
-var data_ready = pie(d3.entries(data))
+var dataReady = pie(d3.entries(data))
 var arc = d3.arc().innerRadius(radius*0.5).outerRadius(radius*0.8)
 var outerArc = d3.arc().innerRadius(radius*1.0).outerRadius(radius*1.0)
 
@@ -167,7 +170,7 @@ var outerArc = d3.arc().innerRadius(radius*1.0).outerRadius(radius*1.0)
 // using the arc function.
 svg
   .selectAll('whatever')
-  .data(data_ready)
+  .data(dataReady)
   .enter()
   .append('path')
   .attr('d', d3.arc()
@@ -183,7 +186,7 @@ svg
 // Add the polylines between chart and labels:
 svg
   .selectAll('allPolylines')
-  .data(data_ready)
+  .data(dataReady)
   .enter()
   .append('polyline')
     .attr("stroke", "black")
@@ -209,7 +212,7 @@ svg
 
 // Add the polylines between chart and labels:
 svg.selectAll('allLabels')
-  .data(data_ready)
+  .data(dataReady)
   .enter()
   .append('text')
     .text( function(d) { console.log(d.data.key) ; return d.data.key } )
@@ -270,6 +273,7 @@ svg.append("text")
     svg1.append("g")
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y).ticks(2, "f"));
+    // Add label for Y axis
     svg1.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
@@ -278,7 +282,7 @@ svg.append("text")
       .style("text-anchor", "middle")
       .text("num of listings");
 
-    // A function that create / update the plot for the given data
+    // A function that render the plot for the given data
     function update(data) {
 
       var u = svg1.selectAll("rect")
@@ -305,19 +309,17 @@ svg.append("text")
     // Initialize variables
     var listings1 = [];
     var availabilityListings = {};
-    var maxNumListing = 0;
-    var count = 1;
 
-    // Get data from Jinja
+    // Create a js dictionary from the dictionary passed in from flask
     {% for key, value in availability_dict.items() %}
-    if ({{key}}>maxNumListing) {
-      maxNumListing = {{key}};
-    }
     availabilityListings[{{key}}]={{value}};
     {% endfor %}
-  console.log({{ availability_dict }});
 
-    // ??
+    // Create a js dictionary that where key represent number of days available in a year and
+    // value represents number of listings with this availability. Check all possible availability.
+    // If one availability is not in the dictionary passed in from flask, then set number of listings with this
+    // availability to 0.
+    var count = 1;
     while (count<366){
       if (count in availabilityListings){
         listings1.push({group:count,value:availabilityListings[count]});
@@ -348,6 +350,7 @@ svg.append("text")
     svg2.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).tickValues([0,50,100,150,200,250,300,350]));
+    // Add label to X axis
     svg2.append("text")
       .attr("transform",
             "translate(" + (width/2) + " ," +
@@ -362,6 +365,7 @@ svg.append("text")
     svg2.append("g")
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y).ticks(3));
+    // Add label to Y axis
     svg2.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
@@ -370,7 +374,7 @@ svg.append("text")
       .style("text-anchor", "middle")
       .text("num of listings");
 
-    // A function that create / update the plot for a given variable:
+    // A function that render the plot for a given variable:
     function update(data) {
 
       var u = svg2.selectAll("rect")
@@ -398,16 +402,18 @@ svg.append("text")
     var listings = [];
     var hostListings = {};
 
-    var maxNumListing = 0;
     var count = 2;
-    console.log({{host_listings}});
+
+    // Create a js dictionary from the dictionary passed in from flask
     {% for key, value in host_listings.items() %}
-    if ({{key}}>maxNumListing) {
-     maxNumListing = {{key}};
-    }
     hostListings[{{key}}]={{value}};
     {% endfor %}
 
+    // Create a js dictionary that where key represent listing per host and
+    // value represents number of hosts with this many listings. Check hosts with listings from 2-10,
+    // this is because most hosts with multiple listings fall into this range.
+    // If one number of listing is not in the dictionary passed in from flask, then set number of hosts with this
+    // many listings to 0.
    while (count<11){
     if (count in hostListings){
       listings.push({group:count,value:hostListings[count]});
@@ -438,12 +444,13 @@ svg.append("text")
     svg3.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
+    // Add label for X axis
     svg3.append("text")
       .attr("transform",
             "translate(" + (width/2) + " ," +
                            (height + margin.top + 27) + ")")
       .style("text-anchor", "middle")
-      .text("num of hosts");
+      .text("listings per host");
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -452,16 +459,16 @@ svg.append("text")
     svg3.append("g")
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y).ticks(5, "f"));
-
+    // Add label for Y axis
     svg3.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("listings per host");
+      .text("num of hosts");
 
-    // A function that create / update the plot for a given variable:
+    // A function that render the plot for a given variable:
     function update(data) {
 
       var u = svg3.selectAll("rect")
