@@ -93,6 +93,10 @@ input[type=submit] {
   height: 700px;
 }
 
+.database{
+  margin-left: 40px;
+  font-size: 21px;
+}
 
 h2, .leaflet-popup-content .popup p strong {
   color: #00A699;
