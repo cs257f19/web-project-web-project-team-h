@@ -294,6 +294,7 @@ class DataSource:
         '''
         Returns a list containing neighborhood boroughs the average price of
         listings in the neighborhood boroughs.
+        Audience: investigators/researchers
 
         PARAMETERS:
             None
@@ -385,6 +386,7 @@ class DataSource:
     def getTotalReviews(self):
         '''
         Returns the total number of reviews of all listings.
+        Audience: investigators/researchers
 
         PARAMETERS:
             None
