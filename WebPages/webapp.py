@@ -7,6 +7,10 @@ from datasource import *
 
 app= flask.Flask(__name__)
 
+@app.route('/script.js')
+def script(results):
+    return render_template('searchResult.js', results=results)
+
 @app.route('/')
 def homePage():
     '''
