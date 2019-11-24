@@ -40,8 +40,6 @@
 
 
 <script>
- //var listings = new L.LayerGroup();
-
  // Initialize map to show listings
  var mymap = L.map('my_dataviz').setView([40.720610, -73.975242], 11);
 
@@ -74,7 +72,6 @@
    var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
    marker.bindPopup(customPopup,customOptions);
  }
- //mymap.addLayer(listings);
 </script>
 
 </body>
