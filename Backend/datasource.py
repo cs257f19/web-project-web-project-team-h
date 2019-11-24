@@ -26,7 +26,7 @@ class DataSource:
         '''
         self.connection.close()
 
-    def getHostInfo(self, host_id):
+    def getHostListings(self, host_id):
         '''
         Returns a list of all informations given the specified host id.
         Audience: hosts, tourists
@@ -304,11 +304,26 @@ class DataSource:
             and the average price of listings in that neighborhood borough
         '''
         result = []
-        result.append(('Brooklyn', self.getAveragePrice("Brooklyn")))
-        result.append(('Manhattan', self.getAveragePrice("Manhattan")))
-        result.append(('Queens', self.getAveragePrice("Queens")))
-        result.append(('Staten Island', self.getAveragePrice("Staten Island")))
-        result.append(('Bronx', self.getAveragePrice("Bronx")))
+        result.append(('Brooklyn', \
+                       self.getAveragePrice("Brooklyn"), \
+                       self.getAverageAvailability("Brooklyn"), \
+                       self.getAverageNumOfReviews("Brooklyn")))
+        result.append(('Manhattan', \
+                       self.getAveragePrice("Manhattan"), \
+                       self.getAverageAvailability("Manhattan"), \
+                       self.getAverageNumOfReviews("Manhattan")))
+        result.append(('Queens', \
+                      self.getAveragePrice("Queens"), \
+                      self.getAverageAvailability("Queens"), \
+                      self.getAverageNumOfReviews("Queens")))
+        result.append(('Staten Island', \
+                       self.getAveragePrice("Staten Island"), \
+                       self.getAverageAvailability("Staten Island"), \
+                       self.getAverageNumOfReviews("Staten Island")))
+        result.append(('Bronx', \
+                       self.getAveragePrice("Bronx"), \
+                       self.getAverageAvailability("Bronx"), \
+                       self.getAverageNumOfReviews("Bronx")))
         return result
 
     def getAveragePrice(self, neighbourhood_group=None):
@@ -318,7 +333,7 @@ class DataSource:
         Audience: investigators/researchers, business owners
 
         PARAMETERS:
-            None
+            neighbourhood_group - one of the five boroughs of New York City
 
         RETURN:
             the average price of listings, or None if the query fails
@@ -338,14 +353,13 @@ class DataSource:
             print("Something went wrong when executing the query:", e)
             return None
 
-    def getAverageAvailability(self):
+    def getAverageAvailability(self, neighbourhood_group=None):
         '''
         Returns the average available nights for all listings.
         Audience: investigators/researchers
 
         PARAMETERS:
             neighbourhood_group - one of the five boroughs of New York City
-            room_type - the listing space type
 
         RETURN:
             the average available nights of all listings,
@@ -353,21 +367,26 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT AVG(availability_365) FROM airbnb"
-            cursor.execute(query)
+            if neighbourhood_group is None:
+                query = "SELECT AVG(availability_365) FROM airbnb"
+                cursor.execute(query)
+            else:
+                query = "SELECT AVG(availability_365) FROM airbnb where" + \
+                        " neighbourhood_group = %s"
+                cursor.execute(query, (neighbourhood_group,))
             average = float(cursor.fetchall()[0][0])
             return round(average, 2)
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
 
-    def getAverageNumOfReviews(self):
+    def getAverageNumOfReviews(self, neighbourhood_group=None):
         '''
         Returns the average number of reviews for all listings.
         Audience: investigators/researchers
 
         PARAMETERS:
-            None
+            neighbourhood_group - one of the five boroughs of New York City
 
         RETURN:
             the average number of reviews of all listings,
@@ -375,8 +394,13 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT AVG(number_of_reviews) FROM airbnb"
-            cursor.execute(query)
+            if neighbourhood_group is None:
+                query = "SELECT AVG(number_of_reviews) FROM airbnb"
+                cursor.execute(query)
+            else:
+                query = "SELECT AVG(number_of_reviews) FROM airbnb where" + \
+                        " neighbourhood_group = %s"
+                cursor.execute(query, (neighbourhood_group,))
             average = float(cursor.fetchall()[0][0])
             return round(average, 2)
         except Exception as e:
@@ -688,7 +712,7 @@ def main():
 
     '''
     # Query: host info
-    host_info = query.getHostInfo(2787)
+    host_info = query.getHostListings(2787)
 
     if host_info is not None:
         print("Host info query results (only showing price here): ")
@@ -726,8 +750,6 @@ def main():
     print(length)
 
     result = query.getNumListingPriceRange(300, float("inf"))
-    print(result)
-    result = query.getHostInfo(2787)
     print(result)
     '''
 
