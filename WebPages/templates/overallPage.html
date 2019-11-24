@@ -260,7 +260,7 @@ svg.append("text")
     height = 120 - margin.top - margin.bottom;
 
     // append the svg (Scalable Vector Graphics) object to the div 'room_type_dataviz'
-    var svg1 = d3.select("#room_type_dataviz")
+    var svgRoomType = d3.select("#room_type_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -273,7 +273,7 @@ svg.append("text")
     .range([ 0, width ])
     .domain(data1.map(function(d) { return d.group; }))
     .padding(0.2);
-    svg1.append("g")
+    svgRoomType.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
 
@@ -281,11 +281,11 @@ svg.append("text")
     var y = d3.scaleLinear()
     .domain([0, 28000])
     .range([ height, 0]);
-    svg1.append("g")
+    svgRoomType.append("g")
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y).ticks(2, "f"));
     // Add label for Y axis
-    svg1.append("text")
+    svgRoomType.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
       .attr("x",0 - (height / 2))
@@ -296,7 +296,7 @@ svg.append("text")
     // A function that render the plot for the given data
     function update(data) {
 
-      var u = svg1.selectAll("rect")
+      var u = svgRoomType.selectAll("rect")
       .data(data)
 
       u
@@ -346,7 +346,7 @@ svg.append("text")
     height = 140 - margin.top - margin.bottom;
 
     // Append the svg object to the body of the div '#availability_dataviz'
-    var svg2 = d3.select("#availability_dataviz")
+    var svgAvailability = d3.select("#availability_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -358,11 +358,11 @@ svg.append("text")
     var x = d3.scaleBand()
     .range([ 0, width ])
     .domain(listings1.map(function(d) { return d.group; }));
-    svg2.append("g")
+    svgAvailability.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x).tickValues([0,50,100,150,200,250,300,350]));
     // Add label to X axis
-    svg2.append("text")
+    svgAvailability.append("text")
       .attr("transform",
             "translate(" + (width/2) + " ," +
                            (height + margin.top + 27) + ")")
@@ -373,11 +373,11 @@ svg.append("text")
     var y = d3.scaleLinear()
     .domain([0, 500])
     .range([ height, 0]);
-    svg2.append("g")
+    svgAvailability.append("g")
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y).ticks(3));
     // Add label to Y axis
-    svg2.append("text")
+    svgAvailability.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
       .attr("x",0 - (height / 2))
@@ -388,7 +388,7 @@ svg.append("text")
     // A function that render the plot for a given variable:
     function update(data) {
 
-      var u = svg2.selectAll("rect")
+      var u = svgAvailability.selectAll("rect")
       .data(data);
 
       u
@@ -440,7 +440,7 @@ svg.append("text")
     height = 140 - margin.top - margin.bottom;
 
     // append the svg3 object to the body of the div '#listing_per_host_dataviz
-    var svg3 = d3.select("#listing_per_host_dataviz")
+    var svgListingPerHost = d3.select("#listing_per_host_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -452,11 +452,11 @@ svg.append("text")
     var x = d3.scaleBand()
     .range([ 0, width ])
     .domain(listings.map(function(d) { return d.group; }));
-    svg3.append("g")
+    svgListingPerHost.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
     // Add label for X axis
-    svg3.append("text")
+    svgListingPerHost.append("text")
       .attr("transform",
             "translate(" + (width/2) + " ," +
                            (height + margin.top + 27) + ")")
@@ -467,11 +467,11 @@ svg.append("text")
     var y = d3.scaleLinear()
     .domain([0, 3400])
     .range([ height, 0]);
-    svg3.append("g")
+    svgListingPerHost.append("g")
     .attr("class", "myYaxis")
     .call(d3.axisLeft(y).ticks(5, "f"));
     // Add label for Y axis
-    svg3.append("text")
+    svgListingPerHost.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
       .attr("x",0 - (height / 2))
@@ -482,7 +482,7 @@ svg.append("text")
     // A function that render the plot for a given variable:
     function update(data) {
 
-      var u = svg3.selectAll("rect")
+      var u = svgListingPerHost.selectAll("rect")
       .data(data);
 
       u
