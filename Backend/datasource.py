@@ -71,10 +71,11 @@ class DataSource:
             max_price = price_range[1]
             if min_price > max_price:
                 return 1
-            query = "SELECT * FROM airbnb where neighbourhood_group = %s and" + \
-                    " room_type = %s and price >= %s and price <= %s ORDER BY" + \
-                    " number_of_reviews DESC"
-            cursor.execute(query, (neighbourhood_group, room_type, str(min_price), str(max_price),))
+            query = "SELECT * FROM airbnb where neighbourhood_group = %s" + \
+                    " and room_type = %s and price >= %s and price <= %s" + \
+                    " ORDER BY number_of_reviews DESC"
+            cursor.execute(query, (neighbourhood_group, room_type, \
+                                   str(min_price), str(max_price),))
             listing_tuples = cursor.fetchall()
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
             if len(listings) == 0:
@@ -111,7 +112,8 @@ class DataSource:
         try:
             cursor = self.connection.cursor()
             if neighbourhood:
-                query = "SELECT * FROM airbnb where neighbourhood = %s and room_type = %s"
+                query = "SELECT * FROM airbnb where neighbourhood = %s" + \
+                        " and room_type = %s"
                 cursor.execute(query, (neighbourhood, room_type, ))
             else:
                 query = "SELECT * FROM airbnb where room_type = %s"
@@ -142,8 +144,8 @@ class DataSource:
 
     def getSingleMultipleListing(self):
         '''
-        Returns a tuple with first entry as the number of hosts owning one listing,
-        and second entry as the number of hosts owning multiple listings.
+        Returns a tuple with first entry as the number of hosts owning one
+        listing, and second entry as the number of hosts with multiple listings.
         Audience: reseacher/investigators
 
         PARAMETER:
@@ -164,7 +166,8 @@ class DataSource:
             multiple_listing = total - single_listing
             return (single_listing, multiple_listing)
         except Exception as e:
-            print("Something went wrong when executing get single and multiple listing:", e)
+            print("Something went wrong when executing get single and" + \
+                  " multiple listing:", e)
             return None
 
     def getNumHostNumListing(self):
@@ -189,6 +192,7 @@ class DataSource:
 
             # keys:host ids; values:number of listings that host owns
             host_listings_num = {}
+
             # get the number of listings each host has
             for host in all_info:
                 host_id = host[0]
@@ -196,8 +200,10 @@ class DataSource:
                     host_listings_num[host_id] = 0
                 host_listings_num[host_id] += 1
 
-            # keys:number of listings; values:number of hosts with that many listings
+            # keys:number of listings
+            # values:number of hosts with that many listings
             listing_num = {}
+
             # get number of hosts owning certain number of listings
             for host, num in host_listings_num.items():
                 if num not in listing_num:
@@ -205,7 +211,8 @@ class DataSource:
                 listing_num[num] += 1
             return listing_num
         except Exception as e:
-            print("Something went wrong when getting the number of listing for hosts:", e)
+            print("Something went wrong when getting the number of listing" + \
+                  " for hosts:", e)
             return None
 
     def getAllAvailability(self):
@@ -274,17 +281,20 @@ class DataSource:
         '''
         try:
             cursor = self.connection.cursor()
-            query = "SELECT COUNT(id) FROM airbnb where price > %s and price <= %s"
+            query = "SELECT COUNT(id) FROM airbnb where price > %s and" + \
+                    " price <= %s"
             cursor.execute(query, (str(min), str(max),))
             return cursor.fetchall()[0][0]
         except Exception as e:
-            print("Something went wrong when getting the number of listings of certain prices:", e)
+            print("Something went wrong when getting the number of listings" + \
+                  " of certain prices:", e)
             return None
 
     def getAveragePriceNbhGroup(self):
         '''
         Returns a list containing neighborhood boroughs the average price of
         listings in the neighborhood boroughs.
+        Audience: investigators/researchers
 
         PARAMETERS:
             None
@@ -319,7 +329,8 @@ class DataSource:
                 query = "SELECT AVG(price) FROM airbnb"
                 cursor.execute(query)
             else:
-                query = "SELECT AVG(price) FROM airbnb where neighbourhood_group = %s"
+                query = "SELECT AVG(price) FROM airbnb where" + \
+                        " neighbourhood_group = %s"
                 cursor.execute(query, (neighbourhood_group,))
             average = float(cursor.fetchall()[0][0])
             return round(average, 2)
@@ -337,7 +348,8 @@ class DataSource:
             room_type - the listing space type
 
         RETURN:
-            the average available nights of all listings, or None if the query fails
+            the average available nights of all listings,
+            or None if the query fails
         '''
         try:
             cursor = self.connection.cursor()
@@ -358,7 +370,8 @@ class DataSource:
             None
 
         RETURN:
-            the average number of reviews of all listings, or None if the query fails
+            the average number of reviews of all listings,
+            or None if the query fails
         '''
         try:
             cursor = self.connection.cursor()
@@ -373,6 +386,7 @@ class DataSource:
     def getTotalReviews(self):
         '''
         Returns the total number of reviews of all listings.
+        Audience: investigators/researchers
 
         PARAMETERS:
             None
@@ -496,8 +510,8 @@ class Listing:
             None
 
         RETURN:
-            the neighbourhood borough for the given listing, or the neighbourhood
-            group does not exist
+            the neighbourhood borough for the given listing, or "Unavailable"
+            if the neighbourhood group does not exist
         '''
         if self.neighbourhood_group is None:
             print("Neighbourhood borough for this listing is not available.")
@@ -512,8 +526,8 @@ class Listing:
             None
 
         RETURN:
-            the neighbourhood area for the given listing, or the neighbourhood
-            does not exist
+            the neighbourhood area for the given listing, or "Unavailable"
+            if the neighbourhood does not exist
         '''
         if self.neighbourhood is None:
             print("Neighbourhood for this listing is not available.")
@@ -611,7 +625,7 @@ class Listing:
             the minimum number of nights does not exist
         '''
         if self.minimum_nights is None:
-            print("Number of the minimum nights required for this listing not available.")
+            print("Minimum number of nights for this listing not available.")
             return 0
         return self.minimum_nights
 
