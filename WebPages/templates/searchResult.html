@@ -4,8 +4,6 @@
   <meta charset="utf-8">
   <title>Listing Search Results</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='searchPage.css') }}">
-    <script type=text/javascript src="{{
-  url_for('static', filename='js/searchResult.js') }}"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
   crossorigin="">
@@ -70,5 +68,6 @@
 {# }#}
 {# mymap.addLayer(listings);#}
 {#</script>#}
+<script src="{{url_for('script')}}"></script>
 </body>
 </html>
