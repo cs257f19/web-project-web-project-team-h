@@ -9,7 +9,7 @@ app= flask.Flask(__name__)
 
 @app.route('/script.js')
 def script():
-    return render_template('js/searchResult.js', color='pink')
+    return render_template('searchResult.js', color='pink')
 
 @app.route('/')
 def homePage():
