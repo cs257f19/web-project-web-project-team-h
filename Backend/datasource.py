@@ -77,7 +77,6 @@ class DataSource:
             print("Something went wrong when try to get listings for type:", e)
             return None
 
-
     def getNumHostNumListing(self):
         '''
         Returns a dictionary using the number of listings as keys and number
@@ -392,6 +391,7 @@ class DataSource:
             print("Something went wrong when executing the query:", e)
             return None
 
+
 class Listing:
     '''
     This is the class for listing which stores all the information of a listings
@@ -672,24 +672,23 @@ def main():
     query = DataSource()
     query.connect(user, password)
 
-    # Query: host info
-    # host_info = query.getHostInfo(2787)
-    #
-    # if host_info is not None:
-    #     print("Host info query results (only showing price here): ")
-    #     for item in host_info:
-    #         print(item.getPrice())
-    #
-    # # Query: price
-    # price = query.getPrice(5295)
-    #
-    # if price is not None:
-    #     print("Price query results: ")
-    #     for item in price:
-    #         print(item)
-    #
-
     '''
+    # Query: host info
+    host_info = query.getHostInfo(2787)
+
+    if host_info is not None:
+        print("Host info query results (only showing price here): ")
+        for item in host_info:
+            print(item.getPrice())
+
+    # Query: price
+    price = query.getPrice(5295)
+
+    if price is not None:
+        print("Price query results: ")
+        for item in price:
+            print(item)
+
     listings = query.getSameHouseType("Kensington", "Private room")
     if listings is not None:
         print("Listings in Kensington and roomtype is private: ")
@@ -701,23 +700,22 @@ def main():
         print("percentage of host having single listing is: ")
         for item in sig_lst_pct:
             print(item)
-    '''
+
     all_listing = query.getAllListings("Brooklyn", "Private room", (20, 100))
     print(len(all_listing))
 
-    '''
     single, multiple = query.getSingleMultipleListing()
     print(single)
     print(multiple)
     result = query.getListingsForAllType()
     length = len(result["Private"])
     print(length)
-    '''
-    #result = query.getNumListingPriceRange(300, float("inf"))
-    #print(result)
-    #result = query.getHostInfo(2787)
-    #print(result)
 
+    result = query.getNumListingPriceRange(300, float("inf"))
+    print(result)
+    result = query.getHostInfo(2787)
+    print(result)
+    '''
 
     # Disconnect from database
     query.disconnect()
