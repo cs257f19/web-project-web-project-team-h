@@ -85,9 +85,8 @@
     <div>
       <h3>Listings Per Host</h3>
       <p>Some Airbnb hosts have multiple listings and others have only one listing.
-      A host may list separate rooms in the same apartment, or multiple apartments or homes available in their entirety.
       (The plot below only show the distribution of the number of hosts with 2-10 listings. This is because most
-      host with myltiple listings fall in this category.)</p>
+      hosts with multiple listings fall in this range.)</p>
       <div class="data">
         <div id="listing_per_host_dataviz" class="dataviz"></div>
         <div>
@@ -143,7 +142,7 @@ var width = 270
 // Set radius of the pie chart
 var radius = 200 / 2 - 60
 
-// Append the svg (Scalable Vector Graphics) object to the div 'price_dataviz'
+// Append the svg (Scalable Vector Graphics) object to the div '#price_dataviz'
 var svg = d3.select("#price_dataviz")
   .append("svg")
     .attr("width", width)
@@ -248,7 +247,7 @@ svg.append("text")
     width = 270 - margin.left - margin.right,
     height = 120 - margin.top - margin.bottom;
 
-    // append the svg (Scalable Vector Graphics) object to the body of the page
+    // append the svg (Scalable Vector Graphics) object to the div 'room_type_dataviz'
     var svg1 = d3.select("#room_type_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -334,7 +333,7 @@ svg.append("text")
     width = 270 - margin.left - margin.right,
     height = 140 - margin.top - margin.bottom;
 
-    // Append the svg object to the body of the page
+    // Append the svg object to the body of the div '#availability_dataviz'
     var svg2 = d3.select("#availability_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -428,7 +427,7 @@ svg.append("text")
     width = 270 - margin.left - margin.right,
     height = 140 - margin.top - margin.bottom;
 
-    // append the svg3 object to the body of the page
+    // append the svg3 object to the body of the div '#listing_per_host_dataviz
     var svg3 = d3.select("#listing_per_host_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
