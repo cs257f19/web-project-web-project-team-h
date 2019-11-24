@@ -49,6 +49,52 @@ class DataSource:
             print ("Something went wrong when executing the query: ", e)
             return None
 
+    def getAllListings(self, neighbourhood_group, room_type, price_range):
+        '''
+        Returns a list of Listing objects that contains listing info given the
+        neighbourhood borough and the room type and a tuple of price range
+        Audience: tourists, investigators/researchers
+
+        PARAMETERS:
+            neighbourhood_group - one of five boroughs of New York City
+            room_type - the listing space type
+            price_range - minimum and maximum accepting price
+
+        RETURN:
+            a list of Listing objects that contains listing info given the
+            neighbourhood borough and the room type and the price range,
+            or None if the query fails
+        '''
+        try:
+            cursor = self.connection.cursor()
+            min_price = price_range[0]
+            max_price = price_range[1]
+            if min_price > max_price:
+                return 1
+            query = "SELECT * FROM airbnb where neighbourhood_group = %s and" + \
+                    " room_type = %s and price >= %s and price <= %s ORDER BY" + \
+                    " number_of_reviews DESC"
+            cursor.execute(query, (neighbourhood_group, room_type, str(min_price), str(max_price),))
+            listing_tuples = cursor.fetchall()
+            listings = [Listing(a_tuple) for a_tuple in listing_tuples]
+            if len(listings) == 0:
+                return 2
+            return listings[:100]
+        except Exception as e:
+            print("Something went wrong when executing the query:", e)
+            return None
+
+    def getCertainRoomTypeCount(self, room_type):
+        '''
+        Returns the number of listings of given room type
+        Audience: reseachers/investigators
+
+        PARAMETERS:
+            room_type - the listing space type
+        '''
+        listings = self.getAllListingOfType(room_type)
+        return len(listings)
+
     def getAllListingOfType(self, room_type, neighbourhood=None):
         '''
         Returns a list of listing objects of given room type and neighbourhood.
@@ -75,6 +121,50 @@ class DataSource:
             return listings
         except Exception as e:
             print("Something went wrong when try to get listings for type:", e)
+            return None
+
+    def getHostSingleListingPct(self):
+        '''
+        Returns a float of percentage of hosts having only one listing
+        Audience: investigators/researchers
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            a float of percentage of hosts having only one listing, or None if
+            the query fails
+        '''
+        single, multiple = self.getSingleMultipleListing()
+        total = single + multiple
+        percentage = float(single/total)
+        return percentage
+
+    def getSingleMultipleListing(self):
+        '''
+        Returns a tuple with first entry as the number of hosts owning one listing,
+        and second entry as the number of hosts owning multiple listings.
+        Audience: reseacher/investigators
+
+        PARAMETER:
+            None
+
+        RETURN:
+            a tuple with first entry as the number of hosts owning one listing,
+            and second entry as the number of hosts owning multiple listings,
+            or None if the query fails
+        '''
+        try:
+            cursor = self.connection.cursor()
+            query = "SELECT COUNT(DISTINCT host_id) FROM airbnb"
+            cursor.execute(query)
+            total = cursor.fetchall()[0][0]
+            listing_num = self.getNumHostNumListing()
+            single_listing = listing_num[1]
+            multiple_listing = total - single_listing
+            return (single_listing, multiple_listing)
+        except Exception as e:
+            print("Something went wrong when executing get single and multiple listing:", e)
             return None
 
     def getNumHostNumListing(self):
@@ -118,85 +208,6 @@ class DataSource:
             print("Something went wrong when getting the number of listing for hosts:", e)
             return None
 
-    def getSingleMultipleListing(self):
-        '''
-        Returns a tuple with first entry as the number of hosts owning one listing,
-        and second entry as the number of hosts owning multiple listings.
-        Audience: reseacher/investigators
-
-        PARAMETER:
-            None
-
-        RETURN:
-            a tuple with first entry as the number of hosts owning one listing,
-            and second entry as the number of hosts owning multiple listings,
-            or None if the query fails
-        '''
-        try:
-            cursor = self.connection.cursor()
-            query = "SELECT COUNT(DISTINCT host_id) FROM airbnb"
-            cursor.execute(query)
-            total = cursor.fetchall()[0][0]
-            listing_num = self.getNumHostNumListing()
-            single_listing = listing_num[1]
-            multiple_listing = total - single_listing
-            return (single_listing, multiple_listing)
-        except Exception as e:
-            print("Something went wrong when executing get single and multiple listing:", e)
-            return None
-
-    def getHostSingleListingPct(self):
-        '''
-        Returns a float of percentage of hosts having only one listing
-        Audience: investigators/researchers
-
-        PARAMETERS:
-            None
-
-        RETURN:
-            a float of percentage of hosts having only one listing, or None if
-            the query fails
-        '''
-        single, multiple = self.getSingleMultipleListing()
-        total = single + multiple
-        percentage = float(single/total)
-        return percentage
-
-    def getAllListings(self, neighbourhood_group, room_type, price_range):
-        '''
-        Returns a list of Listing objects that contains listing info given the
-        neighbourhood borough and the room type and a tuple of price range
-        Audience: tourists, investigators/researchers
-
-        PARAMETERS:
-            neighbourhood_group - one of five boroughs of New York City
-            room_type - the listing space type
-            price_range - minimum and maximum accepting price
-
-        RETURN:
-            a list of Listing objects that contains listing info given the
-            neighbourhood borough and the room type and the price range,
-            or None if the query fails
-        '''
-        try:
-            cursor = self.connection.cursor()
-            min_price = price_range[0]
-            max_price = price_range[1]
-            if min_price > max_price:
-                return 1
-            query = "SELECT * FROM airbnb where neighbourhood_group = %s and" + \
-                    " room_type = %s and price >= %s and price <= %s ORDER BY" + \
-                    " number_of_reviews DESC"
-            cursor.execute(query, (neighbourhood_group, room_type, str(min_price), str(max_price),))
-            listing_tuples = cursor.fetchall()
-            listings = [Listing(a_tuple) for a_tuple in listing_tuples]
-            if len(listings) == 0:
-                return 2
-            return listings[:100]
-        except Exception as e:
-            print("Something went wrong when executing the query:", e)
-            return None
-
     def getAllAvailability(self):
         '''
         Returns a dictionary with 0 to 365 as keys indicating the availability
@@ -228,6 +239,24 @@ class DataSource:
             print("Something went wrong when getting availability for all:", e)
             return None
 
+    def getPriceQuantile(self):
+        '''
+        Returns a tuple of 3 entries with the number of listings in the range:
+        0-100, 100-200, and above 200.
+        Audience: researchers/investigators
+
+        PARAMETERS:
+            None
+
+        RETURNS:
+            a tuple of 3 entries with the number of listings in the range:
+            0-100, 100-200, and above 200.
+        '''
+        listing_100 = self.getNumListingPriceRange(0,100)
+        listing_200 = self.getNumListingPriceRange(100,200)
+        listing_above = self.getNumListingPriceRange(200,10000000)
+        return (listing_100, listing_200, listing_above)
+
     def getNumListingPriceRange(self, min, max):
         '''
         Returns the number of listings in the price range of given minimum and
@@ -252,23 +281,51 @@ class DataSource:
             print("Something went wrong when getting the number of listings of certain prices:", e)
             return None
 
-    def getPriceQuantile(self):
+    def getAveragePriceNbhGroup(self):
         '''
-        Returns a tuple of 3 entries with the number of listings in the range:
-        0-100, 100-200, and above 200.
-        Audience: researchers/investigators
+        Returns a list containing neighborhood boroughs the average price of
+        listings in the neighborhood boroughs.
 
         PARAMETERS:
             None
 
         RETURNS:
-            a tuple of 3 entries with the number of listings in the range:
-            0-100, 100-200, and above 200.
+            a list of five tuples, each is composed of the neighborhood borough
+            and the average price of listings in that neighborhood borough
         '''
-        listing_100 = self.getNumListingPriceRange(0,100)
-        listing_200 = self.getNumListingPriceRange(100,200)
-        listing_above = self.getNumListingPriceRange(200,10000000)
-        return (listing_100, listing_200, listing_above)
+        result = []
+        result.append(('Brooklyn', self.getAveragePrice("Brooklyn")))
+        result.append(('Manhattan', self.getAveragePrice("Manhattan")))
+        result.append(('Queens', self.getAveragePrice("Queens")))
+        result.append(('Staten Island', self.getAveragePrice("Staten Island")))
+        result.append(('Bronx', self.getAveragePrice("Bronx")))
+        return result
+
+    def getAveragePrice(self, neighbourhood_group=None):
+        '''
+        Returns the average price for listings of given neighbourhood group if
+        it is in the input。
+        Audience: investigators/researchers, business owners
+
+        PARAMETERS:
+            None
+
+        RETURN:
+            the average price of listings, or None if the query fails
+        '''
+        try:
+            cursor = self.connection.cursor()
+            if neighbourhood_group is None:
+                query = "SELECT AVG(price) FROM airbnb"
+                cursor.execute(query)
+            else:
+                query = "SELECT AVG(price) FROM airbnb where neighbourhood_group = %s"
+                cursor.execute(query, (neighbourhood_group,))
+            average = float(cursor.fetchall()[0][0])
+            return round(average, 2)
+        except Exception as e:
+            print("Something went wrong when executing the query:", e)
+            return None
 
     def getAverageAvailability(self):
         '''
@@ -312,63 +369,6 @@ class DataSource:
         except Exception as e:
             print("Something went wrong when executing the query:", e)
             return None
-
-    def getAveragePrice(self, neighbourhood_group=None):
-        '''
-        Returns the average price for listings of given neighbourhood group if
-        it is in the input。
-        Audience: investigators/researchers, business owners
-
-        PARAMETERS:
-            None
-
-        RETURN:
-            the average price of listings, or None if the query fails
-        '''
-        try:
-            cursor = self.connection.cursor()
-            if neighbourhood_group is None:
-                query = "SELECT AVG(price) FROM airbnb"
-                cursor.execute(query)
-            else:
-                query = "SELECT AVG(price) FROM airbnb where neighbourhood_group = %s"
-                cursor.execute(query, (neighbourhood_group,))
-            average = float(cursor.fetchall()[0][0])
-            return round(average, 2)
-        except Exception as e:
-            print("Something went wrong when executing the query:", e)
-            return None
-
-    def getAveragePriceNbhGroup(self):
-        '''
-        Returns a list containing neighborhood boroughs the average price of
-        listings in the neighborhood boroughs.
-
-        PARAMETERS:
-            None
-
-        RETURNS:
-            a list of five tuples, each is composed of the neighborhood borough
-            and the average price of listings in that neighborhood borough
-        '''
-        result = []
-        result.append(('Brooklyn', self.getAveragePrice("Brooklyn")))
-        result.append(('Manhattan', self.getAveragePrice("Manhattan")))
-        result.append(('Queens', self.getAveragePrice("Queens")))
-        result.append(('Staten Island', self.getAveragePrice("Staten Island")))
-        result.append(('Bronx', self.getAveragePrice("Bronx")))
-        return result
-
-    def getCertainRoomTypeCount(self, room_type):
-        '''
-        Returns the number of listings of given room type
-        Audience: reseachers/investigators
-
-        PARAMETERS:
-            room_type - the listing space type
-        '''
-        listings = self.getAllListingOfType(room_type)
-        return len(listings)
 
     def getTotalReviews(self):
         '''
