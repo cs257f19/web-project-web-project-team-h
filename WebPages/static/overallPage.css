@@ -65,6 +65,10 @@ h1 {
   margin: 0px;
 }
 
+h3 {
+  margin-top: 5px;
+}
+
 table, th, td {
   font-size: 18px;
   width: 50%;
@@ -100,6 +104,8 @@ section {
 
 .info div{
   flex: 1;
+  margin-left: 12px;
+  margin-right: 12px;
 }
 
 .data {
