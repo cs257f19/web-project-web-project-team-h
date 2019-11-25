@@ -59,6 +59,7 @@
   </section>
 
   <script>
+    // Using Leaflet API: https://leafletjs.com
     // Initialize map to show listings
     var mymap = L.map('{{ result.getListingId() }}').setView([40.720610, -73.975242], 10);
 
@@ -73,7 +74,7 @@
     // Get locations for all listings to display
     var locations = [];
     {% for listing in database.getAllListingsOfType(result.getRoomType(), result.getNbh()) %}
-    locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, 
+    locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }},
       {{ listing.getLongitude() }}, "{{ listing.getListingName() }}",
       "{{ listing.getRoomType() }}", "{{ listing.getPrice() }}",
       "{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
