@@ -2,7 +2,7 @@ body {
   background-image: url("background.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .change:hover:not(.active),.active-page {
@@ -12,53 +12,53 @@ body {
 
 header {
   display: flex;
-  position:fixed;
-  top:5px;
-  width:99%;
+  position: fixed;
+  top: 5px;
+  width: 99%;
   background-color: rgba(255,255,255,0.8);
   z-index: 500;
 }
 
 header .tag {
-  float:left;
-  display:flex;
-  flex:1.6;
+  float: left;
+  display: flex;
+  flex: 1.6;
 }
 
 header .tag a{
-  color:#FF5A5F;
+  color: #FF5A5F;
   font-size: 20px;
-  padding-right:10px;
-  margin:10px;
-  border-right:2px solid #00A699;
+  padding-right: 10px;
+  margin: 10px;
+  border-right: 2px solid #00A699;
   text-decoration: none;
 }
 
 header .tag div{
-  flex:2.9;
-  margin:3px 0;
+  flex: 2.9;
+  margin: 3px 0;
   font-size: 15px;
   width: 170px;
 }
 
 header .tag div p{
-  width:170px;
+  width: 170px;
 }
 
 header nav{
-  float:right;
-  display:flex;
-  flex:1.2;
+  float: right;
+  display: flex;
+  flex: 1.2;
 }
 
 header nav a{
-  flex:0.3;
+  flex: 0.3;
   color: #00A699;
-  text-align:center;
+  text-align: center;
   text-decoration: none;
-  font-weight:bold;
-  font-size:22px;
-  padding:20px 0;
+  font-weight: bold;
+  font-size: 22px;
+  padding: 20px 0;
 }
 
 h1 {
@@ -67,8 +67,8 @@ h1 {
 
 section {
   background-color: rgba(255,255,255,0.8);
-  width:80%;
-  margin:100px auto;
+  width: 80%;
+  margin: 100px auto;
   padding: 20px;
 }
 
@@ -90,30 +90,15 @@ section p, h2,h3 {
   color:#00A699;
 }
 
-.wordCloud{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin: center;
-}
-
 .pic {
   float: right;
   padding-right: 50px;
   padding-bottom: 20px;
 
 }
+
 .clearfix {
   overflow: auto;
-}
-
-
-.plot {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin: center;
-
 }
 
 .user_info {
@@ -128,8 +113,8 @@ input[type=submit] {
   background-color: white;
   border: 2px solid #00A699;
   color: black;
-  font-size:20px;
-  margin:10px 0;
+  font-size: 20px;
+  margin: 10px 0;
 
 }
 
@@ -139,7 +124,7 @@ input[type=submit] {
 }
 
 .leaflet-popup-content .popup p {
-  margin-top:0;
+  margin-top: 0;
   margin-bottom: 0;
 }
 
@@ -148,5 +133,5 @@ h2, .leaflet-popup-content .popup p strong {
 }
 
 .mapid {
-  height:375px;
+  height: 375px;
 }

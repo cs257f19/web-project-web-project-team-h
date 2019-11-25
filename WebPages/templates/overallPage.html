@@ -255,9 +255,9 @@
   <script>
     // create dataset
     var roomTypeData = [
-    {group: "Entire home/apt", value: {{entire_home_count}}},
-    {group: "Private room", value: {{private_room_count}}},
-    {group: "Shared room", value: {{shared_room_count}}}
+      {group: "Entire home/apt", value: {{entire_home_count}}},
+      {group: "Private room", value: {{private_room_count}}},
+      {group: "Shared room", value: {{shared_room_count}}}
     ];
 
     // set the dimensions and margins of the graph
@@ -271,8 +271,7 @@
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
-    .attr("transform",
-      "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // Add X axis
     var x = d3.scaleBand()
