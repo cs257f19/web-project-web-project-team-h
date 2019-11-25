@@ -95,7 +95,7 @@ input[type=submit] {
 
 .database{
   margin-left: 40px;
-  font-size: 21px;
+  font-size: 20px;
 }
 
 h2, .leaflet-popup-content .popup p strong {
@@ -104,8 +104,4 @@ h2, .leaflet-popup-content .popup p strong {
 .heading{
   font-size:30px;
   color:#00A699;
-}
-
-form {
-  font-size: 20px;
 }
