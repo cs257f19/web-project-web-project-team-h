@@ -768,4 +768,4 @@ def main():
     # Disconnect from database
     query.disconnect()
 
-main()
+#main()
