@@ -16,7 +16,7 @@ header {
   position:fixed;
   top:5px;
   width:99%;
-  background-color: rgb(255,255,255,0.8);
+  background-color: rgba(255,255,255,0.8);
   z-index: 500;
 }
 
@@ -67,7 +67,7 @@ h1 {
 }
 
 section {
-  background-color: rgb(255,255,255,0.8);
+  background-color: rgba(255,255,255,0.8);
   width:80%;
   margin:100px auto;
   display: flex;
@@ -86,7 +86,7 @@ section p {
 }
 
 #audiences {
-  background-color: rgb(255,255,255,0.8);
+  background-color: rgba(255,255,255,0.8);
   display: flex;
   width:80%;
   margin:100px auto;
