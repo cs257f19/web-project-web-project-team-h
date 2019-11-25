@@ -71,7 +71,7 @@ h3 {
 
 table {
   font-size: 18px;
-  width: 70%; 
+  width: 70%;
 }
 
 table {
@@ -116,7 +116,7 @@ section {
   height: 700px;
 }
 
-#price_dataviz path {
+#priceDataviz path {
   stroke: none;
 }
 

@@ -43,7 +43,7 @@
        about the listings. Even though not every guest leaves a review,
        popular listings tend to have more reviews.</p>
        <div class="data">
-        <div id="price_dataviz" class="dataviz"></div>
+        <div id="priceDataviz" class="dataviz"></div>
         <div>
           <ul>
             <li>On average {{ average_reviews_per_month }}
@@ -162,7 +162,7 @@
     // Set radius of the pie chart
     var radius = 200 / 2 - 60
 
-    // Append the svg (Scalable Vector Graphics) object to the div '#price_dataviz'
+    // Append the svg (Scalable Vector Graphics) object to the div '#priceDataviz'
     var svg = d3.select("#price_dataviz")
     .append("svg")
     .attr("width", width)
