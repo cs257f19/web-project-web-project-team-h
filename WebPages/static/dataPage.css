@@ -5,7 +5,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.change:hover:not(.active),.active-page {
+.change:hover:not(.active),.activePage {
   background-color: #00A699;
   color: white;
 }
@@ -117,13 +117,6 @@ nav .active {
 nav .tag {
   float: left;
   margin-top: 5px;
-}
-
-nav #tag_line {
-  margin-top: 9px;
-  font-size: 15px;
-  width: 170px;
-  color: #484848;
 }
 
 nav #name {

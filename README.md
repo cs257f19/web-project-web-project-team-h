@@ -19,12 +19,14 @@ Contents:
   - static: directory, contains all css files and pictures
   - templates: directory, contains all html files
     - homePage.html: home page of the entire project about Airbnb in NYC
+      ![homePage](https://github.com/cs257f19/web-project-web-project-team-h/blob/master/Screenshots/homePage.png)
     - dataPage.html: "about data" page that includes metadata and description
         of the entire dataset
     - overall.html: "visualize data" page that provides visualizations for the
         overall statistics of the NYC Airbnb data. This gives researchers and
         investigators a good overall understanding of how Airbnb performs in
         NYC in general
+        ![overallPage](https://github.com/cs257f19/web-project-web-project-team-h/blob/master/Screenshots/overallPage.png)
     - hostPage.html: host page that asks hosts to enter their airbnb host id.
         Note that non-hosts can test the page by using the host id examples we
         give on the "about data" page
@@ -35,6 +37,7 @@ Contents:
     - searchPage.html: listing search page that allows tourists to search for
         housing of interest by asking them for ideal price range, neighborhood
         group, and room type
+        ![searchPage](https://github.com/cs257f19/web-project-web-project-team-h/blob/master/Screenshots/searchPage.png)
     - searchResult.html: listing search result page that shows the listings that
         satisfy the search criterion on a map. If there are more than 100
         listings found, we only display the first 100 listings with the most
@@ -57,3 +60,9 @@ Here are some ways we violate MVC practice and here is why:
     in webapp.py and restructured them into a new data structure just for
     javascript to use, it would be repetitive functionality and unclean
     coding practice. Therefore, we violated the MVC practice here as well.
+
+NOTE: To meet the goal of our core audiences, we narrowed down the scope of
+the project by removing one audience (business owners). However, we still
+decided to keep our original personas and user stories because they witnessed
+the development process and are features one could add if one wants to extend
+our project to a wide range of audiences.
