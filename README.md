@@ -19,13 +19,14 @@ Contents:
   - static: directory, contains all css files and pictures
   - templates: directory, contains all html files
     - homePage.html: home page of the entire project about Airbnb in NYC
-      ![Test Image 1](https://github.com/cs257f19/web-project-web-project-team-h/blob/master/Screen%20shots/homePage.png)
+      ![homePage](https://github.com/cs257f19/web-project-web-project-team-h/blob/master/Screenshots/homePage.png)
     - dataPage.html: "about data" page that includes metadata and description
         of the entire dataset
     - overall.html: "visualize data" page that provides visualizations for the
         overall statistics of the NYC Airbnb data. This gives researchers and
         investigators a good overall understanding of how Airbnb performs in
         NYC in general
+        ![overallPage](https://github.com/cs257f19/web-project-web-project-team-h/blob/master/Screenshots/overallPage.png)
     - hostPage.html: host page that asks hosts to enter their airbnb host id.
         Note that non-hosts can test the page by using the host id examples we
         give on the "about data" page
@@ -36,6 +37,7 @@ Contents:
     - searchPage.html: listing search page that allows tourists to search for
         housing of interest by asking them for ideal price range, neighborhood
         group, and room type
+        ![searchPage](https://github.com/cs257f19/web-project-web-project-team-h/blob/master/Screenshots/searchPage.png)
     - searchResult.html: listing search result page that shows the listings that
         satisfy the search criterion on a map. If there are more than 100
         listings found, we only display the first 100 listings with the most
