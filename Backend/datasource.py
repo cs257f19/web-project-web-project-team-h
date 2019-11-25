@@ -266,6 +266,8 @@ class DataSource:
         '''
         listing_100 = self.getNumListingPriceRange(0,100)
         listing_200 = self.getNumListingPriceRange(100,200)
+        #10000000 represents infinity as there is no upperbound
+        #float("inf") does not work in psql
         listing_above = self.getNumListingPriceRange(200,10000000)
         return (listing_100, listing_200, listing_above)
 
