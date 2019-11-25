@@ -168,17 +168,17 @@ var svg = d3.select("#price_dataviz")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 // Get price data
-var data = {"$0-$100": {{ price_dict[0] }}, "$100-$200": {{ price_dict[1] }}, ">$200":{{ price_dict[2] }}}
+var priceData = {"$0-$100": {{ price_dict[0] }}, "$100-$200": {{ price_dict[1] }}, ">$200":{{ price_dict[2] }}}
 
 // Set the color scale
 var color = d3.scaleOrdinal()
-  .domain(data)
+  .domain(priceData)
   .range(["#00A699", "#FF5A5F", "#484848"])
 
 // compute the position of each group on the pie:
 var pie = d3.pie()
   .value(function(d) {return d.value; })
-var dataReady = pie(d3.entries(data))
+var dataReady = pie(d3.entries(priceData))
 var arc = d3.arc().innerRadius(radius*0.5).outerRadius(radius*0.8)
 var outerArc = d3.arc().innerRadius(radius*1.0).outerRadius(radius*1.0)
 
@@ -253,7 +253,7 @@ svg.append("text")
 
 <script>
     // create dataset
-    var data1 = [
+    var roomTypeData = [
     {group: "Entire home/apt", value: {{entire_home_count}}},
     {group: "Private room", value: {{private_room_count}}},
     {group: "Shared room", value: {{shared_room_count}}}
@@ -276,7 +276,7 @@ svg.append("text")
     // Add X axis
     var x = d3.scaleBand()
     .range([ 0, width ])
-    .domain(data1.map(function(d) { return d.group; }))
+    .domain(roomTypeData.map(function(d) { return d.group; }))
     .padding(0.2);
     svgRoomType.append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -318,12 +318,12 @@ svg.append("text")
     }
 
     // Initialize the plot with the dataset
-    update(data1)
+    update(roomTypeData)
 </script>
 
 <script>
     // Initialize variables
-    var listings1 = [];
+    var availabilityData = [];
     var availabilityListings = {};
 
     // Create a js dictionary from the dictionary passed in from flask
@@ -341,9 +341,9 @@ svg.append("text")
     var count = 1;
     while (count<366){
       if (count in availabilityListings){
-        listings1.push({group:count,value:availabilityListings[count]});
+        availabilityData.push({group:count,value:availabilityListings[count]});
       }else{
-        listings1.push({group:count,value:0});
+        availabilityData.push({group:count,value:0});
       }
       count += 1;
     }
@@ -365,10 +365,10 @@ svg.append("text")
     // X axis
     var x = d3.scaleBand()
     .range([ 0, width ])
-    .domain(listings1.map(function(d) { return d.group; }));
+    .domain(availabilityData.map(function(d) { return d.group; }));
     svgAvailability.append("g")
     .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x).tickValues([0,50,100,150,200,250,300,350]));
+    .call(d3.axisBottom(x).tickValues([50,100,150,200,250,300,350]));
     // Add label to X axis
     svgAvailability.append("text")
       .attr("transform",
@@ -413,7 +413,7 @@ svg.append("text")
     }
 
     // Initialize the plot with the dataset
-    update(listings1)
+    update(availabilityData)
 </script>
 
 <script>
