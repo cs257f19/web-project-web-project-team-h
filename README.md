@@ -57,3 +57,9 @@ Here are some ways we violate MVC practice and here is why:
     in webapp.py and restructured them into a new data structure just for
     javascript to use, it would be repetitive functionality and unclean
     coding practice. Therefore, we violated the MVC practice here as well.
+
+NOTE: To meet the goal of our core audiences, we narrowed down the scope of
+the project by removing one audience (business owners). However, we still
+decided to keep our original personas and user stories because they witnessed
+the development process and are features one could add if one wants to extend
+our project to a wide range of audiences.
