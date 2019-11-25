@@ -305,40 +305,42 @@ class DataSource:
             None
 
         RETURNS:
-            a list of five tuples, each is composed of the neighborhood borough,
+            a list of five rows, each is containing information of listings in
+            the corresponding neighborhood borough
+        '''
+        result = []
+        result.append(self.createRow('Brooklyn'))
+        result.append(self.createRow('Manhattan'))
+        result.append(self.createRow('Queens'))
+        result.append(self.createRow('Staten Island'))
+        result.append(self.createRow('Bronx'))
+        return result
+
+    def createRow(self, neighbourhood_group):
+        '''
+        Returns all information for a neighborhood group for a row in a table.
+        Audience: investigators/researchers
+
+        PARAMETERS:
+            neighbourhood_group - one of the five boroughs of New York City
+
+        RETURN:
+            information for the neighborhood borough including its name,
             the average price of listings in that neighborhood borough, the
             average number of available days per year of listings in that
             neighborhood borough, and the average number of reviews per month
             in that neighborhood borough
         '''
-        result = []
-        result.append(('Brooklyn', \
-                       self.getAveragePrice("Brooklyn"), \
-                       self.getAverageAvailability("Brooklyn"), \
-                       self.getAverageNumOfReviews("Brooklyn")))
-        result.append(('Manhattan', \
-                       self.getAveragePrice("Manhattan"), \
-                       self.getAverageAvailability("Manhattan"), \
-                       self.getAverageNumOfReviews("Manhattan")))
-        result.append(('Queens', \
-                      self.getAveragePrice("Queens"), \
-                      self.getAverageAvailability("Queens"), \
-                      self.getAverageNumOfReviews("Queens")))
-        result.append(('Staten Island', \
-                       self.getAveragePrice("Staten Island"), \
-                       self.getAverageAvailability("Staten Island"), \
-                       self.getAverageNumOfReviews("Staten Island")))
-        result.append(('Bronx', \
-                       self.getAveragePrice("Bronx"), \
-                       self.getAverageAvailability("Bronx"), \
-                       self.getAverageNumOfReviews("Bronx")))
-        return result
+        row = (neighbourhood_group, self.getAveragePrice(neighbourhood_group),\
+               self.getAverageAvailability(neighbourhood_group),\
+               self.getAverageNumOfReviews(neighbourhood_group))
+        return row
 
     def getAveragePrice(self, neighbourhood_group=None):
         '''
         Returns the average price for listings of given neighbourhood group if
-        it is in the input。
-        Audience: investigators/researchers, business owners
+        it is in the input.
+        Audience: investigators/researchers
 
         PARAMETERS:
             neighbourhood_group - one of the five boroughs of New York City
@@ -426,7 +428,6 @@ class DataSource:
         RETURNS:
             the total number of reviews of all listings, or None if the query
             fails
-
         '''
         try:
             cursor = self.connection.cursor()
