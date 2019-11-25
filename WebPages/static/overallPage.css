@@ -69,9 +69,9 @@ h3 {
   margin-top: 5px;
 }
 
-table, th, td {
+table {
   font-size: 18px;
-  width: 50%;
+  width: 70%; 
 }
 
 table {
