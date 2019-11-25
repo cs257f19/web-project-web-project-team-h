@@ -749,7 +749,8 @@ def main():
         for item in sig_lst_pct:
             print(item)
 
-    all_listing = query.getListingsSearchResult("Brooklyn", "Private room", (20, 100))
+    all_listing = query.getListingsSearchResult("Brooklyn", "Private room", \
+    (20, 100))
     print(len(all_listing))
 
     single, multiple = query.getSingleMultipleListing()
