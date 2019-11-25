@@ -37,7 +37,8 @@
       <div class="user_info">
         <p>Host ID: {{ results[0].getHostId() }}</p>
         <p>Host name: {{ results[0].getHostName() }}</p>
-        <p><strong>Below are all the listings that belong to this host and their information</strong></p>
+        <p><strong>Below are all the listings that belong to this host and
+          their information</strong></p>
       </div>
 
     </div>
@@ -72,9 +73,10 @@
    // Get locations for all listings to display
    var locations = [];
    {% for listing in database.getAllListingsOfType(result.getRoomType(), result.getNbh()) %}
-   locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
-     "{{ listing.getListingName() }}",
-     "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
+   locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, 
+     {{ listing.getLongitude() }}, "{{ listing.getListingName() }}",
+     "{{ listing.getRoomType() }}", "{{ listing.getPrice() }}",
+     "{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
      "{{ listing.getNumAvailableDays() }}"])
    {% endfor %}
 
@@ -85,9 +87,11 @@
      'className': 'custom'
    }
    for (var i = 0; i < locations.length; i++) {
-     var customPopup = "<div class='popup'><p><strong>"+locations[i][3]+"</strong></p><p>"+locations[i][4]+"</p>" +
-     "<p><u>$"+locations[i][5]+"</u>/night</p><p><u>"+locations[i][6]+"</u> night minimum</p>"  +
-     "<p><u>"+locations[i][7]+"</u> reviews/month</p><p>Available <u>"+locations[i][8]+"</u> days"+"/year </p></div>";
+     var customPopup = "<div class='popup'><p><strong>"+locations[i][3]+
+     "</strong></p><p>"+locations[i][4]+"</p>" + "<p><u>$"+locations[i][5]+
+     "</u>/night</p><p><u>"+locations[i][6]+"</u> night minimum</p>"+
+     "<p><u>"+locations[i][7]+"</u> reviews/month</p><p>Available <u>"+
+     locations[i][8]+"</u> days"+"/year </p></div>";
      var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
      marker.bindPopup(customPopup,customOptions);
    }

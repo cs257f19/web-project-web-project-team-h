@@ -57,8 +57,10 @@
  // Get locations for all listings to display
  var locations = [];
  {% for listing in results %}
- locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
-   "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
+ locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }},
+   {{ listing.getLongitude() }}, "{{ listing.getListingName() }}",
+   "{{ listing.getListingId() }}", "{{ listing.getPrice() }}",
+   "{{ listing.getMinNights() }}", "{{ listing.getReviewsPerMonth() }}",
    "{{ listing.getNumAvailableDays() }}"])
  {% endfor %}
 
@@ -69,9 +71,12 @@
    'className': 'custom'
  }
  for (var i = 0; i < locations.length; i++) {
-   var customPopup = "<div class='popup'><h2><strong>"+locations[i][3]+"</strong></h2><p>listing id:"+locations[i][4]+"</p>" +
-   "<p><u>$"+locations[i][5]+"</u>/night</p><p><u>"+locations[i][6]+"</u> night minimum</p>"  +
-   "<p><u>"+locations[i][7]+"</u> reviews/month</p><p>Available <u>"+locations[i][8]+"</u> days"+"/year </p></div>";
+   var customPopup = "<div class='popup'><h2><strong>"+locations[i][3]+
+   "</strong></h2><p>listing id:"+locations[i][4]+"</p>" +
+   "<p><u>$"+locations[i][5]+"</u>/night</p><p><u>"+locations[i][6]+
+   "</u> night minimum</p>"+"<p><u>"+locations[i][7]+
+   "</u> reviews/month</p><p>Available <u>"+locations[i][8]+
+   "</u> days"+"/year </p></div>";
    var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
    marker.bindPopup(customPopup,customOptions);
  }
