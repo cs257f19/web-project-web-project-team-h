@@ -19,6 +19,7 @@ Contents:
   - static: directory, contains all css files and pictures
   - templates: directory, contains all html files
     - homePage.html: home page of the entire project about Airbnb in NYC
+      ![Test Image 1](https://github.com/cs257f19/web-project-web-project-team-h/blob/master/Screen%20shots/homePage.png)
     - dataPage.html: "about data" page that includes metadata and description
         of the entire dataset
     - overall.html: "visualize data" page that provides visualizations for the
