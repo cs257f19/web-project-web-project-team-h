@@ -79,9 +79,10 @@ section p, h2,h3 {
   color:#484848;
   text-align: justify;
 }
+
 .database{
-margin-left: 40px;
-font-size: 21px;
+  margin-left: 40px;
+  font-size: 20px;
 }
 
 .heading{

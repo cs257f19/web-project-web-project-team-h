@@ -76,7 +76,6 @@ section p, h2,h3 {
   margin-left: 80px;
   margin-right: 80px;
   font-size:21px;
-  color:#484848;
   text-align: justify;
 }
 
@@ -93,6 +92,10 @@ input[type=submit] {
   height: 700px;
 }
 
+.database{
+  margin-left: 40px;
+  font-size: 21px;
+}
 
 h2, .leaflet-popup-content .popup p strong {
   color: #00A699;
@@ -100,4 +103,8 @@ h2, .leaflet-popup-content .popup p strong {
 .heading{
   font-size:30px;
   color:#00A699;
+}
+
+form {
+  font-size: 20px;
 }

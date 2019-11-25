@@ -75,8 +75,7 @@ section {
 section p {
   margin-left: 80px;
   margin-right: 80px;
-  font-size:21px;
-  color:#484848;
+  font-size:20px;
   text-align: justify;
 }
 
@@ -120,7 +119,7 @@ nav .tag {
   margin-top:5px;
 }
 
-nav #tagline {
+nav #tag_line {
   margin-top:9px;
   font-size: 15px;
   width: 170px;

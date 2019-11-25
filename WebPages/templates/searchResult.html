@@ -40,20 +40,26 @@
 
 
 <script>
-var listings = new L.LayerGroup();
+ // Initialize map to show listings
  var mymap = L.map('my_dataviz').setView([40.720610, -73.975242], 11);
+
+ // Add map top layer
  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
    attribution: '',
    maxZoom: 18,
    id: 'mapbox.streets',
    accessToken: 'your.mapbox.access.token'
  }).addTo(mymap);
+
+ // Get locations for all listings to display
  var locations = [];
  {% for listing in results %}
  locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
    "{{ listing.getListingName() }}","{{ listing.getListingId() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",
    "{{ listing.getNumAvailableDays() }}"])
-{% endfor %}
+ {% endfor %}
+
+ // Add popup for listing information
  var arrLen = locations.length;
  var customOptions = {
    'maxWidth': '500',
@@ -66,7 +72,7 @@ var listings = new L.LayerGroup();
    var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
    marker.bindPopup(customPopup,customOptions);
  }
- mymap.addLayer(listings);
 </script>
+
 </body>
 </html>

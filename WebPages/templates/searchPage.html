@@ -31,18 +31,22 @@
     <section>
       <div class="user_input">
         <form class="database" action="{{url_for('listingResult')}}" method="POST">
-          <p>Please enter integer minimum and maximum price range.</p>
+            <h3>Price Range:</h3><br>
+          Please enter integer minimum and maximum price range. Min price/night must be smaller than or
+            equal to Max price/night.<br><br>
           Min price/night: <input type="number" name="min price"><br>
           Max price/night: <input type="number" name="max price"><br>
-          <p>Neighborhood Group:</p>
-          <p>Please select one and only one neighbourhood group</p>
+          <br>
+            <h3>Neighborhood Group:</h3><br>
+          Please select one and only one neighbourhood group.<br><br>
           <input type="radio" name="neighborhood group" value="Brooklyn"> Brooklyn<br>
           <input type="radio" name="neighborhood group" value="Manhattan"> Manhattan<br>
           <input type="radio" name="neighborhood group" value="Queens"> Queens<br>
           <input type="radio" name="neighborhood group" value="Staten Island"> Staten Island<br>
           <input type="radio" name="neighborhood group" value="Bronx"> Bronx<br>
-          <p>Room Type:</p>
-          <p>Please select one and only one room type</p>
+          <br>
+            <h3>Room Type:</h3><br>
+          Please select one and only one room type.<br><br>
           <input type="radio" name="room type" value="Entire home/apt"> Entire home/apt<br>
           <input type="radio" name="room type" value="Private room"> Private room<br>
           <input type="radio" name="room type" value="Shared room"> Shared room<br>
@@ -50,6 +54,5 @@
         </form>
       </div>
     </section>
-
 </body>
 </html>

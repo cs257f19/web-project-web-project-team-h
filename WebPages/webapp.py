@@ -91,7 +91,7 @@ def hostResult():
         db = DataSource()
         db.connect('qine', 'ruby434seal')
         host_id = result['id']
-        host_info = db.getHostInfo(host_id)
+        host_info = db.getHostListings(host_id)
 
         if not host_info:
             return errorPage('Please enter a valid host id!')
@@ -147,7 +147,7 @@ def listingResult():
 @app.route('/overall')
 def overall():
     '''
-    Renders the "Visualize Data" page that gives the overall statistics. 
+    Renders the "Visualize Data" page that gives the overall statistics.
 
     PARAMETERS:
         None
