@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Landlord Search Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='hostPage.css') }}">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin="">
-    <!-- Make sure you put this AFTER Leaflet's CSS -->
+<head>
+  <meta charset="utf-8">
+  <title>Landlord Search Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='hostPage.css') }}">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin="">
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
   <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-    crossorigin=""></script>
-  </head>
-  <body>
-    <header>
-      <div class="tag">
-        <a href = "{{ url_for('homePage') }}"><h1>Airbnb in NYC</h1></a>
-        <div>
-          <p>All you need to know about Airbnb in NYC</p>
-        </div>
+  integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+  crossorigin=""></script>
+</head>
+<body>
+  <header>
+    <div class="tag">
+      <a href = "{{ url_for('homePage') }}"><h1>Airbnb in NYC</h1></a>
+      <div>
+        <p>All you need to know about Airbnb in NYC</p>
       </div>
-      <nav>
-        <a href="{{ url_for('dataPage') }}" class="change">About the Data</a>
-        <a href="{{ url_for('overall') }}" class="change">Visualize Data</a>
-        <a href="{{ url_for('hostSearch') }}" class="change active-page">For Hosts</a>
-        <a href="{{ url_for('listingSearch') }}" class="change">Listing Search</a>
-      </nav>
-    </header>
+    </div>
+    <nav>
+      <a href="{{ url_for('dataPage') }}" class="change">About the Data</a>
+      <a href="{{ url_for('overall') }}" class="change">Visualize Data</a>
+      <a href="{{ url_for('hostSearch') }}" class="change active-page">For Hosts</a>
+      <a href="{{ url_for('listingSearch') }}" class="change">Listing Search</a>
+    </nav>
+  </header>
 
-    <section>
-      <div class="user_input">
-        <form class="database" action="{{url_for('hostResult')}}" method="POST">
-          For hosts, please enter your unique Airbnb host id.<br>
-          For other users, please either use example host ids on "About the
-          Data" page, or navigate to the pages for other audiences.<br><br>
-          Host ID: <input type="number" name="id"><br>
-            <input type = "submit" value = "Submit" />
-        </form>
-      </div>
-    </section>
+  <section>
+    <div class="user_input">
+      <form class="database" action="{{url_for('hostResult')}}" method="POST">
+        For hosts, please enter your unique Airbnb host id.<br>
+        For other users, please either use example host ids on "About the
+        Data" page, or navigate to the pages for other audiences.<br><br>
+        Host ID: <input type="number" name="id"><br>
+        <input type = "submit" value = "Submit" />
+      </form>
+    </div>
+  </section>
 
 </body>
 </html>

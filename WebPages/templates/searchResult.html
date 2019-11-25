@@ -29,58 +29,58 @@
   </header>
 
   <section class="mapSection">
-      <form action="{{ url_for('listingSearch') }}">
-        <input type="submit" value="Back to Listing Search" />
-      </form>
-      <h1 class="heading">Result</h1>
-      <p><strong>Below are listings that satisfiy the search criterion. If more
-                 than 100 listings are found, we display the first 100 listings
-                 with the most number of reviews.</strong></p>
-      <p>Click on markers on the map to display the information about the marked
-         listings</p>
-      <div id="my_dataviz" class="mapid"></div>
+    <form action="{{ url_for('listingSearch') }}">
+      <input type="submit" value="Back to Listing Search" />
+    </form>
+    <h1 class="heading">Result</h1>
+    <p><strong>Below are listings that satisfiy the search criterion. If more
+     than 100 listings are found, we display the first 100 listings
+     with the most number of reviews.</strong></p>
+    <p>Click on markers on the map to display the information about the marked
+     listings</p>
+    <div id="my_dataviz" class="mapid"></div>
   </section>
 
 
-<script>
- // Initialize map to show listings
- var mymap = L.map('my_dataviz').setView([40.720610, -73.975242], 11);
+  <script>
+    // Initialize map to show listings
+    var mymap = L.map('my_dataviz').setView([40.720610, -73.975242], 11);
 
- // Add map top layer
- L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
-   attribution: '',
-   maxZoom: 18,
-   id: 'mapbox.streets',
-   accessToken: 'your.mapbox.access.token'
- }).addTo(mymap);
+    // Add map top layer
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiemhhbmdzMTIzIiwiYSI6ImNrMXR6NjZobzAweW0zY3BrcnB4YmF6M3YifQ.nHmNai_UTcEJdy1VTbCXfg', {
+      attribution: '',
+      maxZoom: 18,
+      id: 'mapbox.streets',
+      accessToken: 'your.mapbox.access.token'
+    }).addTo(mymap);
 
- // Get locations for all listings to display
- var locations = [];
- {% for listing in results %}
- locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }},
-   {{ listing.getLongitude() }}, "{{ listing.getListingName() }}",
-   "{{ listing.getListingId() }}", "{{ listing.getPrice() }}",
-   "{{ listing.getMinNights() }}", "{{ listing.getReviewsPerMonth() }}",
-   "{{ listing.getNumAvailableDays() }}"])
- {% endfor %}
+    // Get locations for all listings to display
+    var locations = [];
+    {% for listing in results %}
+    locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }},
+      {{ listing.getLongitude() }}, "{{ listing.getListingName() }}",
+      "{{ listing.getListingId() }}", "{{ listing.getPrice() }}",
+       "{{ listing.getMinNights() }}", "{{ listing.getReviewsPerMonth() }}",
+      "{{ listing.getNumAvailableDays() }}"])
+    {% endfor %}
 
- // Add popup for listing information
- var arrLen = locations.length;
- var customOptions = {
-   'maxWidth': '500',
-   'className': 'custom'
- }
- for (var i = 0; i < locations.length; i++) {
-   var customPopup = "<div class='popup'><h2><strong>"+locations[i][3]+
-   "</strong></h2><p>listing id:"+locations[i][4]+"</p>" +
-   "<p><u>$"+locations[i][5]+"</u>/night</p><p><u>"+locations[i][6]+
-   "</u> night minimum</p>"+"<p><u>"+locations[i][7]+
-   "</u> reviews/month</p><p>Available <u>"+locations[i][8]+
-   "</u> days"+"/year </p></div>";
-   var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
-   marker.bindPopup(customPopup,customOptions);
- }
-</script>
+    // Add popup for listing information
+    var arrLen = locations.length;
+    var customOptions = {
+      'maxWidth': '500',
+      'className': 'custom'
+    }
+    for (var i = 0; i < locations.length; i++) {
+      var customPopup = "<div class='popup'><h2><strong>"+locations[i][3]+
+      "</strong></h2><p>listing id:"+locations[i][4]+"</p>" +
+      "<p><u>$"+locations[i][5]+"</u>/night</p><p><u>"+locations[i][6]+
+      "</u> night minimum</p>"+"<p><u>"+locations[i][7]+
+      "</u> reviews/month</p><p>Available <u>"+locations[i][8]+
+      "</u> days"+"/year </p></div>";
+      var marker = L.marker([locations[i][1],locations[i][2]]).addTo(mymap);
+      marker.bindPopup(customPopup,customOptions);
+    }
+  </script>
 
 </body>
 </html>

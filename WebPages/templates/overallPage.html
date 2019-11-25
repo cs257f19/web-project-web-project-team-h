@@ -40,14 +40,14 @@
     <div>
       <h3>Activity</h3>
       <p>Airbnb guests may leave reviews after their stay of how they think
-         about the listings. Even though not every guest leaves a review,
-         popular listings tend to have more reviews.</p>
-      <div class="data">
+       about the listings. Even though not every guest leaves a review,
+       popular listings tend to have more reviews.</p>
+       <div class="data">
         <div id="price_dataviz" class="dataviz"></div>
         <div>
           <ul>
             <li>On average {{ average_reviews_per_month }}
-              reviews/listing/month</li>
+            reviews/listing/month</li>
             <li>Total {{ total_reviews }} reviews</li>
             <li>On average ${{ average_price }} price/night</li>
           </ul>
@@ -74,9 +74,9 @@
     <div>
       <h3>Availability</h3>
       <p>An Airbnb host can set up a calendar for their listing that will show
-         the availability of this listing. Some listings are available for all
-         year round while some only for a few weeks or days. (The plot below
-         shows the distribution of availabilities of all listings.)</p>
+       the availability of this listing. Some listings are available for all
+       year round while some only for a few weeks or days. (The plot below
+       shows the distribution of availabilities of all listings.)</p>
       <div class="data">
         <div id="availability_dataviz" class="dataviz"></div>
         <div>
@@ -89,10 +89,10 @@
     <div>
       <h3>Listings Per Host</h3>
       <p>Some Airbnb hosts have multiple listings and others have only one
-         listing. (The plot below only shows the distribution of the number of
-         hosts with 2-10 listings. We chose this range because most hosts with
-         multiple listings fall in this range.)</p>
-      <div class="data">
+       listing. (The plot below only shows the distribution of the number of
+       hosts with 2-10 listings. We chose this range because most hosts with
+       multiple listings fall in this range.)</p>
+       <div class="data">
         <div id="listing_per_host_dataviz" class="dataviz"></div>
         <div>
           <ul>
@@ -103,9 +103,9 @@
       </div>
     </div>
   </div>
-</section>
-<section>
-  <div>
+  </section>
+  <section>
+    <div>
       <h3>Average Neighborhood Group Price</h3>
       <table>
         <tr>
@@ -144,67 +144,67 @@
           <td>{{nbh_group_avg_price[4][2]}}</td>
           <td>{{nbh_group_avg_price[4][3]}}</td>
         </tr>
-    </table>
-  </div>
-</section>
+      </table>
+    </div>
+  </section>
 
-<script src="https://d3js.org/d3.v4.js"> </script>
+  <script src="https://d3js.org/d3.v4.js"> </script>
 
-<script>
-// Set the dimensions and margins of the graph
-var width = 270
+  <script>
+    // Set the dimensions and margins of the graph
+    var width = 270
     height = 123
     margin = {top:10,right:40,bottom:0,left:100};
 
-// Set radius of the pie chart
-var radius = 200 / 2 - 60
+    // Set radius of the pie chart
+    var radius = 200 / 2 - 60
 
-// Append the svg (Scalable Vector Graphics) object to the div '#price_dataviz'
-var svg = d3.select("#price_dataviz")
-  .append("svg")
+    // Append the svg (Scalable Vector Graphics) object to the div '#price_dataviz'
+    var svg = d3.select("#price_dataviz")
+    .append("svg")
     .attr("width", width)
     .attr("height", height)
-  .append("g")
+    .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-// Get price data
-var priceData = {"$0-$100": {{ price_dict[0] }}, "$100-$200": {{ price_dict[1] }}, ">$200":{{ price_dict[2] }}}
+    // Get price data
+    var priceData = {"$0-$100": {{ price_dict[0] }}, "$100-$200": {{ price_dict[1] }}, ">$200":{{ price_dict[2] }}}
 
-// Set the color scale
-var color = d3.scaleOrdinal()
-  .domain(priceData)
-  .range(["#00A699", "#FF5A5F", "#484848"])
+    // Set the color scale
+    var color = d3.scaleOrdinal()
+    .domain(priceData)
+    .range(["#00A699", "#FF5A5F", "#484848"])
 
-// compute the position of each group on the pie:
-var pie = d3.pie()
-  .value(function(d) {return d.value; })
-var dataReady = pie(d3.entries(priceData))
-var arc = d3.arc().innerRadius(radius*0.5).outerRadius(radius*0.8)
-var outerArc = d3.arc().innerRadius(radius*1.0).outerRadius(radius*1.0)
+    // compute the position of each group on the pie:
+    var pie = d3.pie()
+    .value(function(d) {return d.value; })
+    var dataReady = pie(d3.entries(priceData))
+    var arc = d3.arc().innerRadius(radius*0.5).outerRadius(radius*0.8)
+    var outerArc = d3.arc().innerRadius(radius*1.0).outerRadius(radius*1.0)
 
-// Build the pie chart: Basically, each part of the pie is a path that we build
-// using the arc function.
-svg
-  .selectAll('whatever')
-  .data(dataReady)
-  .enter()
-  .append('path')
-  .attr('d', d3.arc()
-    // This is the size of the donut hole
-    .innerRadius(20)
-    .outerRadius(radius)
-  )
-  .attr('fill', function(d){ return(color(d.data.key)) })
-  .attr("stroke", "black")
-  .style("stroke-width", "2px")
-  .style("opacity", 0.7)
+    // Build the pie chart: Basically, each part of the pie is a path that we build
+    // using the arc function.
+    svg
+    .selectAll('whatever')
+    .data(dataReady)
+    .enter()
+    .append('path')
+    .attr('d', d3.arc()
+        // This is the size of the donut hole
+        .innerRadius(20)
+        .outerRadius(radius)
+        )
+    .attr('fill', function(d){ return(color(d.data.key)) })
+    .attr("stroke", "black")
+    .style("stroke-width", "2px")
+    .style("opacity", 0.7)
 
-// Add the polylines between chart and labels:
-svg
-  .selectAll('allPolylines')
-  .data(dataReady)
-  .enter()
-  .append('polyline')
+    // Add the polylines between chart and labels:
+    svg
+    .selectAll('allPolylines')
+    .data(dataReady)
+    .enter()
+    .append('polyline')
     .attr("stroke", "black")
     .style("fill", "none")
     .attr("stroke-width", 1)
@@ -226,32 +226,32 @@ svg
       return [posA, posB, posC]
     })
 
-// Add the polylines between chart and labels:
-svg.selectAll('allLabels')
-  .data(dataReady)
-  .enter()
-  .append('text')
+    // Add the polylines between chart and labels:
+    svg.selectAll('allLabels')
+    .data(dataReady)
+    .enter()
+    .append('text')
     .text( function(d) { console.log(d.data.key) ; return d.data.key } )
     .attr('transform', function(d) {
-        var pos = outerArc.centroid(d);
-        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-        pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
-        return 'translate(' + pos + ')';
+      var pos = outerArc.centroid(d);
+      var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+      pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+      return 'translate(' + pos + ')';
     })
     .style('text-anchor', function(d) {
-        var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-        return (midangle < Math.PI ? 'start' : 'end')
+      var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+      return (midangle < Math.PI ? 'start' : 'end')
     })
 
-// Add the plot title
-svg.append("text")
-        .attr("x",5)
-        .attr("y", 0 -50)
-        .attr("text-anchor", "middle")
-        .text("Distribution of price/night");
-</script>
+    // Add the plot title
+    svg.append("text")
+    .attr("x",5)
+    .attr("y", 0 -50)
+    .attr("text-anchor", "middle")
+    .text("Distribution of price/night");
+  </script>
 
-<script>
+  <script>
     // create dataset
     var roomTypeData = [
     {group: "Entire home/apt", value: {{entire_home_count}}},
@@ -291,12 +291,12 @@ svg.append("text")
     .call(d3.axisLeft(y).ticks(2, "f"));
     // Add label for Y axis
     svgRoomType.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .text("num of listings");
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .text("num of listings");
 
     // A function that render the plot for the given data
     function update(data) {
@@ -319,9 +319,9 @@ svg.append("text")
 
     // Initialize the plot with the dataset
     update(roomTypeData)
-</script>
+  </script>
 
-<script>
+  <script>
     // Initialize variables
     var availabilityData = [];
     var availabilityListings = {};
@@ -371,11 +371,11 @@ svg.append("text")
     .call(d3.axisBottom(x).tickValues([50,100,150,200,250,300,350]));
     // Add label to X axis
     svgAvailability.append("text")
-      .attr("transform",
-            "translate(" + (width/2) + " ," +
-                           (height + margin.top + 27) + ")")
-      .style("text-anchor", "middle")
-      .text("num of days available in a year");
+    .attr("transform",
+      "translate(" + (width/2) + " ," +
+      (height + margin.top + 27) + ")")
+    .style("text-anchor", "middle")
+    .text("num of days available in a year");
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -386,12 +386,12 @@ svg.append("text")
     .call(d3.axisLeft(y).ticks(3));
     // Add label to Y axis
     svgAvailability.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .text("num of listings");
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .text("num of listings");
 
     // A function that render the plot for a given variable:
     function update(data) {
@@ -414,9 +414,9 @@ svg.append("text")
 
     // Initialize the plot with the dataset
     update(availabilityData)
-</script>
+  </script>
 
-<script>
+  <script>
     // create 2 data_set
     var listings = [];
     var hostListings = {};
@@ -467,11 +467,11 @@ svg.append("text")
     .call(d3.axisBottom(x));
     // Add label for X axis
     svgListingPerHost.append("text")
-      .attr("transform",
-            "translate(" + (width/2) + " ," +
-                           (height + margin.top + 27) + ")")
-      .style("text-anchor", "middle")
-      .text("listings per host");
+    .attr("transform",
+      "translate(" + (width/2) + " ," +
+      (height + margin.top + 27) + ")")
+    .style("text-anchor", "middle")
+    .text("listings per host");
 
     // Add Y axis
     var y = d3.scaleLinear()
@@ -482,12 +482,12 @@ svg.append("text")
     .call(d3.axisLeft(y).ticks(5, "f"));
     // Add label for Y axis
     svgListingPerHost.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .text("num of hosts");
+    .attr("transform", "rotate(-90)")
+    .attr("y", 0 - margin.left)
+    .attr("x",0 - (height / 2))
+    .attr("dy", "1em")
+    .style("text-anchor", "middle")
+    .text("num of hosts");
 
     // A function that render the plot for a given variable:
     function update(data) {
@@ -510,7 +510,6 @@ svg.append("text")
 
     // Initialize the plot with the first dataset
     update(listings)
-
   </script>
 </body>
 </html>
