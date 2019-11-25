@@ -71,7 +71,7 @@
 
    // Get locations for all listings to display
    var locations = [];
-   {% for listing in database.getAllListingOfType(result.getRoomType(), result.getNbh()) %}
+   {% for listing in database.getAllListingsOfType(result.getRoomType(), result.getNbh()) %}
    locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }}, {{ listing.getLongitude() }},
      "{{ listing.getListingName() }}",
      "{{ listing.getRoomType() }}","{{ listing.getPrice() }}","{{ listing.getMinNights() }}","{{ listing.getReviewsPerMonth() }}",

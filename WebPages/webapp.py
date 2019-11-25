@@ -132,7 +132,7 @@ def listingResult():
         db = DataSource()
         db.connect('qine', 'ruby434seal')
 
-        listings = db.getAllListings(nbh_group, room_type, (min_price, max_price))
+        listings = db.getListingsSearchResult(nbh_group, room_type, (min_price, max_price))
 
         # display error pages for edge cases
         if not listings:

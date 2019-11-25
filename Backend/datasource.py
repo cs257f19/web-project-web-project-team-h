@@ -49,7 +49,7 @@ class DataSource:
             print ("Something went wrong when executing the query: ", e)
             return None
 
-    def getAllListings(self, neighbourhood_group, room_type, price_range):
+    def getListingsSearchResult(self, neighbourhood_group, room_type, price_range):
         '''
         Returns a list of Listing objects that contains listing info given the
         neighbourhood borough and the room type and a tuple of price range
@@ -92,11 +92,14 @@ class DataSource:
 
         PARAMETERS:
             room_type - the listing space type
+
+        RETURN:
+            the number of listings of the given room type
         '''
-        listings = self.getAllListingOfType(room_type)
+        listings = self.getAllListingsOfType(room_type)
         return len(listings)
 
-    def getAllListingOfType(self, room_type, neighbourhood=None):
+    def getAllListingsOfType(self, room_type, neighbourhood=None):
         '''
         Returns a list of listing objects of given room type and neighbourhood.
         Audience: hosts
@@ -300,8 +303,11 @@ class DataSource:
             None
 
         RETURNS:
-            a list of five tuples, each is composed of the neighborhood borough
-            and the average price of listings in that neighborhood borough
+            a list of five tuples, each is composed of the neighborhood borough,
+            the average price of listings in that neighborhood borough, the
+            average number of available days per year of listings in that
+            neighborhood borough, and the average number of reviews per month
+            in that neighborhood borough
         '''
         result = []
         result.append(('Brooklyn', \
@@ -739,7 +745,7 @@ def main():
         for item in sig_lst_pct:
             print(item)
 
-    all_listing = query.getAllListings("Brooklyn", "Private room", (20, 100))
+    all_listing = query.getListingsSearchResult("Brooklyn", "Private room", (20, 100))
     print(len(all_listing))
 
     single, multiple = query.getSingleMultipleListing()
