@@ -70,6 +70,7 @@ class DataSource:
             min_price = price_range[0]
             max_price = price_range[1]
             if min_price > max_price:
+                # return a specfic number indicating the specific error
                 return 1
             query = "SELECT * FROM airbnb where neighbourhood_group = %s" + \
                     " and room_type = %s and price >= %s and price <= %s" + \
@@ -79,6 +80,7 @@ class DataSource:
             listing_tuples = cursor.fetchall()
             listings = [Listing(a_tuple) for a_tuple in listing_tuples]
             if len(listings) == 0:
+                # return a specfic number indicating the specific error
                 return 2
             return listings[:100]
         except Exception as e:
