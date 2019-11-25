@@ -41,3 +41,19 @@ Contents:
         reviews
     - errorPage.html: error page that displays a descriptive message according
         to the error made by the user and/or the system
+
+Here are some ways we violate MVC practice and here is why:
+- There are places in javascript where we used methods from the `Datasource`
+  class and `Listing` class. Both of these classes are implemented in
+  Backend/datasource.py and the methods should have been called in
+  Webpages/webapp.py instead of in javascript. However, we violated the MVC
+  practice because:
+  - We called the `getAllListingsOfType` method, because this function needs
+    to be called for each listing in a list of listings that we pass from
+    webapp.py to javascript. Essentially, this is a second level query, and
+    to ensure our code is clean, we had to violate the MVC practice.
+  - We made calls to the getters of the `Listing` class, because we need
+    almost all information for the `Listing` objects. If we made these calls
+    in webapp.py and restructured them into a new data structure just for
+    javascript to use, it would be repetitive functionality and unclean
+    coding practice. Therefore, we violated the MVC practice here as well.

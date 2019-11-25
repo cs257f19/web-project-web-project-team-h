@@ -10,7 +10,8 @@ app= flask.Flask(__name__)
 @app.route('/')
 def homePage():
     '''
-    Renders the home page.
+    Renders the home page of the entire project about Airbnb in NYC.
+    Audience: all
 
     PARAMETERS:
         None
@@ -23,7 +24,9 @@ def homePage():
 @app.route('/data')
 def dataPage():
     '''
-    Renders the "About Data" page.
+    Renders the "About Data" page that includes metadata and description of the
+    entire dataset. There are also some example data on this page.
+    Audience: all
 
     PARAMETERS:
         None
@@ -36,7 +39,11 @@ def dataPage():
 @app.route('/hostSearch')
 def hostSearch():
     '''
-    Renders the "For Host" search page.
+    Renders the "For Host" search page that asks hosts to enter their airbnb
+    host id. Note that non-hosts can test the page by using the host id examples
+    we give on the "about data" page. Once valid host id is entered, the search
+    will take place and redirect the user to the host search result page.
+    Audience: hosts
 
     PARAMETERS:
         None
@@ -49,7 +56,11 @@ def hostSearch():
 @app.route('/listingSearch')
 def listingSearch():
     '''
-    Renders the "Listing Search" page.
+    Renders the "Listing Search" page that allows tourists to search for
+    housing of interest by asking them for ideal price range, neighborhood
+    group, and room type. Once valid criterion are inputted, the search will
+    happen and redirect the user to the listing search result page.
+    Audience: tourists
 
     PARAMETERS:
         None
@@ -62,7 +73,9 @@ def listingSearch():
 @app.route('/errorPage')
 def errorPage(msg):
     '''
-    Renders the error page with desired message.
+    Renders the error page that displays a descriptive message according
+    to the error made by the user and/or the system.
+    Audience: all
 
     PARAMETERS:
         msg: a string of message that will be displayed on the error page
@@ -76,8 +89,12 @@ def errorPage(msg):
 def hostResult():
     '''
     This function get called when the submit button is clicked on hostPage.html,
-    it renders the "For Host" search result page when the host id input is
-    valid. Otherwise, it renders the error page.
+    it renders the "For Host" search result page that displays relevant
+    information of their listings and listings of the same room type in the same
+    neighborhood. This allows hosts to learn more about the competitions
+    associated with their listings. If the host id input is not valid, it
+    renders the error page.
+    Audience: hosts
 
     PARAMETERS:
         None
@@ -102,9 +119,12 @@ def hostResult():
 def listingResult():
     '''
     This function get called when the search button is clicked on
-    searchPage.html, it renders the "Listing Search" result page when the inputs
-    are all valid and there are listings found for the given criterion.
-    Otherwise, it renders error page with descriptive messages.
+    searchPage.html, it renders the "Listing Search" result page that shows the
+    listings that satisfy the search criterion on a map. If there are more than
+    100 listings found, we only display the first 100 listings with the most
+    reviews. If the inputs are not all valid or if there is no listing found
+    for the given criterion, it renders error page with descriptive messages.
+    Audience: tourists
 
     PARAMETERS:
         None
@@ -147,7 +167,11 @@ def listingResult():
 @app.route('/overall')
 def overall():
     '''
-    Renders the "Visualize Data" page that gives the overall statistics.
+    Renders the "Visualize Data" page that provides visualizations for the
+    overall statistics of the NYC Airbnb data. This gives researchers and
+    investigators a good overall understanding of how Airbnb performs in
+    NYC in general
+    Audience: researchers and investigators
 
     PARAMETERS:
         None
