@@ -2,6 +2,7 @@ import flask
 from flask import render_template,request
 import json
 import sys
+import math
 sys.path.append('../Backend/')
 from datasource import *
 
@@ -143,8 +144,8 @@ def listingResult():
             return errorPage('Please select a neighborhood group and a room type.')
 
         # get user input from searchPage.html
-        min_price = int(float(result['min price']))
-        max_price = int(float(result['max price']))
+        min_price = math.ceil(float(result['min price']))
+        max_price = math.floor(float(result['max price']))
         nbh_group = result['neighborhood group']
         room_type = result['room type']
 
