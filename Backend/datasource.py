@@ -1,6 +1,5 @@
 import psycopg2
 import getpass
-import math
 
 class DataSource:
     def __init__(self):
@@ -73,12 +72,6 @@ class DataSource:
             if min_price > max_price:
                 # return a specfic number indicating the specific error
                 return 1
-
-            # if min price and max price are float, we change them to integers
-            # for query purpose
-            min_price = math.ceil(min_price)
-            max_price = math.floor(max_price)
-
             query = "SELECT * FROM airbnb where neighbourhood_group = %s" + \
                     " and room_type = %s and price >= %s and price <= %s" + \
                     " ORDER BY number_of_reviews DESC"

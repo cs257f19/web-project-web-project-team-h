@@ -143,8 +143,8 @@ def listingResult():
             return errorPage('Please select a neighborhood group and a room type.')
 
         # get user input from searchPage.html
-        min_price = float(result['min price'])
-        max_price = float(result['max price'])
+        min_price = int(float(result['min price']))
+        max_price = int(float(result['max price']))
         nbh_group = result['neighborhood group']
         room_type = result['room type']
 
