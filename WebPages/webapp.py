@@ -185,7 +185,7 @@ def overall():
     db.connect('qine', 'ruby434seal')
 
     # get information for the 'Activity' section on overallPage.html
-    average_reviews_per_month = round(db.getAverageNumOfReviews()/12, 2)
+    average_reviews_per_month = round(db.getAverageNumOfReviewsPerMonth(), 2)
     total_reviews = db.getTotalReviews()
     average_price = db.getAveragePrice()
     price_dict = db.getPriceQuantile()

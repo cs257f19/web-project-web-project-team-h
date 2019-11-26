@@ -342,7 +342,7 @@ class DataSource:
         '''
         row = (neighbourhood_group, self.getAveragePrice(neighbourhood_group),\
                self.getAverageAvailability(neighbourhood_group),\
-               self.getAverageNumOfReviews(neighbourhood_group))
+               self.getAverageNumOfReviewsPerMonth(neighbourhood_group))
         return row
 
     def getAveragePrice(self, neighbourhood_group=None):
@@ -399,25 +399,25 @@ class DataSource:
             print("Something went wrong when executing the query:", e)
             return None
 
-    def getAverageNumOfReviews(self, neighbourhood_group=None):
+    def getAverageNumOfReviewsPerMonth(self, neighbourhood_group=None):
         '''
-        Returns the average number of reviews for all listings.
+        Returns the average number of reviews per month for all listings.
         Audience: investigators/researchers
 
         PARAMETERS:
             neighbourhood_group - one of the five boroughs of New York City
 
         RETURN:
-            the average number of reviews of all listings,
+            the average number of reviews per month of all listings,
             or None if the query fails
         '''
         try:
             cursor = self.connection.cursor()
             if neighbourhood_group is None:
-                query = "SELECT AVG(number_of_reviews) FROM airbnb"
+                query = "SELECT AVG(reviews_per_month) FROM airbnb"
                 cursor.execute(query)
             else:
-                query = "SELECT AVG(number_of_reviews) FROM airbnb where" + \
+                query = "SELECT AVG(reviews_per_month) FROM airbnb where" + \
                         " neighbourhood_group = %s"
                 cursor.execute(query, (neighbourhood_group,))
             average = float(cursor.fetchall()[0][0])
