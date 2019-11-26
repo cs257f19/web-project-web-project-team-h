@@ -56,7 +56,7 @@
       accessToken: 'your.mapbox.access.token'
     }).addTo(mymap);
 
-    // Get locations for all listings to display
+    // Get information for all listings to display
     var locations = [];
     {% for listing in results %}
     locations.push(["{{ listing.getListingName() }}", {{ listing.getLatitude() }},

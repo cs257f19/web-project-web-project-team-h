@@ -22,7 +22,7 @@
     </div>
     <nav>
       <a href="{{ url_for('dataPage') }}" class="page">About the Data</a>
-      <a href="#" class="page activePage">Visualize Data</a>
+      <a href="{{ url_for('overall') }}" class="page activePage">Visualize Data</a>
       <a href="{{ url_for('hostSearch') }}" class="page">For Hosts</a>
       <a href="{{ url_for('listingSearch') }}" class="page">Listing Search</a>
     </nav>
@@ -43,7 +43,7 @@
        about the listings. Even though not every guest leaves a review,
        popular listings tend to have more reviews.</p>
        <div class="data">
-        <div id="priceDataviz" class="dataviz"></div>
+        <div id="price_dataviz" class="dataviz"></div>
         <div>
           <ul>
             <li>On average {{ average_reviews_per_month }}
@@ -267,7 +267,7 @@
     width = 270 - margin.left - margin.right,
     height = 120 - margin.top - margin.bottom;
 
-    // append the svg (Scalable Vector Graphics) object to the div 'room_type_dataviz'
+    // append the svg (Scalable Vector Graphics) object to the div '#room_type_dataviz'
     var svgRoomType = d3.select("#room_type_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -334,7 +334,7 @@
     {% endfor %}
 
     /*
-    * Create a js dictionary that where key represent number of days available
+    * Create a js dictionary where key represent number of days available
     * in a year and value represents number of listings with this availability.
     * Check all possible availability. If one availability is not in the
     * dictionary passed in from flask, then set number of listings with this
@@ -431,7 +431,7 @@
     {% endfor %}
 
     /*
-    * Create a js dictionary that where key represent listing per host and
+    *i Create a js dictionary where key represent listing per host and
     * value represents number of hosts with this many listings. Check hosts with
     * listings from 2-10, this is because most hosts with multiple listings fall
     * into this range. If one number of listing is not in the dictionary passed

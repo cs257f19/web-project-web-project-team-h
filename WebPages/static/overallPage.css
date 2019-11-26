@@ -116,7 +116,7 @@ section {
   height: 700px;
 }
 
-#priceDataviz path {
+#price_dataviz path {
   stroke: none;
 }
 
